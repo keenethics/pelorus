@@ -12,4 +12,4 @@ track your achievements on a regular basis and keep yourself up.
 ## Running app locally
 
 ## Deployment
-
+http://pelorus.meteor.com/
