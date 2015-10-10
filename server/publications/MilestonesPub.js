@@ -1,3 +1,4 @@
 Meteor.publish('Milestones', function () {
-  return Milestones.find();
+  return Milestones.find({userId: this.userId});
 });
+

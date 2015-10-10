@@ -1,3 +1,4 @@
 Meteor.publish('Goals', function () {
-  return Goals.find();
+  return Goals.find({userId: this.userId});
 });
+

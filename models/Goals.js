@@ -9,18 +9,11 @@ Goals.attachSchema(new SimpleSchema({
   pctOfParentGoal: { type: Number, label: "Percent of Parent Goal", defaultValue: 0 }
 }));
 
-// Collection2 already does schema checking
-// Add custom permission rules if needed
 if (Meteor.isServer) {
   Goals.allow({
-    insert : function () {
-      return true;
-    },
-    update : function () {
-      return true;
-    },
-    remove : function () {
-      return true;
-    }
+    insert: function (userId, doc) { return userId == doc.userId; },
+    update: function (userId, doc) { return userId == doc.userId; },
+    remove: function () { return false; }
   });
 }
+

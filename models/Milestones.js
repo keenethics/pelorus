@@ -14,19 +14,11 @@ Milestones.roundedBound = (date, type = 'start') => {
   return date[`${type}Of`]('week');
 }
 
-// Collection2 already does schema checking
-// Add custom permission rules if needed
 if (Meteor.isServer) {
   Milestones.allow({
-    insert : function () {
-      return true;
-    },
-    update : function () {
-      return true;
-    },
-    remove : function () {
-      return true;
-    }
+    insert: function (userId, doc) { return userId == doc.userId; },
+    update: function (userId, doc) { return userId == doc.userId; },
+    remove: function () { return false; }
   });
 }
 
