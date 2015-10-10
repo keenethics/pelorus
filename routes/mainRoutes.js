@@ -5,9 +5,11 @@ Router.route('/', {
   },
   onAfterAction: function () {
     SEO.set({ title: 'Home -' + Meteor.App.NAME });
+
   }
 });
 
 Router.route('/about', {
-  name: 'about'
+  name: 'about',
+  template: 'about'
 });
