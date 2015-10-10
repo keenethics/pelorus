@@ -40,7 +40,12 @@
 
       {{> yield}}
 
-	{{> landing_page}}
+	  {{#if currentUser}}
+	  {{else}}
+	    {{> landing_page}}    
+	  {{/if}}
+
+	
     </div>
 </template>
 
