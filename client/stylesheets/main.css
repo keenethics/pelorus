@@ -1,4 +1,8 @@
-.dashed-border {
+.panel.dashed {
   border-style: dashed;
+}
+
+.panel.dashed .panel-heading {
+  border-bottom-style: dashed;
 }
 
