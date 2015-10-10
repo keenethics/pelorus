@@ -6,14 +6,25 @@ Goals.attachSchema(
       type: String,
       label: "Title"
     },
-    content: {
+    parentGoalId: {
       type: String,
-      label: "Content"
+      label: "Parent Goal ID"
     },
-    createdAt: {
-      type: Date,
-      denyUpdate: true,
-      label: "Сreated At"
+    milestoneId: {
+      type: String,
+      label: "Milestone ID"
+    },
+    userId: {
+      type: String,
+      label: "User ID"
+    },
+    procentCompleted: {
+      type: Number,
+      label: "Procent Completed"
+    },
+    parentGoalProcent: {
+      type: Number,
+      label: "Parent Goal Procent"
     }
   })
 );
