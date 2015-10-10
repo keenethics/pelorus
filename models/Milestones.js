@@ -1,7 +1,7 @@
 Milestones = new Mongo.Collection('Milestones');
 
 Milestones.attachSchema(new SimpleSchema({
-  type:              { type: String, label: "Type" },
+  type:              { type: String, label: "Type", allowedValues: ['strategic', 'year', 'month', 'week'] },
   startsAt:          { type: Date,   label: "Start Period" },
   endsAt:            { type: Date,   label: "End Period" },
   userId:            { type: String, label: "User ID" },
