@@ -5,3 +5,7 @@ Fixtures.dummyFixture = [
   { 'foo' : 'bar', 'another' : 'value' },
   { 'foo' : 'bar2', 'another' : 'value2' }
 ];
+
+Meteor.startup(function() {
+
+});
