@@ -14,6 +14,14 @@ Milestones.attachSchema(
       type: Date,
       label: "End Period"
     },
+    userId: {
+      type: String,
+      label: "User ID"
+    },
+    parentMilestoneId: {
+      type: String,
+      label: "Parent Milestone ID"
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,
