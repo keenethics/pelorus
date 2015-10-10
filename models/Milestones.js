@@ -22,8 +22,6 @@ Milestones.attachSchema(
   })
 );
 
-Milestones.validTypes = [Strategic, Year, Month, Week];
-
 // Collection2 already does schema checking
 // Add custom permission rules if needed
 if (Meteor.isServer) {
