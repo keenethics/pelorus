@@ -7,9 +7,19 @@ Router.route('/', {
     SEO.set({ title: 'Home -' + Meteor.App.NAME });
 
   }
+  // waitOn: function() {
+  //   return [
+  //     Meteor.subscribe('milestones'),
+  //     Meteor.subscribe('goals')
+  //   ]
+  // }
 });
 
 Router.route('/about', {
   name: 'about',
   template: 'about'
 });
+
+// Router.route('', {
+
+// });
