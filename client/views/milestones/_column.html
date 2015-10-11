@@ -2,11 +2,15 @@
   <div class="panel panel-default {{#unless milestone}}dashed{{/unless}}">
     <div class="panel-heading">
       {{title}}
-      {{#unless milestone}}
+      {{#if milestone}}
+        <a href="{{pathFor route='milestonesShow' data=milestone}}" class="pull-right">
+          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+        </a>
+      {{else}}
         <a href="#" class="pull-right">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </a>
-      {{/unless}}
+      {{/if}}
     </div>
     <ul class="list-group">
       {{# each goal in milestone.goals}}

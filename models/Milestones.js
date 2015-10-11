@@ -23,7 +23,8 @@ Milestones.roundedBound = (date, type = 'start') => {
 }
 
 Milestones.helpers({
-  goals: function() { return Goals.find({milestoneId: this._id}); }
+  goals:    function() { return Goals.find({milestoneId: this._id}); },
+  children: function() { return Milestones.find({parentId: this._id}); }
 });
 
 if (Meteor.isServer) {
