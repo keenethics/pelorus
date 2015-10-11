@@ -8,4 +8,3 @@ Template.home.helpers({
     }
   }
 });
-
