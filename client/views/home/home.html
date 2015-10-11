@@ -1,11 +1,8 @@
 <template name="home">
   <div class="row">
-    <div class="col-md-3">
-      <h1>Week</h1>
-      <div class="panel panel-default dashed-border">
-        <div class="panel-body">
-          <a href="#" class="btn btn-success">+</a>
-         </div>
+    {{#each type in milestoneTypes}}
+      <div class="col-md-3">
+        {{> _milestonesColumn currentMilestoneData type }}
       </div>
     </div>
     <div class="col-md-3">
@@ -39,6 +36,7 @@
         <li class="list-group-item">Vestibulum at eros</li>
       </ul>
     </div>
+    {{/each}}
   </div>
 </template>
 

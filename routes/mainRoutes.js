@@ -7,19 +7,13 @@ Router.route('/', {
     SEO.set({ title: 'Home -' + Meteor.App.NAME });
 
   }
-  // waitOn: function() {
-  //   return [
-  //     Meteor.subscribe('milestones'),
-  //     Meteor.subscribe('goals')
-  //   ]
-  // }
 });
 
 Router.route('/about', {
-  name: 'about',
-  template: 'about'
+  name: 'about'
 });
 
-// Router.route('', {
-
-// });
+Router.route('/milestones/:_id', {
+  name: 'milestonesShow',
+  data: function() { return { milestone: Milestones.findOne(this.params._id) }; }
+});
