@@ -1,0 +1,28 @@
+<template name="_milestonesColumn">
+  <div class="panel panel-default {{#unless milestone}}dashed{{/unless}}">
+    <div class="panel-heading">
+      {{title}}
+      {{#unless milestone}}
+        <a href="#" class="pull-right">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </a>
+      {{/unless}}
+    </div>
+    <ul class="list-group">
+      {{# each goal in milestone.goals}}
+      <li class="list-group-item">
+        {{goal.title}}
+        <a href="#">
+          <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+    <div class="panel-body">
+      <a href="#" class="btn btn-success {{#unless milestone}}disabled{{/unless}}">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</template>
+

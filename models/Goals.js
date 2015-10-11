@@ -5,8 +5,8 @@ Goals.attachSchema(new SimpleSchema({
   parentId:        { type: String, label: "Parent Goal ID", optional: true },
   milestoneId:     { type: String, label: "Milestone ID" },
   userId:          { type: String, label: "User ID" },
-  completedPct:    { type: Number, label: "Percent Completed", defaultValue: 0 },
-  pctOfParentGoal: { type: Number, label: "Percent of Parent Goal", defaultValue: 0 }
+  completedPct:    { type: Number, label: "Percent Completed", optional: true },
+  pctOfParentGoal: { type: Number, label: "Percent of Parent Goal", optional: true }
 }));
 
 if (Meteor.isServer) {

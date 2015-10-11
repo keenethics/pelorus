@@ -1,98 +1,10 @@
 <template name="home">
   <div class="row">
-    <div class="col-md-3">
-      <div class="panel panel-default dashed">
-        <div class="panel-heading">
-          (Week)
-          <a href="#" class="pull-right">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-        </div>
-        <ul class="list-group">
-        </ul>
-        <div class="panel-body">
-          <a href="#" class="btn btn-success disabled">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-         </div>
-       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="panel panel-default dashed">
-        <div class="panel-heading">
-          (Month)
-          <a href="#" class="pull-right">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-        </div>
-        <ul class="list-group">
-        </ul>
-        <div class="panel-body">
-          <a href="#" class="btn btn-success disabled">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-         </div>
-       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="panel panel-default dashed">
-        <div class="panel-heading">
-          (Year)
-          <a href="#" class="pull-right">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-        </div>
-        <ul class="list-group">
-        </ul>
-        <div class="panel-body">
-          <a href="#" class="btn btn-success disabled">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-        </div>
+    {{#each type in milestoneTypes}}
+      <div class="col-md-3">
+        {{> _milestonesColumn currentMilestoneData type }}
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">Strategic</div>
-        <ul class="list-group">
-          <li class="list-group-item">
-            Cras justo odio
-            <a href="#">
-              <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li class="list-group-item">
-            Dapibus ac facilisis in
-            <a href="#">
-              <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li class="list-group-item">
-            Morbi leo risus
-            <a href="#">
-              <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li class="list-group-item">
-            Porta ac consectetur ac
-            <a href="#">
-              <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li class="list-group-item">
-            Vestibulum at eros
-            <a href="#">
-              <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-            </a>
-          </li>
-        </ul>
-        <div class="panel-body">
-          <a href="#" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-        </div>
-      </div>
-    </div>
+    {{/each}}
   </div>
 </template>
 
