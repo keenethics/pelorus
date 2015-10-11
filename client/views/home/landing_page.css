@@ -1,0 +1,12 @@
+.container.custom {
+  padding-left: 0;
+  padding-right: 3%;
+}
+.container.custom .jumbotron p {
+  padding-right: 8%;
+}
+.container.custom .jumbotron {
+  background-image: url("images/background/growth-chart2.png");
+  background-repeat: no-repeat;
+  background-position: 95% 114%;
+}
