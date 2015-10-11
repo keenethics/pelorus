@@ -11,5 +11,14 @@ track your achievements on a regular basis and keep yourself up.
 
 ## Running app locally
 
+1. Clone repository
+2. [Install meteor.js](https://www.meteor.com/install) and make sure you have MongoDB installed
+3. Start server via `meteor` command
+
 ## Deployment
-http://pelorus.meteor.com/
+
+We are currently using meteor.com as our [staging server](http://pelorus.meteor.com). Make sure you
+have permissions to deploy to `pelorus.meteor.com` before you initiating deployment.
+
+To deploy run `meteor deploy pelorus.meteor.com`.
+
