@@ -26,7 +26,6 @@ Milestones.helpers({
   goals: function() { return Goals.find({milestoneId: this._id}); }
 });
 
-
 if (Meteor.isServer) {
   Milestones.allow({
     insert: function (userId, doc) { return userId == doc.userId; },
