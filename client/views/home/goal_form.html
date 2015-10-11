@@ -1,33 +1,18 @@
-<template name="goalForm" >	
+<template name="insertGoalForm" >	
 	<div class="modal fade">
 	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Goal</h4>
-	      </div>
-	      <div class="modal-body">
-	        <div class="form-group">
-    				<div class="col-sm-12">
-    					<label for="email">Email address:</label>
-    					<input type="email" class="form-control" id="email">
-				 		</div>
-				  </div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+			{{#autoForm collection="Goals" id="insertGoals" type="insert"}}
+				<fieldset>
+		    	<legend>Add a goal</legend>
+		      {{> afQuickField name='title'}}
+		     	{{> afQuickField name='parentGoalId' options=parentGoalIds}}
+		     	{{> afQuickField name='milestoneId' rows=6}}
+		     	{{> afQuickField name='userId'}}
+		     	{{> afQuickField name='completedPct'}}
+		     	{{> afQuickField name='pctOfParentGoal'}}
+		    </fieldset>
+		    <button type="submit" class="btn btn-primary">Insert</button>
+		   {{/autoForm}}
+		</div>
+	</div>
 </template>
-
-
-
-<!-- 
-	parent goal - dropdown
-	title - input
-	%completed input
-	parentGoal input
- -->
