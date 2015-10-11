@@ -4,7 +4,7 @@
 # but you can also edit it by hand.
 
 jquery
-stevezhu:lodash
+underscore
 accounts-password
 aldeed:collection2
 iron:router
@@ -37,3 +37,4 @@ spacebars
 check
 momentjs:moment
 aldeed:autoform
+underscorestring:underscore.string
