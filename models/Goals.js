@@ -2,7 +2,7 @@ Goals = new Mongo.Collection('goals');
 
 Goals.attachSchema(new SimpleSchema({
   title:           { type: String, label: "Title" },
-  parentGoalId:    { type: String, label: "Parent Goal ID", optional: true },
+  parentId:        { type: String, label: "Parent Goal ID", optional: true },
   milestoneId:     { type: String, label: "Milestone ID" },
   userId:          { type: String, label: "User ID" },
   completedPct:    { type: Number, label: "Percent Completed", defaultValue: 0 },

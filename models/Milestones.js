@@ -3,17 +3,23 @@ Milestones = new Mongo.Collection('Milestones');
 Milestones.validTypes = ['strategic', 'year', 'month', 'week'];
 
 Milestones.attachSchema(new SimpleSchema({
-  type:              { type: String, label: "Type", allowedValues: Milestones.validTypes },
-  startsAt:          { type: Date,   label: "Start Period" },
-  endsAt:            { type: Date,   label: "End Period" },
-  userId:            { type: String, label: "User ID" },
-  parentMilestoneId: { type: String, label: "Parent Milestone ID", optional: true }
+  title:    { type: String },
+  type:     { type: String, allowedValues: Milestones.validTypes },
+  userId:   { type: String },
+  parentId: { type: String, optional: true },
+  startsAt: { type: Date,   optional: true, label: "Start Period" },
+  endsAt:   { type: Date,   optional: true, label: "End Period" }
 }));
+
+Milestones.boundsFor = (dateInInterval, type) => ({
+  startsAt: Milestones.roundedBound(dateInInterval.clone().startOf(type), 'start'),
+  endsAt:   Milestones.roundedBound(dateInInterval.clone().endOf(type), 'end')
+})
 
 Milestones.roundedBound = (date, type = 'start') => {
   if(type == 'start' && date.day() > 4)  date = date.add(1, 'w');
   if(type == 'end'   && date.day() <= 4) date = date.subtract(1, 'w');
-  return date[`${type}Of`]('week');
+  return date[`${type}Of`]('isoWeek');
 }
 
 if (Meteor.isServer) {
