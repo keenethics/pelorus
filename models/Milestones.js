@@ -29,6 +29,7 @@ Milestones.parentType = type => Milestones.validTypes[ Milestones.validTypes.ind
 
 Milestones.helpers({
   goals:    function() { return Goals.find({milestoneId: this._id}); },
+  parent:   function() { return Milestones.findOne(this.parentId) },
   children: function() { return Milestones.find({parentId: this._id}); },
   title:    function() { return this.type == 'strategic' ? 'Strategic' : this.period; } // TODO: humanize
 });

@@ -9,6 +9,12 @@ Goals.attachSchema(new SimpleSchema({
   pctOfParentGoal: { type: Number, label: "Percent of Parent Goal", optional: true }
 }));
 
+Goals.helpers({
+  parent:     function() { return Goals.findOne(this.parentId); },
+  children:   function() { return Goals.find({parentId: this._id}); },
+  milestone:  function() { return Milestones.findOne(this.milestoneId); }
+});
+
 if (Meteor.isServer) {
   Goals.allow({
     insert: function (userId, doc) { return userId == doc.userId; },
