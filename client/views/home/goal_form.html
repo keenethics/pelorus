@@ -1,18 +1,19 @@
 <template name="insertGoalForm" >	
 	<div class="modal fade">
 	  <div class="modal-dialog">
-			{{#autoForm collection="Goals" id="insertGoals" type="insert"}}
-				<fieldset>
-		    	<legend>Add a goal</legend>
-		      {{> afQuickField name='title'}}
-		     	{{> afQuickField name='parentGoalId' options=parentGoalIds}}
-		     	{{> afQuickField name='milestoneId' rows=6}}
-		     	{{> afQuickField name='userId'}}
-		     	{{> afQuickField name='completedPct'}}
-		     	{{> afQuickField name='pctOfParentGoal'}}
-		    </fieldset>
-		    <button type="submit" class="btn btn-primary">Insert</button>
-		   {{/autoForm}}
+	  	<div class="modal-content">
+				{{#autoForm collection="Goals" id="insertGoals" type="insert"}}
+					<fieldset>
+			    	<legend>Add a goal</legend>
+			      {{> afQuickField name='title'}}
+			     	{{> afQuickField name='parentGoalId' options=parentGoalIds}}
+			     	<!-- 
+			     	{{> afQuickField name='completedPct'}}
+			     	{{> afQuickField name='pctOfParentGoal'}} -->
+			    </fieldset>
+			    <button type="submit" class="btn btn-primary">Insert</button>
+			  {{/autoForm}}
+			</div>
 		</div>
 	</div>
 </template>
