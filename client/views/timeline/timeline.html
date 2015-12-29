@@ -1,0 +1,36 @@
+<template name="timeline">
+ {{> milestoneAlt milestone=strategicMilestone currentView=currentView}}
+</template>
+
+<template name="milestoneAlt">
+  <div class="milestone {{#if $eq currentView milestone.type}}active{{/if}}">
+    <div class="bar panel panel-default view-type" data-view-type="{{milestone.type}}">
+      <p class="vertical-text">{{getTitle}}</p>
+        <ul class="list-group">
+          {{# each goal in milestone.goals}}
+            <li class="list-group-item">
+              {{goal.title}}
+              <a href="#">
+                <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+              </a>
+            </li>
+          {{/each}}
+          <a href="#" class="btn btn-success pull-right js-add-goal">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </a>
+        </ul>
+    </div>
+    <div class="submilestones">
+      {{#each _milestone in milestone.children}}
+        {{> milestoneAlt milestone=_milestone currentView=currentView}}
+      {{/each}}
+      {{#unless $eq milestone.type 'week'}}
+        <div class="milestone create {{#if $eq currentView childType}}active{{/if}}">
+          <div class="bar panel panel-default view-type">
+            <span class="glyphicon glyphicon-plus js-add-milestone" aria-hidden="true"></span>
+          </div>
+        </div>
+      {{/unless}}
+    </div>
+  </div>
+</template>

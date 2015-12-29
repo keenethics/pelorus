@@ -16,3 +16,7 @@ Router.route('/milestones/:_id', {
   name: 'milestonesShow',
   data: function() { return { milestone: Milestones.findOne(this.params._id) }; }
 });
+
+Router.route('/timeline', {
+  name: 'timeline'
+});
