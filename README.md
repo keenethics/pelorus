@@ -15,6 +15,14 @@ track your achievements on a regular basis and keep yourself up.
 2. [Install meteor.js](https://www.meteor.com/install) and make sure you have MongoDB installed
 3. Start server via `meteor` command
 
+## Styleguide
+
+Please use [eslint](https://github.com/eslint/eslint) to ensure your code has appropriate style.
+
+To install eslint, run `$ npm install -g eslint eslint-config-standard`
+To run eslint `eslint -c .eslintrc --ext .js .`
+
+
 ## Deployment
 
 We are currently using meteor.com as our [staging server](http://pelorus.meteor.com). Make sure you
