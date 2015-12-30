@@ -5,10 +5,10 @@
 <template name="milestoneAlt">
   <div class="milestone {{#if $eq currentView milestone.type}}active{{/if}}">
     <div class="bar panel panel-default" data-view-type="{{milestone.type}}">
-      <p class="vertical-text">{{getTitle}}</p>
+      <p class="vertical-text">{{milestone.title}}</p>
     </div>
     <div class="milestone-content panel panel-default">
-      <div class="panel-heading">{{getTitle}}</div>
+      <div class="panel-heading">{{milestone.title}}</div>
       <ul class="list-group">
         {{# each goal in milestone.goals}}
           <li id="{{goal._id}}" class="list-group-item">

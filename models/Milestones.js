@@ -27,11 +27,21 @@ Milestones.bounds = (date, type = 'start') => {
 
 Milestones.parentType = type => Milestones.validTypes[ Milestones.validTypes.indexOf(type) + 1 ];
 
+Milestones.periodFormats = {
+  year:  { parse: 'YYYY',    display: 'YYYY' },
+  month: { parse: 'YYYY-MM', display: 'MMMM' },
+  week:  { parse: '',        display: '[Week starting] MMMM D' }
+};
+
 Milestones.helpers({
   goals:    function() { return Goals.find({milestoneId: this._id}); },
   parent:   function() { return Milestones.findOne(this.parentId) },
   children: function() { return Milestones.find({parentId: this._id}); },
-  title:    function() { return this.type == 'strategic' ? 'Strategic' : this.period; } // TODO: humanize
+  title:    function() {
+    if(this.type == 'strategic') return 'Strategic';
+    let format = Milestones.periodFormats[this.type];
+    return moment(this.period, format.parse).format(format.display);
+  }
 });
 
 if (Meteor.isServer) {

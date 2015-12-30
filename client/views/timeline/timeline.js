@@ -37,24 +37,3 @@ Template.milestoneAlt.events({
   },
 });
 
-Template.milestoneAlt.helpers({
-  'getTitle': function() {
-    var milestone = this.milestone;
-    if (milestone){
-      switch (milestone.type){
-        case 'strategic':
-          return 'Strategic';
-        case 'year':
-          return milestone.period
-        case 'month':
-          var monthNames = ["January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-              ];
-          var date = new Date(milestone.period);
-          return monthNames[date.getMonth()]
-        case 'week':
-          return 'Week#' + moment(milestone.period, 'yyyy-ww').week();
-      }
-    }
-  },
-});
