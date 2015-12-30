@@ -83,16 +83,3 @@
 .milestone.active .submilestones {
   flex: 0%;
 }
-
-.milestone.create .bar {
-  padding: 0;
-}
-
-span.js-add-milestone {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  line-height: 100%;
-  color: grey;
-}

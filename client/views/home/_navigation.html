@@ -16,6 +16,15 @@
               <li class="{{ activeIfTemplateIs 'about' }}" ><a href="/about">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {{#if canAddMilestones}}
+                <li>
+                  <a class="js-add-milestone">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                    </span>
+                    Add a milestone...
+                  </a>
+                </li>
+              {{/if}}
               {{> loginButtons}}
             </ul>
           </div>
