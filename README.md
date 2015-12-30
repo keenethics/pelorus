@@ -20,6 +20,7 @@ track your achievements on a regular basis and keep yourself up.
 Please use [eslint](https://github.com/eslint/eslint) to ensure your code has appropriate style.
 
 To install eslint, run `$ npm install -g eslint eslint-config-standard`
+
 To run eslint `eslint -c .eslintrc --ext .js .`
 
 
