@@ -16,7 +16,11 @@
       {{#each milestone.goals}}
         <li class="list-group-item">
           <input type="checkbox" class="js-toggle-goal-completion" checked={{completed}}>
-          {{this.title}}
+          {{#if completed}}
+            <strike>{{this.title}}</strike>
+          {{else}}
+            {{this.title}}
+          {{/if}}
           <a href="#">
             <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
           </a>
