@@ -12,7 +12,7 @@ Template.timeline.helpers({
 });
 
 Template.timeline.events({
-  'click .view-type': function (e, t) {
+  'click .bar': function (e, t) {
     var newType = e.currentTarget.dataset.viewType;
     newType && t.currentView.set(newType);
   }
