@@ -30,7 +30,7 @@ Milestones.parentType = type => Milestones.validTypes[ Milestones.validTypes.ind
 Milestones.periodFormats = {
   year:  { parse: 'YYYY',    display: 'YYYY' },
   month: { parse: 'YYYY-MM', display: 'MMMM' },
-  week:  { parse: '',        display: '[Week starting] MMMM D' }
+  week:  { parse: '',        display: '[Week&nbsp;]#ww' }
 };
 
 Milestones.helpers({

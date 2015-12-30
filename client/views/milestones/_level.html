@@ -1,14 +1,10 @@
-<template name="timeline">
- {{> milestoneAlt milestone=strategicMilestone activeType=activeType}}
-</template>
-
-<template name="milestoneAlt">
-  <div class="milestone {{#if $eq activeType milestone.type}}active{{/if}}">
+<template name="_milestoneLevel">
+  <div class="milestone {{#if $eq activeType.get milestone.type}}active{{/if}}">
     <div class="bar panel panel-default" data-view-type="{{milestone.type}}">
-      <p class="vertical-text">{{milestone.title}}</p>
+      <p class="vertical-text">{{{milestone.title}}}</p>
     </div>
     <div class="milestone-content panel panel-default">
-      <div class="panel-heading">{{milestone.title}}</div>
+      <div class="panel-heading">{{{milestone.title}}}</div>
       <ul class="list-group">
         {{# each goal in milestone.goals}}
           <li id="{{goal._id}}" class="list-group-item">
@@ -26,9 +22,7 @@
       </div>
     </div>
     <div class="submilestones">
-      {{#each childMilestone in milestone.children}}
-        {{> milestoneAlt milestone=childMilestone activeType=activeType}}
-      {{/each}}
+      {{> milestonesIndex milestones=milestone.children activeType=activeType}}
     </div>
   </div>
 </template>

@@ -6,3 +6,56 @@
   border-bottom-style: dashed;
 }
 
+/* Milestone timeline layout */
+.milestone {
+  display: flex;
+  justify-content: space-between;
+  flex: 1 100%;
+}
+
+.bar {
+  width: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.submilestones {
+  flex-direction: column;
+  flex: 1 100%;
+  margin-left: 3px;
+}
+
+.panel {
+  margin-bottom: 3px;
+}
+
+/* Milestone timeline layout level switching */
+.vertical-text {
+  transform: translate(0, 50%) rotate(-90deg);
+  top: 50%;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.milestone-content {
+  width: 0px;
+  visibility: hidden;
+  display: block;
+  white-space: nowrap;
+}
+
+.milestone.active > .milestone-content {
+  display: block;
+  width: 100%;
+  visibility: visible;
+}
+
+.milestone.active > .bar {
+  display: none;
+}
+
+.milestone.active .submilestones {
+  flex: 0%;
+}
+
