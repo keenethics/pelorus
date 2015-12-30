@@ -57,15 +57,4 @@ Template.milestoneAlt.helpers({
       }
     }
   },
-  'childType': function(){
-    var type = this.milestone.type;
-    switch (this.milestone.type){
-      case 'strategic':
-        return 'year';
-      case 'year':
-        return 'month';
-      case 'month':
-        return 'week';
-    }
-  }
 });
