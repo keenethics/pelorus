@@ -3,7 +3,7 @@ Milestones = new Mongo.Collection('milestones');
 Milestones.validTypes = ['week', 'month', 'year', 'strategic'];
 
 Milestones.attachSchema(new SimpleSchema({
-  period:   { type: String, optional: true },
+  period:   { type: String, optional: true, unique: true },
   type:     { type: String, allowedValues: Milestones.validTypes },
   userId:   { type: String },
   parentId: { type: String, optional: true },

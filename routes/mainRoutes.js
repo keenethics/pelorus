@@ -1,7 +1,7 @@
 Router.route('/', {
   name: 'home',
   template: function() {
-    return Meteor.user() ? 'home' : 'landing_page';
+    return Meteor.user() ? 'timeline' : 'landing_page';
   },
   onAfterAction: function () {
     SEO.set({ title: 'Home -' + Meteor.App.NAME });
@@ -16,3 +16,13 @@ Router.route('/milestones/:_id', {
   name: 'milestonesShow',
   data: function() { return { milestone: Milestones.findOne(this.params._id) }; }
 });
+
+Router.onBeforeAction(function(){
+  Session.set('canAddMilestones', true);
+  this.next();
+}, {only: ['home']});
+
+Router.onBeforeAction(function(){
+  Session.set('canAddMilestones', false);
+  this.next();
+}, {except: ['home']});
