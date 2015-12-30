@@ -1,0 +1,9 @@
+milestone_1:
+  period: "2016"
+  type: "year"
+milestone_2:
+  period: "2016-01"
+  type: "month"
+milestone_3:
+  period: "2016-W3"
+  type: "week"
