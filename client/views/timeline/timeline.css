@@ -50,7 +50,7 @@
 }
 
 .milestone.active > .bar.view-type {
-  width: 85%;
+  width: 100%;
 }
 
 .active > .bar > p.vertical-text {
