@@ -1,20 +1,20 @@
 Template.timeline.onCreated(function(){
-  this.currentView = new ReactiveVar('week');
+  this.activeType = new ReactiveVar('week');
 });
 
 Template.timeline.helpers({
   strategicMilestone: function () {
     return Milestones.findOne({userId: Meteor.userId(), type: 'strategic'});
   },
-  currentView: function(){
-    return Template.instance().currentView.get();
+  activeType: function(){
+    return Template.instance().activeType.get();
   }
 });
 
 Template.timeline.events({
   'click .bar': function (e, t) {
     var newType = e.currentTarget.dataset.viewType;
-    newType && t.currentView.set(newType);
+    newType && t.activeType.set(newType);
   }
 });
 

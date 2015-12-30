@@ -1,9 +1,9 @@
 <template name="timeline">
- {{> milestoneAlt milestone=strategicMilestone currentView=currentView}}
+ {{> milestoneAlt milestone=strategicMilestone activeType=activeType}}
 </template>
 
 <template name="milestoneAlt">
-  <div class="milestone {{#if $eq currentView milestone.type}}active{{/if}}">
+  <div class="milestone {{#if $eq activeType milestone.type}}active{{/if}}">
     <div class="bar panel panel-default" data-view-type="{{milestone.type}}">
       <p class="vertical-text">{{milestone.title}}</p>
     </div>
@@ -27,7 +27,7 @@
     </div>
     <div class="submilestones">
       {{#each childMilestone in milestone.children}}
-        {{> milestoneAlt milestone=childMilestone currentView=currentView}}
+        {{> milestoneAlt milestone=childMilestone activeType=activeType}}
       {{/each}}
     </div>
   </div>
