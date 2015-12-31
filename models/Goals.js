@@ -9,6 +9,10 @@ Goals.attachSchema(new SimpleSchema({
     'label': 'Parent Goal ID',
     'optional': true,
   },
+  'priority': {
+    'type': Number,
+    'label': 'Goal priority',
+  },
   'milestoneId': {
     'type': String,
     'label': 'Milestone ID' },
