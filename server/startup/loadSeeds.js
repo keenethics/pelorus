@@ -3,9 +3,9 @@ and app is in development mode.*/
 
 let mode = process.env.NODE_ENV;
 
-function loadUser(user) {
+function loadSeeds(user) {
   let userAlreadyExists = typeof Meteor.users.findOne({
-    username: user.username }) === 'object';
+    'username': user.username }) === 'object';
 
   if (!userAlreadyExists) {
     let userId = Accounts.createUser(user);
@@ -17,7 +17,11 @@ function loadUser(user) {
       if (milestones.hasOwnProperty(key)) {
         let milestone = milestones[key];
         milestone.userId = userId;
+        if (milestoneId) {
+          milestone.parentId = milestoneId;
+        }
         milestoneId = Milestones.insert(milestone);
+
         if (Milestones.find({}).count() >= 1) {
           for (key in goals) {
             if (goals.hasOwnProperty(key)) {
@@ -38,7 +42,7 @@ if ( Meteor.isServer && mode === 'development' ) {
     let users = YAML.eval(Assets.getText('users.yml'));
     for (key in users) {
       if (users.hasOwnProperty(key)) {
-        loadUser(users[key]);
+        loadSeeds(users[key]);
       }
     }
   });
