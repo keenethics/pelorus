@@ -23,7 +23,7 @@ Template._goalsForm.events({
     Goals.insert({
       'title': title,
       'priority': priority,
-      'parentId': parentId,
+      'parentId': parentId ? parentId : undefined,
       'milestoneId': this.milestone._id,
       'userId': Meteor.userId()
     });
