@@ -5,10 +5,15 @@
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title">
       </div>
+      <div class="form-group">
+        <label for="title">Priority (Up to 999)</label>
+        <input type="number" class="form-control" id="priority">
+      </div>
       {{#unless $eq milestone.type 'strategic' }}
         <div class="form-group">
           <label for="parentId">Parent Goal</label>
           <select class="form-control" id="parentId">
+            <option value="">None</option>
             {{#each parent in parents }}
               <option value="{{parent._id}}">{{parent.title}}</option>
             {{/each}}
