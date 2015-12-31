@@ -1,0 +1,20 @@
+<template name="_milestoneContent">
+  <div class="milestone-content panel panel-default">
+    <div class="panel-heading">{{{milestone.title}}}</div>
+    <ul class="list-group">
+      {{# each goal in milestone.goals}}
+        <li id="{{goal._id}}" class="list-group-item">
+          {{goal.title}}
+          <a href="#">
+            <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+    <div class="panel-body">
+      <a href="#" class="btn btn-success pull-right js-add-goal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</template>
