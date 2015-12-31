@@ -1,9 +1,13 @@
-<template name="_goalsForm" >	
+<template name="_goalsForm" >
   <div class="modal-body">
     <form>
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title">
+      </div>
+      <div class="form-group">
+        <label for="title">Progress</label>
+        <input type="number" class="form-control" id="progress" min="0" max="100">
       </div>
       {{#unless $eq milestone.type 'strategic' }}
         <div class="form-group">

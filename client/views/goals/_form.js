@@ -6,18 +6,23 @@ Template._goalsForm.helpers({
 
 Template._goalsForm.events({
   'click .js-insert-goal': function(e, t) {
-   
+    let progress = t.$('#progress').val();
+
     //TODO: Refactor validations and posting
     if(this.milestone.type != 'strategic' && !t.$('#parentId').val()) {
       return $('#parentId').parent('.form-group').addClass('has-error');
     }
     if(!t.$('#title').val()) return $('#title').parent('.form-group').addClass('has-error');
+    if(!progress || progress < 0 || progress > 100) {
+      return $('#progress').parent('.form-group').addClass('has-error');
+    }
 
     Goals.insert({
       title:       t.$('#title').val(),
       parentId:    t.$('#parentId').val(),
       milestoneId: this.milestone._id,
-      userId:      Meteor.userId()
+      userId:      Meteor.userId(),
+      completedPct: progress,
     });
 
     $('#formModal').modal('hide');
