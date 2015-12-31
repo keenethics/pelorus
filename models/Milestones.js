@@ -55,14 +55,15 @@ Milestones.helpers({
   'goals': function() { return Goals.find({'milestoneId': this._id}); },
   'parent': function() { return Milestones.findOne(this.parentId); },
   'children': function() { return Milestones.find({'parentId': this._id}); },
-  'title': function() {
+  'title': function(extendeed) {
+    let periodFormats;
+    if (extendeed) {
+      periodFormats = Milestones.periodFormatsExtended;
+    } else {
+      periodFormats = Milestones.periodFormats;
+    }
     if (this.type === 'strategic') return 'Strategic';
-    let format = Milestones.periodFormats[this.type];
-    return moment(this.period, format.parse).format(format.display);
-  },
-  'titleExtended': function() {
-    if (this.type === 'strategic') return 'Strategic';
-    let format = Milestones.periodFormatsExtended[this.type];
+    let format = periodFormats[this.type];
     return moment(this.period, format.parse).format(format.display);
   },
 });
