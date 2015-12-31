@@ -12,6 +12,7 @@ Template._goalsForm.events({
     let title = $title.val();
     let parentId = t.$('#parentId').val();
     let priority = $priority.val();
+
     if (!title) {
       return $title.parent('.form-group').addClass('has-error');
     }
@@ -19,18 +20,13 @@ Template._goalsForm.events({
       return $priority.parent('.form-group').addClass('has-error');
     }
 
-    let doc = {
+    Goals.insert({
       'title': title,
       'priority': priority,
+      'parentId': parentId,
       'milestoneId': this.milestone._id,
       'userId': Meteor.userId()
-    };
-
-    if (!!parentId) {
-      doc.parentId = parentId;
-    }
-
-    Goals.insert(doc);
+    });
     let $modal = $('.modal');
     $modal.modal('hide');
     $modal.remove();
