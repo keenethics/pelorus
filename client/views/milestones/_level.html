@@ -21,8 +21,10 @@
         </a>
       </div>
     </div>
-    <div class="submilestones">
-      {{> milestonesIndex milestones=milestone.children activeType=activeType}}
-    </div>
+    {{#if $gt milestone.children.count 0}}
+      <div class="submilestones">
+        {{> milestonesIndex milestones=milestone.children activeType=activeType}}
+      </div>
+    {{/if}}
   </div>
 </template>
