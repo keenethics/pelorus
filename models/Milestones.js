@@ -3,7 +3,7 @@ Milestones = new Mongo.Collection('milestones');
 Milestones.validTypes = ['week', 'month', 'year', 'strategic'];
 
 Milestones.attachSchema(new SimpleSchema({
-  'period': { 'type': String, 'optional': true, 'unique': true },
+  'period': { 'type': String, 'optional': true },
   'type': { 'type': String, 'allowedValues': Milestones.validTypes },
   'userId': { 'type': String },
   'parentId': { 'type': String, 'optional': true },
@@ -52,7 +52,9 @@ Milestones.periodFormatsExtended = {
 };
 
 Milestones.helpers({
-  'goals': function() { return Goals.find({'milestoneId': this._id}); },
+  'goals': function() {
+    return Goals.find({'milestoneId': this._id}, {'sort': {'priority': 1}});
+  },
   'parent': function() { return Milestones.findOne(this.parentId); },
   'children': function() { return Milestones.find({'parentId': this._id}); },
   'title': function(extendeed) {

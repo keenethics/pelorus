@@ -15,7 +15,7 @@ Template._goalsForm.events({
     if (!title) {
       return $title.parent('.form-group').addClass('has-error');
     }
-    if (!priority) {
+    if (!priority || priority > Meteor.App.MAX_GOAL_PRIORITY) {
       return $priority.parent('.form-group').addClass('has-error');
     }
 
@@ -31,8 +31,9 @@ Template._goalsForm.events({
     }
 
     Goals.insert(doc);
-
-    $('#formModal').modal('hide').remove();
+    let $modal = $('.modal');
+    $modal.modal('hide');
+    $modal.remove();
   },
 });
 
