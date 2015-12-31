@@ -1,6 +1,9 @@
 <template name="_milestoneContent">
   <div class="milestone-content panel panel-default">
-    <div class="panel-heading">{{{milestone.title}}}</div>
+    <div class="panel-heading">{{{milestone.title}}}
+      <progress max="100" value="{{milestone.progress}}"></progress>
+      {{{milestone.progress}}}%
+    </div>
     <ul class="list-group">
       {{# each goal in milestone.goals}}
         <li id="{{goal._id}}" class="list-group-item">

@@ -66,6 +66,22 @@ Milestones.helpers({
     let format = periodFormats[this.type];
     return moment(this.period, format.parse).format(format.display);
   },
+  'progress': function() {
+    let sum = 0;
+    let goals = Goals.find({
+      'milestoneId': this._id
+      }, {
+        fields: {
+          'completedPct': 1
+        }
+      }).fetch();
+
+    _.forEach(goals, function(goal) {
+      sum += goal.completedPct;
+    });
+
+    return sum/goals.length || 0;
+  }
 });
 
 if (Meteor.isServer) {
