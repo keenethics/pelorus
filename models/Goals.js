@@ -33,7 +33,9 @@ Goals.attachSchema(new SimpleSchema({
 
 Goals.helpers({
   'parent': function() { return Goals.findOne(this.parentId); },
-  'children': function() { return Goals.find({'parentId': this._id}); },
+  'children': function() {
+    return Goals.find({'parentId': this._id}, {'sort': {'priority': 1}});
+  },
   'milestone': function() { return Milestones.findOne(this.milestoneId); },
 });
 
