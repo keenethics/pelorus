@@ -7,11 +7,11 @@ Goals.attachSchema(new SimpleSchema({
   'parentId': {
     'type': String,
     'label': 'Parent Goal ID',
-    'optional': true,
+    'optional': true
   },
   'priority': {
     'type': Number,
-    'label': 'Goal priority',
+    'label': 'Goal priority'
   },
   'milestoneId': {
     'type': String,
@@ -22,13 +22,13 @@ Goals.attachSchema(new SimpleSchema({
   'completedPct': {
     'type': Number,
     'label': 'Percent Completed',
-    'optional': true,
+    'optional': true
   },
   'pctOfParentGoal': {
     'type': Number,
     'label': 'Percent of Parent Goal',
-    'optional': true,
-  },
+    'optional': true
+  }
 }));
 
 Goals.helpers({
@@ -36,13 +36,19 @@ Goals.helpers({
   'children': function() {
     return Goals.find({'parentId': this._id}, {'sort': {'priority': 1}});
   },
-  'milestone': function() { return Milestones.findOne(this.milestoneId); },
+  'milestone': function() { return Milestones.findOne(this.milestoneId); }
 });
 
 if (Meteor.isServer) {
   Goals.allow({
-    'insert': function(userId, doc) { return userId === doc.userId; },
-    'update': function(userId, doc) { return userId === doc.userId; },
-    'remove': function() { return false; },
+    'insert': function(userId, doc) {
+      return userId === doc.userId;
+    },
+    'update': function(userId, doc) {
+      return userId === doc.userId;
+    },
+    'remove': function() {
+      return false;
+    }
   });
 }

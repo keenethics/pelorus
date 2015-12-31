@@ -1,7 +1,7 @@
 Template._goalsForm.helpers({
   'parents': function() {
     return this.milestone.parent() && this.milestone.parent().goals();
-  },
+  }
 });
 
 Template._goalsForm.events({
@@ -23,7 +23,7 @@ Template._goalsForm.events({
       'title': title,
       'priority': priority,
       'milestoneId': this.milestone._id,
-      'userId': Meteor.userId(),
+      'userId': Meteor.userId()
     };
 
     if (!!parentId) {
@@ -34,6 +34,6 @@ Template._goalsForm.events({
     let $modal = $('.modal');
     $modal.modal('hide');
     $modal.remove();
-  },
+  }
 });
 
