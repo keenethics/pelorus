@@ -41,6 +41,12 @@ Milestones.parentType = (type) => {
 
 Milestones.periodFormats = {
   'year': { 'parse': 'YYYY', 'display': 'YYYY' },
+  'month': { 'parse': 'YYYY-MM', 'display': 'MMMM' },
+  'week': { 'parse': '', 'display': '[Week&nbsp;]#ww' },
+};
+
+Milestones.periodFormatsExtended = {
+  'year': { 'parse': 'YYYY', 'display': 'YYYY' },
   'month': { 'parse': 'YYYY-MM', 'display': 'MMMM YYYY' },
   'week': { 'parse': '', 'display': '[Week&nbsp;]#ww' },
 };
@@ -49,9 +55,15 @@ Milestones.helpers({
   'goals': function() { return Goals.find({'milestoneId': this._id}); },
   'parent': function() { return Milestones.findOne(this.parentId); },
   'children': function() { return Milestones.find({'parentId': this._id}); },
-  'title': function() {
+  'title': function(extendeed) {
+    let periodFormats;
+    if (extendeed) {
+      periodFormats = Milestones.periodFormatsExtended;
+    } else {
+      periodFormats = Milestones.periodFormats;
+    }
     if (this.type === 'strategic') return 'Strategic';
-    let format = Milestones.periodFormats[this.type];
+    let format = periodFormats[this.type];
     return moment(this.period, format.parse).format(format.display);
   },
 });
