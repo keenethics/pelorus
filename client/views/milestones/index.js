@@ -11,10 +11,3 @@ Template.milestonesIndex.helpers({
     return Template.instance().activeType;
   }
 });
-
-Template.milestonesIndex.events({
-  'click .bar': function (e, t) {
-    var newType = e.currentTarget.dataset.viewType;
-    newType && t.activeType.set(newType);
-  }
-});
