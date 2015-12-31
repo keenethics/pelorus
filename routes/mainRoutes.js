@@ -1,7 +1,7 @@
 Router.route('/', {
   name: 'home',
   template: function() {
-    return Meteor.user() ? 'timeline' : 'landing_page';
+    return Meteor.user() ? 'milestonesIndex' : 'landing_page';
   },
   onAfterAction: function () {
     SEO.set({ title: 'Home -' + Meteor.App.NAME });
