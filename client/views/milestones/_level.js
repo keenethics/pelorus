@@ -17,4 +17,7 @@ Template._milestoneLevel.events({
       'template': '_editGoal',
       data }, document.body);
   },
+  'click .bar': function() {
+    this.activeType.set(this.milestone.type);
+  },
 });

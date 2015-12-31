@@ -43,6 +43,7 @@
   visibility: hidden;
   display: block;
   white-space: nowrap;
+  overflow-x: hidden;
 }
 
 .milestone.active > .milestone-content {
