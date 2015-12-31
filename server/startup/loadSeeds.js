@@ -18,15 +18,16 @@ function loadUser(user) {
         let milestone = milestones[key];
         milestone.userId = userId;
         milestoneId = Milestones.insert(milestone);
-      }
-    }
-
-    for (key in goals) {
-      if (goals.hasOwnProperty(key)) {
-        let goal = goals[key];
-        goal.userId = userId;
-        goal.milestoneId = milestoneId;
-        Goals.insert(goal);
+        if (Milestones.find({}).count() >= 1) {
+          for (key in goals) {
+            if (goals.hasOwnProperty(key)) {
+              let goal = goals[key];
+              goal.userId = userId;
+              goal.milestoneId = milestoneId;
+              Goals.insert(goal);
+            }
+          }
+        }
       }
     }
   }
