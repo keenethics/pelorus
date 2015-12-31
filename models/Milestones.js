@@ -57,14 +57,16 @@ Milestones.helpers({
   },
   'parent': function() { return Milestones.findOne(this.parentId); },
   'children': function() { return Milestones.find({'parentId': this._id}); },
-  'title': function(extendeed) {
+  'title': function(extended) {
     let periodFormats;
-    if (extendeed) {
+    if (extended) {
       periodFormats = Milestones.periodFormatsExtended;
     } else {
       periodFormats = Milestones.periodFormats;
     }
-    if (this.type === 'strategic') return 'Strategic';
+    if (this.type === 'strategic') {
+      return this.period || 'Strategic';
+    }
     let format = periodFormats[this.type];
     return moment(this.period, format.parse).format(format.display);
   }

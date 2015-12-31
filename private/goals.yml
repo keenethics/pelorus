@@ -1,4 +1,6 @@
 goal_1:
   title: Learn new technology
+  priority: 1
 goal_2:
   title: Upgrade programming skills
+  priority: 2

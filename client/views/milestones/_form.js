@@ -21,7 +21,7 @@ Template._milestonesForm.helpers({
     return Template.instance().curType.get();
   },
   'types': function() {
-    return ['year', 'month', 'week'];
+    return Milestones.validTypes;
   }
 });
 
