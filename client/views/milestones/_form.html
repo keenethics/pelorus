@@ -4,8 +4,8 @@
       <div class="form-group">
         <label for="parentId">Type of Milestone</label>
         <select class="form-control" id="type">
-          {{#each oneType in types }}
-            <option value="{{oneType}}">{{oneType}}</option>
+          {{#each currentType in types }}
+            <option value="{{currentType}}">{{currentType}}</option>
           {{/each}}
         </select>
       </div>
