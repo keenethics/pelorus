@@ -1,0 +1,5 @@
+<template name="milestonesIndex">
+  {{#each milestone in milestones}}
+    {{> _milestoneLevel milestone=milestone activeType=activeType}}
+  {{/each}}
+</template>
