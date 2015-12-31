@@ -59,15 +59,3 @@
 .milestone.active .submilestones {
   flex: 0%;
 }
-
-p.priority {
-  border: 1px solid rgba(128, 128, 128, 0.15);
-  padding: 3px 5px;
-  border-radius: 10px;
-  margin-right: 5px;
-  width: 40px;
-  text-align: center;
-  font-size: 12px;
-  line-height: 12px;
-  cursor: help;
-}

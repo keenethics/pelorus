@@ -15,7 +15,7 @@ Template._goalsForm.events({
     if (!title) {
       return $title.parent('.form-group').addClass('has-error');
     }
-    if (!priority || priority > Meteor.App.MAX_GOAL_PRIORITY) {
+    if (!priority) {
       return $priority.parent('.form-group').addClass('has-error');
     }
 

@@ -22,7 +22,7 @@ Template._milestonesForm.helpers({
   },
   'types': function() {
     return ['year', 'month', 'week'];
-  },
+  }
 });
 
 Template._milestonesForm.events({
@@ -43,16 +43,18 @@ Template._milestonesForm.events({
       'period': period,
       'parentId': t.$('#parentId').val(),
       'type': type,
-      'userId': Meteor.userId(),
+      'userId': Meteor.userId()
     }));
 
-    $('#formModal').modal('hide');
+    let $modal = $('#formModal');
+    $modal.modal('hide');
+    $modal.remove();
   },
   'change #type': function(e, t) {
     let type = e.currentTarget.value;
     if (type) {
       t.curType.set(type);
     }
-  },
+  }
 });
 

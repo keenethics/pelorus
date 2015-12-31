@@ -34,7 +34,3 @@ Template.registerHelper('parentGoalIds', function() {
     { 'label': 'watch movie', 'value': 2123123},
   ];
 });
-
-Template.registerHelper('maxGoalPriority', function() {
-  return Meteor.App.MAX_GOAL_PRIORITY;
-});
