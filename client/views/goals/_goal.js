@@ -3,7 +3,7 @@ Template._goal.events({
     e.preventDefault();
     Template._formModal.show({
       'title': 'Edit Goal',
-      'template': '_editGoal',
+      'template': '_goalsForm',
       'data': { 'milestone': this.milestone, 'goal': this.goal }
     });
   }

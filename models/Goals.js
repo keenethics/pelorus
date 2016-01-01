@@ -11,7 +11,8 @@ Goals.attachSchema(new SimpleSchema({
   },
   'priority': {
     'type': Number,
-    'label': 'Goal priority'
+    'label': 'Goal priority',
+    'optional': true
   },
   'milestoneId': {
     'type': String,

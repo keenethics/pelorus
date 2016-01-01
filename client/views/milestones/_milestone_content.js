@@ -4,7 +4,7 @@ Template._milestoneContent.events({
     Template._formModal.show({
       'title': 'Add Goal',
       'template': '_goalsForm',
-      'data': { 'milestone': this.milestone }
+      'data': { 'milestone': this.milestone, 'goal': {} }
     });
   }
 });
