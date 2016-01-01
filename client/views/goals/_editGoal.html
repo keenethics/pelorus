@@ -3,7 +3,7 @@
     <form>
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title">
+        <input type="text" class="form-control" id="title" value="{{goal.title}}">
       </div>
       {{#unless $eq milestone.type 'strategic' }}
         <div class="form-group">

@@ -16,7 +16,7 @@ Template._editGoal.events({
     let title = $('#title').val();
     let parentId = t.$('#parentId').val();
 
-    Goals.update(this.goalId, {
+    Goals.update(this.goal._id, {
       $set: {
         'title': title,
         'parentId': parentId,
