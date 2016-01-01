@@ -17,6 +17,7 @@
   width: 20px;
   position: relative;
   cursor: pointer;
+  min-height: 100px;
 }
 
 .submilestones {

@@ -7,7 +7,7 @@ Milestones.attachSchema(new SimpleSchema({
   'type': { 'type': String, 'allowedValues': Milestones.validTypes },
   'userId': { 'type': String },
   'parentId': { 'type': String, 'optional': true },
-  'startsAt': { 'type': Date,   'optional': true, 'label': 'Start Period' },
+  'startsAt': { 'type': Date, 'optional': true, 'label': 'Start Period' },
   'endsAt': { 'type': Date, 'optional': true, 'label': 'End Period' }
 }));
 
@@ -19,12 +19,13 @@ Milestones.boundsFor = (date, type) => {
     };
   }
   return {
-    'startsAt': Milestones.bounds(date.clone().startOf(type), 'start').toDate(),
-    'endsAt': Milestones.bounds(date.clone().endOf(type), 'end').toDate()
+    'startsAt': Milestones.bound(date.clone().startOf(type), 'start').toDate(),
+    'endsAt': Milestones.bound(date.clone().endOf(type), 'end').toDate()
   };
 };
 
-Milestones.bounds = (date, type = 'start') => {
+// Returns nearest week bound for given date
+Milestones.bound = (date, type = 'start') => {
   let _date = date;
   if (type === 'start' && date.day() > 4) {
     _date = date.add(1, 'w');
@@ -39,11 +40,11 @@ Milestones.parentType = (type) => {
   return Milestones.validTypes[ Milestones.validTypes.indexOf(type) + 1 ];
 };
 
-Milestones.periodFormats = {
+Milestones.periodFormats = extended => ({
   'year': { 'parse': 'YYYY', 'display': 'YYYY' },
-  'month': { 'parse': 'YYYY-MM', 'display': 'MMMM YYYY' },
-  'week': { 'parse': '', 'display': '[Week] #ww' },
-};
+  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMMM' },
+  'week': { 'parse': '', 'display': extended ? 'DD MMMM YYYY' : 'DD MMM' }
+});
 
 Milestones.helpers({
   'goals': function() {
@@ -51,9 +52,17 @@ Milestones.helpers({
   },
   'parent': function() { return Milestones.findOne(this.parentId); },
   'children': function() { return Milestones.find({'parentId': this._id}); },
-  'title': function() {
+  'title': function(extended) {
+    let format = Milestones.periodFormats(extended)[this.type];
     if (this.type === 'strategic') return 'Strategic';
-    let format = Milestones.periodFormats[this.type];
+    if (this.type === 'week') {
+      let periods = [
+        moment(this.period).startOf('week').format('DD'),
+        moment(this.period).endOf('week').format(format.display)
+      ];
+      return periods.join('-');
+    }
+
     return moment(this.period, format.parse).format(format.display);
   }
 });
