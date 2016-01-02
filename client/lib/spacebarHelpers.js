@@ -26,6 +26,6 @@ Template.registerHelper('constant', function(what) {
   return Meteor.App[what.toUpperCase()];
 });
 
-Template.registerHelper('selectedIfEq', (left, right) => {
-  return left == right ? 'selected' : '';
+Template.registerHelper('attrIfEq', (left, right, attr) => {
+  return left == right ? attr: '';
 });

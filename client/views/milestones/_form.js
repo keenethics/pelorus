@@ -1,5 +1,5 @@
 Template._milestonesForm.onCreated(function() {
-  this.selectedType = new ReactiveVar(this.data.type || 'year');
+  this.selectedType = new ReactiveVar(this.data.type || 'week');
 });
 
 Template._milestonesForm.helpers({

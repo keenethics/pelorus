@@ -5,7 +5,7 @@
         <label for="parentId">Type of Milestone</label>
         <select class="form-control" id="type">
           {{#each currentType in types }}
-            <option value="{{currentType}}" {{selectedIfEq currentType type}}>{{currentType}}</option>
+            <option value="{{currentType}}" {{attrIfEq currentType type 'selected'}}>{{currentType}}</option>
           {{/each}}
         </select>
       </div>
