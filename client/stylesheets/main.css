@@ -1,9 +1,6 @@
-.panel.dashed {
+.dashed > .panel {
   border-style: dashed;
-}
-
-.panel.dashed .panel-heading {
-  border-bottom-style: dashed;
+  min-height: 107px;
 }
 
 /* Milestone timeline layout */
@@ -17,7 +14,6 @@
   width: 20px;
   position: relative;
   cursor: pointer;
-  min-height: 100px;
 }
 
 .submilestones {

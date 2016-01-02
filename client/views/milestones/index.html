@@ -1,9 +1,9 @@
 <template name="milestonesIndex">
   {{#each milestone in milestones}}
-    <div class="milestone {{#if $eq activeType.get milestone.type}}active{{/if}}">
+    <div class="milestone {{#unless milestone._id}}dashed{{/unless}} {{#if $eq activeType.get milestone.type}}active{{/if}}">
       {{> _milestone milestone=milestone activeType=activeType}}
-      <div class="submilestones">
-        {{> milestonesIndex milestones=milestone.children activeType=activeType}}
+      <div class="submilestones ">
+        {{> milestonesIndex activeType=activeType parentMilestone=milestone }}
       </div>
     </div>
   {{/each}}
