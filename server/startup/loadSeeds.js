@@ -11,7 +11,7 @@ function loadSeeds(user) {
     let userId = Accounts.createUser(user);
     let milestones = YAML.eval(Assets.getText('milestones.yml'));
     let milestoneId = '';
-    let goals = YAML.eval(Assets.getText('goals.yml'));
+    let goals = YAML.eval(Assets.getText('goals.yml')).goals;
 
     for (key in milestones) {
       if (milestones.hasOwnProperty(key)) {
