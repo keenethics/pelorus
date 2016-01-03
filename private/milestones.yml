@@ -1,8 +1,11 @@
-milestones:
-  - type: "strategic"
-  - period: "2016"
-    type: "year"
-  - period: "2016-01"
-    type: "month"
-  - period: "2016-W03"
-    type: "week"
+strategic_milestone:
+  type: "strategic"
+year_milestone:
+  period: "2016"
+  type: "year"
+month_milestone:
+  period: "2016-01"
+  type: "month"
+week_milestone:
+  period: "2016-W03"
+  type: "week"

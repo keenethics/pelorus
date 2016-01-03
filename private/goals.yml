@@ -1,7 +1,6 @@
-goals:
-  - title: "Goal number 1"
-    priority: 1
-  - title: "Goal number 2"
-    priority: 2
-  - title: "Goal number 3"
-    priority: 3
+goal_1:
+  title: Learn new technology
+  priority: 1
+goal_2:
+  title: Upgrade programming skills
+  priority: 2

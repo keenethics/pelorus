@@ -3,24 +3,43 @@ and app is in development mode.*/
 
 let mode = process.env.NODE_ENV;
 
-Meteor.startup(function() {
-  if (mode != 'development') return;
-  YAML.eval(Assets.getText('users.yml')).users.forEach(user => {
-    if (Meteor.users.find({'username': user.username}).count() > 0) return;
+function loadUser(user) {
+  let userAlreadyExists = typeof Meteor.users.findOne({
+    username: user.username }) === 'object';
 
-    let milestones = YAML.eval(Assets.getText('milestones.yml')).milestones;
-    let goals = YAML.eval(Assets.getText('goals.yml')).goals;
-
+  if (!userAlreadyExists) {
     let userId = Accounts.createUser(user);
-    let milestoneId = null;
+    let milestones = YAML.eval(Assets.getText('milestones.yml'));
+    let milestoneId = '';
+    let goals = YAML.eval(Assets.getText('goals.yml'));
 
-    milestones.forEach(milestone => {
-      milestoneData = _.extend(milestone, {userId, parentId: milestoneId});
-      milestoneId = Milestones.insert(milestoneData);
+    for (key in milestones) {
+      if (milestones.hasOwnProperty(key)) {
+        let milestone = milestones[key];
+        milestone.userId = userId;
+        milestoneId = Milestones.insert(milestone);
+        if (Milestones.find({}).count() >= 1) {
+          for (key in goals) {
+            if (goals.hasOwnProperty(key)) {
+              let goal = goals[key];
+              goal.userId = userId;
+              goal.milestoneId = milestoneId;
+              Goals.insert(goal);
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
-      goals.forEach(goal => {
-        Goals.insert(_.extend(goal, {userId, milestoneId}));
-      });
-    })
+if ( Meteor.isServer && mode === 'development' ) {
+  Meteor.startup(function() {
+    let users = YAML.eval(Assets.getText('users.yml'));
+    for (key in users) {
+      if (users.hasOwnProperty(key)) {
+        loadUser(users[key]);
+      }
+    }
   });
-});
+}
