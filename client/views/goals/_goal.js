@@ -16,9 +16,3 @@ Template._goal.events({
     Meteor.call('removeGoal', _id);
   }
 });
-
-Template._goal.helpers({
-  'goalHasChildren': function() {
-    return this.goal.children().count() > 0;
-  }
-});

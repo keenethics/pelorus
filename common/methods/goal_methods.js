@@ -17,12 +17,11 @@ Meteor.methods({
     check(goalId, String);
 
     const goal = Goals.findOne(goalId);
-    let result;
 
-    if (this.userId === goal.userId && !goal.children().count()) {
-      result = Goals.remove(goalId);
+    if (this.userId !== goal.userId || goal.children().count()) {
+      return null;
     }
 
-    return result;
+    return Goals.remove(goalId);
   }
 });

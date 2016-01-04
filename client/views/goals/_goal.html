@@ -3,7 +3,7 @@
     {{goal.title}}
 
     <div class="pull-right">
-      {{#unless goalHasChildren}}
+      {{#unless $gt goal.children.count 0}}
       <a href="#" class="js-remove-goal" title="Remove goal">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </a>
