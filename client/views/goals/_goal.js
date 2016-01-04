@@ -11,8 +11,6 @@ Template._goal.events({
   'click .js-remove-goal': function(e) {
     e.preventDefault();
 
-    const { _id } = this.goal;
-
-    Meteor.call('removeGoal', _id);
+    Meteor.call('removeGoal', this.goal._id);
   }
 });

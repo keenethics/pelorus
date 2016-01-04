@@ -19,7 +19,7 @@ Meteor.methods({
     const goal = Goals.findOne(goalId);
 
     if (this.userId !== goal.userId || goal.children().count()) {
-      return null;
+      throw new Meteor.Error('forbidden-action', 'Goal can\'t be removed.');
     }
 
     return Goals.remove(goalId);
