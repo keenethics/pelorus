@@ -6,5 +6,19 @@ Template._goal.events({
       'template': '_goalsForm',
       'data': { 'milestone': this.milestone, 'goal': this.goal }
     });
+  },
+
+  'click .js-remove-goal': function(e) {
+    e.preventDefault();
+
+    const { _id } = this.goal;
+
+    Meteor.call('removeGoal', _id);
+  }
+});
+
+Template._goal.helpers({
+  'goalHasChildren': function() {
+    return this.goal.children().count() > 0;
   }
 });
