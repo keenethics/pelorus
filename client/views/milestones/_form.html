@@ -1,21 +1,15 @@
 <template name="_milestonesForm">
   <div class="modal-body">
-    {{#if $eq type 'strategic' }}
-      <p>
-        You are now creating your strategic milestone. It represents your long-term goals
-        all other goals should aligned with.
-      </p>
-    {{else}}
-      <form>
-        <div class="form-group">
-          <label for="parentId">Type of Milestone</label>
-          <select class="form-control" id="type">
-            {{#each _type in types }}
-              <option value="{{_type}}">{{_type}}</option>
-            {{/each}}
-          </select>
-        </div>
-
+    <form>
+      <div class="form-group">
+        <label for="parentId">Type of Milestone</label>
+        <select class="form-control" id="type">
+          {{#each currentType in types }}
+            <option value="{{currentType}}" {{attrIfEq currentType type 'selected'}}>{{currentType}}</option>
+          {{/each}}
+        </select>
+      </div>
+      {{#unless $eq type 'strategic' }}
         <div class="form-group">
           <label for="parentId">Parent Milestone</label>
           <select class="form-control" id="parentId">
@@ -25,11 +19,13 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="period">{{periodTitle}}</label>
+          <label for="period">
+            {{periodTitle}}
+          </label>
           <input type="{{periodInputType}}" class="form-control" id="period" min="2000">
         </div>
-      </form>
-    {{/if}}
+      {{/unless}}
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary js-insert-milestone">Add</button>

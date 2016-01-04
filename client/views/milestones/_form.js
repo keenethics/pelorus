@@ -1,46 +1,43 @@
 Template._milestonesForm.onCreated(function() {
-  this.curType = new ReactiveVar(this.data.type || 'year');
+  this.selectedType = new ReactiveVar(this.data.type || 'week');
 });
 
 Template._milestonesForm.helpers({
   'parents': function() {
-    let type = Template.instance().curType.get();
+    let type = Template.instance().selectedType.get();
     return type && Milestones.find({
-      'type': Milestones.parentType(type),
+      'type': Milestones.relativeType(type, -1),
       'userId': Meteor.userId() });
   },
   'periodTitle': function() {
-    let type = Template.instance().curType.get();
+    let type = Template.instance().selectedType.get();
     return type && s.capitalize(type);
   },
   'periodInputType': function() {
-    let type = Template.instance().curType.get();
+    let type = Template.instance().selectedType.get();
     return type && type === 'year' ? 'number' : type;
   },
   'type': function() {
-    return Template.instance().curType.get();
+    return Template.instance().selectedType.get();
   },
   'types': function() {
-    return ['year', 'month', 'week'];
+    return Milestones.validTypes;
   }
 });
 
 Template._milestonesForm.events({
   'click .js-insert-milestone': function(e, t) {
-    let type = t.curType.get();
+    let type = t.selectedType.get();
     // TODO: Refactor validations and posting
     if (type !== 'strategic' && !$('#parentId').val()) {
       return $('#parentId').parent('.form-group').addClass('has-error');
-    }
-    if (type !== 'strategic' && !$('#period').val()) {
-      return $('#period').parent('.form-group').addClass('has-error');
     }
 
     let period = t.$('#period').val();
 
     // TODO: pass date format to moment.js
     Milestones.insert(_.extend(Milestones.boundsFor(moment(period), type), {
-      'period': period,
+      'period': period || undefined,
       'parentId': t.$('#parentId').val(),
       'type': type,
       'userId': Meteor.userId()
@@ -53,7 +50,7 @@ Template._milestonesForm.events({
   'change #type': function(e, t) {
     let type = e.currentTarget.value;
     if (type) {
-      t.curType.set(type);
+      t.selectedType.set(type);
     }
   }
 });
