@@ -18,17 +18,13 @@
             {{/each}}
           </select>
         </div>
-        {{/unless}}
-      <div class="form-group">
-        <label for="period">
-          {{#if $eq type 'strategic' }}
-            Title
-          {{else}}
+        <div class="form-group">
+          <label for="period">
             {{periodTitle}}
-          {{/if}}
-        </label>
-        <input type="{{periodInputType}}" class="form-control" id="period" min="2000">
-      </div>
+          </label>
+          <input type="{{periodInputType}}" class="form-control" id="period" min="2000">
+        </div>
+      {{/unless}}
     </form>
   </div>
   <div class="modal-footer">
