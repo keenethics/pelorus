@@ -8,12 +8,11 @@ Template._goal.events({
     });
   },
 
-  'click .js-goal-completed': function(e, tpl) {
-    // const goal = Blaze.getData(e.currentTarget);
+  'click .js-goal-completed': function() {
     const {
       _id,
       completed
-    } = tpl.data.goal;
+    } = this.goal;
 
     Meteor.call('updateGoalCompletion', _id, !completed);
   }
