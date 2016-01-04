@@ -51,7 +51,9 @@ Milestones.helpers({
     return Goals.find({'milestoneId': this._id}, {'sort': {'priority': 1}});
   },
   'parent': function() { return Milestones.findOne(this.parentId); },
-  'children': function() { return Milestones.find({'parentId': this._id}); },
+  'children': function() {
+    return Milestones.find({'parentId': this._id}, {'sort': {'startsAt': -1}});
+  },
   'title': function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
     if (this.type === 'strategic') return 'Strategic';
