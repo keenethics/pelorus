@@ -69,7 +69,14 @@ Milestones.helpers({
 
 if (Meteor.isServer) {
   Milestones.allow({
-    'insert': function(userId, doc) { return userId === doc.userId; },
+    'insert': function(userId, doc) {
+      let milestone = Milestones.findOne({
+        'userId': userId,
+        'period': doc.period,
+        'type': doc.type
+      });
+      return userId === doc.userId && !milestone;
+    },
     'update': function(userId, doc) { return userId === doc.userId; },
     'remove': function() { return false; }
   });
