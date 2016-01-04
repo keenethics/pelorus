@@ -1,6 +1,11 @@
 <template name="_goal">
   <li class="list-group-item">
-    {{goal.title}}
+    <input type="checkbox" class="js-goal-completed" checked={{goal.completed}} />
+    {{#if goal.completed}}
+      <strike>{{goal.title}}</strike>
+    {{else}}
+      {{goal.title}}
+    {{/if}}
     <a href="#" class="js-edit-goal">
       <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
     </a>
