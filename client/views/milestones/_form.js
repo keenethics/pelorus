@@ -6,7 +6,7 @@ Template._milestonesForm.helpers({
   'parents': function() {
     let type = Template.instance().selectedType.get();
     return type && Milestones.find({
-      'type': Milestones.parentType(type),
+      'type': Milestones.relativeType(type, -1),
       'userId': Meteor.userId() });
   },
   'periodTitle': function() {

@@ -1,6 +1,6 @@
 Milestones = new Mongo.Collection('milestones');
 
-Milestones.validTypes = ['week', 'month', 'year', 'strategic'];
+Milestones.validTypes = ['strategic', 'year', 'month', 'week'];
 
 Milestones.attachSchema(new SimpleSchema({
   'period': { 'type': String, 'optional': true },
@@ -36,8 +36,8 @@ Milestones.bound = (date, type = 'start') => {
   return _date[`${type}Of`]('isoWeek');
 };
 
-Milestones.parentType = (type) => {
-  return Milestones.validTypes[ Milestones.validTypes.indexOf(type) + 1 ];
+Milestones.relativeType = (type, levelDiff) => {
+  return Milestones.validTypes[Milestones.validTypes.indexOf(type) + levelDiff];
 };
 
 Milestones.periodFormats = extended => ({
