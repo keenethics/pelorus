@@ -14,14 +14,18 @@ Meteor.startup(function() {
     let userId = Accounts.createUser(user);
     let milestoneId = null;
     let goalId = null;
+    let parentGoalIds = [];
 
     milestones.forEach(milestone => {
       milestoneData = _.extend(milestone, {userId, 'parentId': milestoneId});
       milestoneId = Milestones.insert(milestoneData);
 
       goals.forEach(goal => {
-        goalData = _.extend(goal, {userId, milestoneId, 'parentId': goalId});
+        let parentGoalIndex = parentGoalIds.length - 3;
+        goalData = _.extend(goal, {userId, milestoneId,
+                          'parentId': parentGoalIds[parentGoalIndex]});
         goalId = Goals.insert(goalData);
+        parentGoalIds.push(goalId);
       });
     });
   });
