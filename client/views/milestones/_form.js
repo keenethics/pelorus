@@ -41,7 +41,10 @@ Template._milestonesForm.events({
       'parentId': t.$('#parentId').val(),
       'type': type,
       'userId': Meteor.userId()
-    }));
+    }), function(err) {
+      err && toastr.error(`Milestones with the same types
+        should be with the different periods.`, 'Error');
+    });
 
     let $modal = $('#formModal');
     $modal.modal('hide');
