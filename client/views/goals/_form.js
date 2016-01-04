@@ -5,31 +5,29 @@ Template._goalsForm.helpers({
 });
 
 Template._goalsForm.events({
-  'click .js-insert-goal': function(e, t) {
+  'click .js-save': function(e, t) {
     // TODO: Refactor validations and posting
-    let $priority = t.$('#priority');
     let $title = t.$('#title');
     let title = $title.val();
     let parentId = t.$('#parentId').val();
-    let priority = $priority.val();
 
-    if (!title) {
-      return $title.parent('.form-group').addClass('has-error');
-    }
-    if (!priority) {
-      return $priority.parent('.form-group').addClass('has-error');
-    }
+    if (!title) return $title.parent('.form-group').addClass('has-error');
 
-    Goals.insert({
+    let data = {
       'title': title,
-      'priority': priority,
+      'priority': t.$('#priority').val(),
       'parentId': parentId ? parentId : undefined,
       'milestoneId': this.milestone._id,
       'userId': Meteor.userId()
-    });
-    let $modal = $('.modal');
-    $modal.modal('hide');
-    $modal.remove();
+    };
+
+    if(this.goal._id) {
+      Goals.update(this.goal._id, {$set: data});
+    } else {
+      Goals.insert(data);
+    }
+
+    $('#formModal').modal('hide');
   }
 });
 

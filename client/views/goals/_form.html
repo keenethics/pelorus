@@ -3,11 +3,11 @@
     <form>
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title">
+        <input type="text" class="form-control" id="title" value="{{goal.title}}">
       </div>
       <div class="form-group">
-        <label for="title">Priority (Up to 999)</label>
-        <input type="number" class="form-control" id="priority">
+        <label for="title">Priority</label>
+        <input type="number" class="form-control" id="priority" value="{{goal.priority}}">
       </div>
       {{#unless $eq milestone.type 'strategic' }}
         <div class="form-group">
@@ -23,6 +23,6 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary js-insert-goal">Add</button>
+    <button type="button" class="btn btn-primary js-save">Save</button>
   </div>
 </template>

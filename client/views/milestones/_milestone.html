@@ -1,14 +1,12 @@
-<template name="_milestoneContent">
+<template name="_milestone">
+  <div class="bar panel panel-default">
+    <p class="vertical-text">{{milestone.title}}</p>
+  </div>
   <div class="milestone-content panel panel-default">
     <div class="panel-heading">{{milestone.title true}}</div>
     <ul class="list-group">
       {{# each goal in milestone.goals}}
-        <li id="{{goal._id}}" class="list-group-item">
-          {{goal.title}}
-          <a href="#">
-            <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-          </a>
-        </li>
+        {{> _goal goal=goal milestone=milestone}}
       {{/each}}
     </ul>
     <div class="panel-body">

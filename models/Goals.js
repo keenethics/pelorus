@@ -3,7 +3,8 @@ Goals = new Mongo.Collection('goals');
 Goals.attachSchema(new SimpleSchema({
   'title': {
     'type': String,
-    'label': 'Title' },
+    'label': 'Title'
+  },
   'parentId': {
     'type': String,
     'label': 'Parent Goal ID',
@@ -11,7 +12,8 @@ Goals.attachSchema(new SimpleSchema({
   },
   'priority': {
     'type': Number,
-    'label': 'Goal priority'
+    'label': 'Goal priority',
+    'optional': true
   },
   'milestoneId': {
     'type': String,

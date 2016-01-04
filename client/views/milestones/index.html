@@ -1,5 +1,10 @@
 <template name="milestonesIndex">
   {{#each milestone in milestones}}
-    {{> _milestoneLevel milestone=milestone activeType=activeType}}
+    <div class="milestone {{#if $eq activeType.get milestone.type}}active{{/if}}">
+      {{> _milestone milestone=milestone activeType=activeType}}
+      <div class="submilestones">
+        {{> milestonesIndex milestones=milestone.children activeType=activeType}}
+      </div>
+    </div>
   {{/each}}
 </template>
