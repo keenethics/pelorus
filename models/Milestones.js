@@ -54,7 +54,7 @@ Milestones.helpers({
   'children': function() { return Milestones.find({'parentId': this._id}); },
   'title': function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
-    if (this.type === 'strategic') return 'Strategic';
+    if (this.type === 'strategic') return this.period || 'Strategic';
     if (this.type === 'week') {
       let periods = [
         moment(this.period).startOf('week').format('DD'),
