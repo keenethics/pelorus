@@ -68,19 +68,24 @@ Milestones.helpers({
   },
   'progress': function() {
     let sum = 0;
+    let count = 0;
     let goals = Goals.find({
       'milestoneId': this._id
       }, {
         fields: {
-          'completedPct': 1
+          'completedPct': 1,
+          'isMeasurable': 1,
         }
       }).fetch();
 
     _.forEach(goals, function(goal) {
-      sum += goal.completedPct;
+      if(goal.isMeasurable) {
+        sum += goal.completedPct;
+        count ++;
+      }
     });
 
-    return sum/goals.length || 0;
+    return Math.round(sum/count) || 0;
   }
 });
 

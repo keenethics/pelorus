@@ -38,6 +38,11 @@
   position: absolute;
 }
 
+.vertical-text span {
+  display: inline-block;
+  width: 100px;
+}
+
 .milestone-content {
   width: 0px;
   visibility: hidden;
@@ -59,4 +64,3 @@
 .milestone.active .submilestones {
   flex: 0%;
 }
-
