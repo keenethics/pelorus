@@ -52,13 +52,7 @@ Milestones.helpers({
   },
   'parent': function() { return Milestones.findOne(this.parentId); },
   'children': function() {
-    let query = {
-      'sort': {'period': -1}
-    };
-    if (this.type === 'year') {
-      query.sort.period = 1;
-    }
-    return Milestones.find({'parentId': this._id}, query);
+    return Milestones.find({'parentId': this._id}, {'sort': {'startsAt': -1}});
   },
   'title': function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
