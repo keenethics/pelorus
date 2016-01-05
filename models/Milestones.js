@@ -75,8 +75,8 @@ Milestones.allow({
       'type': doc.type
     });
     if (!!milestone) {
-      throw new Meteor.Error(Meteor.App.Errors.INVALID_PERIOD.error,
-        Meteor.App.Errors.INVALID_PERIOD.reason);
+      throw new Meteor.Error('period-invalid',
+        'Milestone for this period already created!');
     }
     return userId === doc.userId && !milestone;
   },

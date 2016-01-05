@@ -42,9 +42,9 @@ Template._milestonesForm.events({
       'type': type,
       'userId': Meteor.userId()
     }), function(err) {
-      if (err && err.error === Meteor.App.Errors.INVALID_PERIOD.error) {
+      if (err && err.error === 'period-invalid') {
         let periodErrMsg = t.$('.period-err-msg');
-        periodErrMsg.text(` (${Meteor.App.Errors.INVALID_PERIOD.reason})`);
+        periodErrMsg.text(` (${err.reason})`);
         return $('#period').parent('.form-group').addClass('has-error');
       }
       $('#formModal').$modal.modal('hide');
