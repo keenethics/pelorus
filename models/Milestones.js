@@ -74,18 +74,15 @@ Milestones.helpers({
       }, {
         fields: {
           'completedPct': 1,
-          'isMeasurable': 1,
         }
       }).fetch();
 
     _.forEach(goals, function(goal) {
-      if(goal.isMeasurable) {
         sum += goal.completedPct;
         count ++;
-      }
     });
 
-    return Math.round(sum/count) || 0;
+    return Math.round(sum/goals.length) || 0;
   }
 });
 

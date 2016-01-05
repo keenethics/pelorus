@@ -7,7 +7,6 @@ Goals.attachSchema(new SimpleSchema({
   userId:          { type: String, label: "User ID" },
   completedPct:    { type: Number, label: "Percent Completed", optional: true },
   pctOfParentGoal: { type: Number, label: "Percent of Parent Goal", optional: true },
-  isMeasurable:    { type: Boolean, label: "Measurable" }
 }));
 
 Goals.helpers({

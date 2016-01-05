@@ -7,7 +7,7 @@
     <ul class="list-group">
       {{# each goal in milestone.goals}}
         <li id="{{goal._id}}" class="list-group-item">
-          {{goal.title}}{{#if goal.isMeasurable}} ({{goal.completedPct}}%){{/if}}
+          {{goal.title}} ({{goal.completedPct}}%)
           <a href="#">
             <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
           </a>

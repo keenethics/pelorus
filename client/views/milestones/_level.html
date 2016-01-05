@@ -2,7 +2,7 @@
   <div class="milestone {{#if $eq activeType.get milestone.type}}active{{/if}}">
     <div class="bar panel panel-default">
       <div class="vertical-text">
-        <span>{{{milestone.title}}} ({{{milestone.progress}}}%)</span>
+        <span><b>{{{milestone.title}}}</b> ({{{milestone.progress}}}%)</span>
       </div>
     </div>
     {{> _milestoneContent milestone=milestone}}
