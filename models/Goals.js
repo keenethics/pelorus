@@ -49,8 +49,8 @@ if (Meteor.isServer) {
     'update': function(userId, doc) {
       return userId === doc.userId;
     },
-    'remove': function() {
-      return false;
+    'remove': function(userId, doc) {
+      return userId === doc.userId && doc.children().count() === 0;
     }
   });
 }
