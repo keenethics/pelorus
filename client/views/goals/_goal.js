@@ -15,5 +15,11 @@ Template._goal.events({
     } = this.goal;
 
     Meteor.call('updateGoalCompletion', _id, !completed);
+  },
+
+  'click .js-remove-goal': function(e) {
+    e.preventDefault();
+
+    Meteor.call('removeGoal', this.goal._id);
   }
 });
