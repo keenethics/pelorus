@@ -13,6 +13,17 @@ Meteor.methods({
       );
     }
 
+    const existingMilestone = Milestones.findOne({
+      userId: this.userId,
+      period: data.period,
+      type: data.type
+    });
+
+    if (existingMilestone) {
+      throw new Meteor.Error('period-invalid',
+        'Milestone for this period already created!');
+    }
+
     const bounds = Milestones.boundsFor(
       moment(data.period),
       data.type

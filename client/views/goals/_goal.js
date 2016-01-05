@@ -8,6 +8,10 @@ Template._goal.events({
     });
   },
 
+  'click .js-goal-completed': function() {
+    Meteor.call('toggleGoalCompletion', this.goal._id);
+  },
+
   'click .js-remove-goal': function(e) {
     e.preventDefault();
 

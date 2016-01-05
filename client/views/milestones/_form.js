@@ -32,18 +32,19 @@ Template._milestonesForm.events({
     const $modal = $('#formModal');
 
     Meteor.call('addMilestone', milestoneData, function(err, _id) {
-      // TODO: Find out what to do with error (notification, dom, etc.)
       if (err) {
-        console.log(err);
-      } else if (_id) {
+        if (err.error === 'period-invalid') {
+          let periodErrMsg = tpl.$('.period-err-msg');
+          periodErrMsg.text(` (${err.reason})`);
+          return tpl.$('#period').parent('.form-group').addClass('has-error');
+        }
+      } else {
         if (formData.copyGoals) {
           Meteor.call('copyMilestoneGoals', milestoneData.parentId, _id);
         }
-      }
 
-      // TODO: Should we hide modal if it's error?
-      $modal.modal('hide');
-      $modal.remove();
+        $modal.modal('hide');
+      }
     });
   },
   'change #type': function(e, t) {
