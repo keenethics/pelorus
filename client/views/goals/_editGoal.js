@@ -1,10 +1,3 @@
-// Template._editGoal.onRendered(function() {
-//   let that = Template.instance().data;
-//   let measurable = Goals.findOne(that.goalId).isMeasurable;
-//   $('#measurable').prop('checked', measurable);
-//   $('#progress').prop('disabled', !measurable);
-// });
-
 Template._editGoal.helpers({
   parents: function() {
     return this.milestone.parent() && this.milestone.parent().goals();
