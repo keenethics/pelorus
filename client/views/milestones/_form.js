@@ -42,13 +42,15 @@ Template._milestonesForm.events({
       'type': type,
       'userId': Meteor.userId()
     }), function(err) {
-      err && toastr.error(`Milestones with the same types
-        should be with the different periods.`, 'Error');
+      if (err && err.error === Meteor.App.Errors.INVALID_PERIOD.error) {
+        let periodErrMsg = t.$('.period-err-msg');
+        periodErrMsg.text(` (${Meteor.App.Errors.INVALID_PERIOD.reason})`);
+        return $('#period').parent('.form-group').addClass('has-error');
+      }
+      let $modal = $('#formModal');
+      $modal.modal('hide');
+      $modal.remove();
     });
-
-    let $modal = $('#formModal');
-    $modal.modal('hide');
-    $modal.remove();
   },
   'change #type': function(e, t) {
     let type = e.currentTarget.value;
