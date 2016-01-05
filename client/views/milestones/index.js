@@ -1,22 +1,12 @@
-Template.milestonesIndex.onCreated(function() {
-  this.activeType = (this.data || {}).activeType || new ReactiveVar('week');
-});
-
 Template.milestonesIndex.helpers({
   'milestones': function() {
-    let milestones = (Template.currentData() || {}).milestones;
-    return milestones || Milestones.find({
-      'userId': Meteor.userId(),
-      'type': 'strategic'});
-  },
-  'activeType': function() {
-    return Template.instance().activeType;
-  },
-});
+    let milestone = this.parentMilestone;
+    if (!milestone) return Milestones.find({'type': 'strategic'});
+    
+    let type = Milestones.relativeType(milestone.type, +1);
+    if (!type) return [];
 
-Template.milestonesIndex.events({
-  'click .bar': function(e, t) {
-    let newType = e.currentTarget.dataset.viewType;
-    newType && t.activeType.set(newType);
-  },
+    let children = milestone._id ? milestone.children().fetch() : [];
+    return _.any(children) ? children : [{type}];
+  }
 });

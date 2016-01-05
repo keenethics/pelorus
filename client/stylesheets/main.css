@@ -1,9 +1,6 @@
-.panel.dashed {
+.dashed > .panel {
   border-style: dashed;
-}
-
-.panel.dashed .panel-heading {
-  border-bottom-style: dashed;
+  min-height: 107px;
 }
 
 /* Milestone timeline layout */
@@ -29,13 +26,13 @@
   margin-bottom: 3px;
 }
 
-/* Milestone timeline layout level switching */
 .vertical-text {
   transform: translate(0, 50%) rotate(-90deg);
   top: 50%;
   left: 0;
   right: 0;
   position: absolute;
+  white-space: nowrap;
 }
 
 .vertical-text span {
@@ -43,6 +40,8 @@
   width: 120px;
 }
 
+/* Milestone timeline layout level switching */
+/*>>>>>>> 242c863fb3ac6958d58c98b8908a7839f89b7a5f*/
 .milestone-content {
   width: 0px;
   visibility: hidden;
