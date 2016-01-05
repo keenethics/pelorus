@@ -47,9 +47,7 @@ Template._milestonesForm.events({
         periodErrMsg.text(` (${Meteor.App.Errors.INVALID_PERIOD.reason})`);
         return $('#period').parent('.form-group').addClass('has-error');
       }
-      let $modal = $('#formModal');
-      $modal.modal('hide');
-      $modal.remove();
+      $('#formModal').$modal.modal('hide');
     });
   },
   'change #type': function(e, t) {
