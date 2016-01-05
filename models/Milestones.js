@@ -69,11 +69,19 @@ Milestones.helpers({
   }
 });
 
-if (Meteor.isServer) {
-  Milestones.allow({
-    'insert': function(userId, doc) { return userId === doc.userId; },
-    'update': function(userId, doc) { return userId === doc.userId; },
-    'remove': function() { return false; }
-  });
-}
-
+Milestones.allow({
+  'insert': function(userId, doc) {
+    let milestone = Milestones.findOne({
+      'userId': userId,
+      'period': doc.period,
+      'type': doc.type
+    });
+    if (!!milestone) {
+      throw new Meteor.Error('period-invalid',
+        'Milestone for this period already created!');
+    }
+    return userId === doc.userId && !milestone;
+  },
+  'update': function(userId, doc) { return userId === doc.userId; },
+  'remove': function() { return false; }
+});
