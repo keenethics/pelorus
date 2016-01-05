@@ -30,6 +30,11 @@ Goals.attachSchema(new SimpleSchema({
     'type': Number,
     'label': 'Percent of Parent Goal',
     'optional': true
+  },
+  'completed': {
+    'type': Boolean,
+    'label': 'Task completed',
+    'optional': true
   }
 }));
 
@@ -49,8 +54,8 @@ if (Meteor.isServer) {
     'update': function(userId, doc) {
       return userId === doc.userId;
     },
-    'remove': function() {
-      return false;
+    'remove': function(userId, doc) {
+      return userId === doc.userId && doc.children().count() === 0;
     }
   });
 }

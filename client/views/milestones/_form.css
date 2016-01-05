@@ -1,0 +1,7 @@
+.period-err-msg {
+  display: none;
+}
+
+.has-error .period-err-msg {
+  display: inherit;
+}
