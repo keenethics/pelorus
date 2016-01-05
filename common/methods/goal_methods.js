@@ -9,14 +9,10 @@ Meteor.methods({
       );
     }
 
-    const goal = Goals.findOne(goalId);
-
-    if (goal.userId !== this.userId) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'Can\'t toggle goal completion. User must be the owner of goal.'
-      );
-    }
+    const goal = Goals.findOne({
+      _id: goalId,
+      userId: this.userId
+    });
 
     if (!goal) {
       throw new Meteor.Error(
