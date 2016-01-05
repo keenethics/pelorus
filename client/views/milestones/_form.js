@@ -3,49 +3,48 @@ Template._milestonesForm.onCreated(function() {
 });
 
 Template._milestonesForm.helpers({
-  'parents': function() {
+  parents: function() {
     let type = Template.instance().selectedType.get();
     return type && Milestones.find({
-      'type': Milestones.relativeType(type, -1),
-      'userId': Meteor.userId() });
+      type: Milestones.relativeType(type, -1),
+      userId: Meteor.userId() });
   },
-  'periodTitle': function() {
+  periodTitle: function() {
     let type = Template.instance().selectedType.get();
     return type && s.capitalize(type);
   },
-  'periodInputType': function() {
+  periodInputType: function() {
     let type = Template.instance().selectedType.get();
     return type && type === 'year' ? 'number' : type;
   },
-  'type': function() {
+  type: function() {
     return Template.instance().selectedType.get();
   },
-  'types': function() {
+  types: function() {
     return Milestones.validTypes;
   }
 });
 
 Template._milestonesForm.events({
-  'click .js-insert-milestone': function(e, t) {
-    let type = t.selectedType.get();
-    // TODO: Refactor validations and posting
-    if (type !== 'strategic' && !$('#parentId').val()) {
-      return $('#parentId').parent('.form-group').addClass('has-error');
-    }
+  'click .js-insert-milestone': function(e, tpl) {
+    const formData = tpl.$('form').serializeJSON();
+    const milestoneData = _.omit(formData, ['copyGoals']);
+    const $modal = $('#formModal');
 
-    let period = t.$('#period').val();
+    Meteor.call('addMilestone', milestoneData, function(err, _id) {
+      // TODO: Find out what to do with error (notification, dom, etc.)
+      if (err) {
+        console.log(err);
+      } else if (_id) {
+        if (formData.copyGoals) {
+          Meteor.call('copyMilestoneGoals', milestoneData.parentId, _id);
+        }
+      }
 
-    // TODO: pass date format to moment.js
-    Milestones.insert(_.extend(Milestones.boundsFor(moment(period), type), {
-      'period': period || undefined,
-      'parentId': t.$('#parentId').val(),
-      'type': type,
-      'userId': Meteor.userId()
-    }));
-
-    let $modal = $('#formModal');
-    $modal.modal('hide');
-    $modal.remove();
+      // TODO: Should we hide modal if it's error?
+      $modal.modal('hide');
+      $modal.remove();
+    });
   },
   'change #type': function(e, t) {
     let type = e.currentTarget.value;
@@ -54,4 +53,3 @@ Template._milestonesForm.events({
     }
   }
 });
-
