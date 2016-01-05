@@ -3,24 +3,43 @@ Milestones = new Mongo.Collection('milestones');
 Milestones.validTypes = ['strategic', 'year', 'month', 'week'];
 
 Milestones.attachSchema(new SimpleSchema({
-  'period': { 'type': String, 'optional': true },
-  'type': { 'type': String, 'allowedValues': Milestones.validTypes },
-  'userId': { 'type': String },
-  'parentId': { 'type': String, 'optional': true },
-  'startsAt': { 'type': Date, 'optional': true, 'label': 'Start Period' },
-  'endsAt': { 'type': Date, 'optional': true, 'label': 'End Period' }
+  period: {
+    type: String,
+    optional: true
+  },
+  type: {
+    type: String,
+    allowedValues: Milestones.validTypes
+  },
+  userId: {
+    type: String
+  },
+  parentId: {
+    type: String,
+    optional: true
+  },
+  startsAt: {
+    type: Date,
+    optional: true,
+    label: 'Start Period'
+  },
+  endsAt: {
+    type: Date,
+    optional: true,
+    label: 'End Period'
+  }
 }));
 
 Milestones.boundsFor = (date, type) => {
   if (type === 'strategic') {
     return {
-      'startsAt': moment(2000, 'YYYY').toDate(),
-      'endsAt': moment().add(100, 'y').toDate()
+      startsAt: moment(2000, 'YYYY').toDate(),
+      endsAt: moment().add(100, 'y').toDate()
     };
   }
   return {
-    'startsAt': Milestones.bound(date.clone().startOf(type), 'start').toDate(),
-    'endsAt': Milestones.bound(date.clone().endOf(type), 'end').toDate()
+    startsAt: Milestones.bound(date.clone().startOf(type), 'start').toDate(),
+    endsAt: Milestones.bound(date.clone().endOf(type), 'end').toDate()
   };
 };
 
@@ -41,20 +60,20 @@ Milestones.relativeType = (type, levelDiff) => {
 };
 
 Milestones.periodFormats = extended => ({
-  'year': { 'parse': 'YYYY', 'display': 'YYYY' },
-  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMMM' },
-  'week': { 'parse': '', 'display': extended ? 'DD MMMM YYYY' : 'DD MMM' }
+  year: { parse: 'YYYY', display: 'YYYY' },
+  month: { parse: 'YYYY-MM', display: extended ? 'MMMM YYYY' : 'MMMM' },
+  week: { parse: '', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
 Milestones.helpers({
-  'goals': function() {
-    return Goals.find({'milestoneId': this._id}, {'sort': {'priority': 1}});
+  goals: function() {
+    return Goals.find({milestoneId: this._id}, {sort: {priority: 1}});
   },
-  'parent': function() { return Milestones.findOne(this.parentId); },
-  'children': function() {
-    return Milestones.find({'parentId': this._id}, {'sort': {'startsAt': -1}});
+  parent: function() { return Milestones.findOne(this.parentId); },
+  children: function() {
+    return Milestones.find({parentId: this._id}, {sort: {startsAt: -1}});
   },
-  'title': function(extended) {
+  title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
     if (this.type === 'strategic') return 'Strategic';
     if (this.type === 'week') {
@@ -71,9 +90,8 @@ Milestones.helpers({
 
 if (Meteor.isServer) {
   Milestones.allow({
-    'insert': function(userId, doc) { return userId === doc.userId; },
-    'update': function(userId, doc) { return userId === doc.userId; },
-    'remove': function() { return false; }
+    insert: function(userId, doc) { return userId === doc.userId; },
+    update: function(userId, doc) { return userId === doc.userId; },
+    remove: function() { return false; }
   });
 }
-
