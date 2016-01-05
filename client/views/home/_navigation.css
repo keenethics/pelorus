@@ -1,3 +1,7 @@
 .navbar-default .navbar-nav > li > a {
   cursor: pointer;
 }
+
+a.user-language {
+  cursor: pointer;
+}
