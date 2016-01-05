@@ -32,6 +32,12 @@ $ npm install -g eslint eslint-config-standard babel-eslint  # install eslint
 $ eslint -c .eslintrc --ext .js .                            # run eslint for the whole project
 ```
 
+Other rules we enforce:
+
+1. Use `check` for all your Meteor.method params
+2. Use Meteor.methods rather than client-side queries that modify data
+... (to be added)
+
 ## Deployment
 
 We are currently using meteor.com as our [staging server](http://pelorus.meteor.com). Make sure you
