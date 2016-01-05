@@ -1,14 +1,36 @@
 Meteor.methods({
-  'updateGoalCompletion': function(goalId, completed) {
+  'toggleGoalCompletion': function(goalId) {
     check(goalId, String);
-    check(completed, Boolean);
+
+    if (!this.userId) {
+      throw new Meteor.Error(
+        'forbidden-action',
+        'Can\'t toggle goal completion. User must be logged in.'
+      );
+    }
+
+    const goal = Goals.findOne(goalId);
+
+    if (goal.userId !== this.userId) {
+      throw new Meteor.Error(
+        'forbidden-action',
+        'Can\'t toggle goal completion. User must be the owner of goal.'
+      );
+    }
+
+    if (!goal) {
+      throw new Meteor.Error(
+        'forbidden-action',
+        'Can\'t toggle goal completion. Goal is not found.'
+      );
+    }
 
     return Goals.update({
       '_id': goalId,
       'userId': this.userId
     }, {
       '$set': {
-        'completed': completed
+        'completed': !goal.completed
       }
     });
   },

@@ -9,12 +9,7 @@ Template._goal.events({
   },
 
   'click .js-goal-completed': function() {
-    const {
-      _id,
-      completed
-    } = this.goal;
-
-    Meteor.call('updateGoalCompletion', _id, !completed);
+    Meteor.call('toggleGoalCompletion', this.goal._id);
   },
 
   'click .js-remove-goal': function(e) {
