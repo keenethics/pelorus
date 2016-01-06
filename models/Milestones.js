@@ -8,15 +8,7 @@ Milestones.attachSchema(new SimpleSchema({
   'userId': { 'type': String },
   'parentId': { 'type': String, 'optional': true },
   'startsAt': { 'type': Date, 'optional': true, 'label': 'Start Period' },
-  'endsAt': { 'type': Date, 'optional': true, 'label': 'End Period' },
-  'createdAt': {
-    'type': Date,
-    'denyUpdate': true,
-    'label': 'Created At',
-    'autoValue': function() {
-      return new Date();
-    }
-  }
+  'endsAt': { 'type': Date, 'optional': true, 'label': 'End Period' }
 }));
 
 Milestones.boundsFor = (date, type) => {
@@ -75,26 +67,14 @@ Milestones.helpers({
 
     return moment(this.period, format.parse).format(format.display);
   },
-  'hasCurrentDate': function() {
+  'isCurrent': function() {
     let now = new Date().toISOString();
     let start = new Date(this.startsAt).toISOString();
     let end = new Date(this.endsAt).toISOString();
-    let dates = [];
-    Milestones.find({'type': 'strategic'}, {
-      'fields': {
-        'createdAt': 1
-      }
-    }).forEach(function(ms) {
-      dates.push(ms.createdAt);
-    });
-    let maxDate = new Date(Math.max.apply(null, dates));
 
-    if (this.type === 'strategic') {
-      return (moment(this.createdAt).isSame(maxDate)) || false;
-    } else {
-      return ((moment(start).isBefore(now) || (moment(start).isSame(now))) &&
-        (moment(end).isAfter(now) || moment(end).isSame(now))) || false;
-    }
+    return ((this.type !== 'strategic') &&
+      (moment(start).isBefore(now) || (moment(start).isSame(now))) &&
+      (moment(end).isAfter(now) || moment(end).isSame(now))) || false;
   }
 });
 
