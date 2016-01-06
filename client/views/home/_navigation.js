@@ -5,7 +5,7 @@ Template.navigation.events({
       'title': 'Add Milestone',
       'template': '_milestonesForm', data }, document.body);
   },
-  'click .user-language': function( e ) {
+  'click .js-set-language': function( e ) {
     let chosenLanguage = $(e.target).text();
     Session.set('language', chosenLanguage);
     Meteor.call('updateUserLanguage', chosenLanguage);
@@ -14,10 +14,8 @@ Template.navigation.events({
 
 Accounts.onLogin(function() {
   let language = Session.get('language');
-  if (language) {
-    Meteor.users.update(Meteor.userId(), {'$set':
-                        {'profile.language': language}});
-  }
+  if (!language) return;
+  Meteor.call('updateUserLanguage', language);
 });
 
 Template.navigation.helpers({
