@@ -68,11 +68,9 @@ Milestones.helpers({
     return moment(this.period, format.parse).format(format.display);
   },
   'isCurrent': function() {
-    let now = new Date();
-
-    return ((this.type !== 'strategic') &&
-      (moment(this.startsAt).isBefore(now) || (moment(this.startsAt).isSame(now))) &&
-      (moment(this.endsAt).isAfter(now) || moment(this.endsAt).isSame(now)));
+    return (this.type !== 'strategic') &&
+      moment(this.startsAt).isSameOrBefore() &&
+      moment(this.endsAt).isSameOrAfter();
   }
 });
 
