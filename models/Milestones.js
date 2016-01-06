@@ -80,7 +80,7 @@ Milestones.helpers({
     let start = new Date(this.startsAt).toISOString();
     let end = new Date(this.endsAt).toISOString();
     let dates = [];
-    Milestones.find({type: 'strategic'}, {
+    Milestones.find({'type': 'strategic'}, {
       'fields': {
         'createdAt': 1
       }
