@@ -7,6 +7,9 @@ Template.navigation.events({
   },
   'click .js-set-language': function( e ) {
     let chosenLanguage = $(e.target).text();
+    if (chosenLanguage === 'English') chosenLanguage = 'en';
+    if (chosenLanguage === 'Русский') chosenLanguage = 'ru';
+    if (chosenLanguage === 'Українська') chosenLanguage = 'ua';
     Session.set('language', chosenLanguage);
     Meteor.call('updateUserLanguage', chosenLanguage);
   }
