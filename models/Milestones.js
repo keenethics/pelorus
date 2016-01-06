@@ -50,9 +50,19 @@ Milestones.helpers({
   'goals': function() {
     return Goals.find({'milestoneId': this._id}, {'sort': {'priority': 1}});
   },
-  'parent': function() { return Milestones.findOne(this.parentId); },
+  'parent': function() {
+    return Milestones.findOne({
+      'type': Milestones.relativeType(this.type, -1),
+      'startsAt': { '$lte': this.startsAt },
+      'endsAt': { '$gte': this.endsAt }
+    });
+  },
   'children': function() {
-    return Milestones.find({'parentId': this._id}, {'sort': {'startsAt': -1}});
+    return Milestones.find({
+      'type': Milestones.relativeType(this.type, +1),
+      'startsAt': { '$gte': this.startsAt },
+      'endsAt': { '$lte': this.endsAt }
+    }, {'sort': {'startsAt': -1}});
   },
   'title': function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
@@ -75,7 +85,7 @@ Milestones.helpers({
     return Math.round(sum / this.goals().count());
   },
   'isCurrent': function() {
-    return (this.type !== 'strategic') &&
+    return this.type !== 'strategic' &&
       moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
   }
