@@ -68,22 +68,21 @@ Milestones.helpers({
     return moment(this.period, format.parse).format(format.display);
   },
   'progress': function() {
-    let sum = 0;
-    let count = 0;
-    let goals = Goals.find({
-      'milestoneId': this._id
+    let cursor = Goals.find(
+      {
+        'milestoneId': this._id
       }, {
-        fields: {
-          'completedPct': 1,
+        'fields': {
+          'completedPct': 1
         }
-      }).fetch();
+      });
+    let sum = _.reduce(cursor.map(function(goal) {
+      return goal;
+    }), function(memo, goal) {
+      return memo + goal.completedPct;
+    }, 0) || 0;
 
-    _.forEach(goals, function(goal) {
-        sum += goal.completedPct;
-        count ++;
-    });
-
-    return Math.round(sum/goals.length) || 0;
+    return Math.round(sum / cursor.count()) || 0;
   }
 });
 
