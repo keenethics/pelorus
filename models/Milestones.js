@@ -68,21 +68,10 @@ Milestones.helpers({
     return moment(this.period, format.parse).format(format.display);
   },
   'progress': function() {
-    let cursor = Goals.find(
-      {
-        'milestoneId': this._id
-      }, {
-        'fields': {
-          'completedPct': 1
-        }
-      });
-    let sum = _.reduce(cursor.map(function(goal) {
-      return goal;
-    }), function(memo, goal) {
-      return memo + goal.completedPct;
-    }, 0) || 0;
-
-    return Math.round(sum / cursor.count()) || 0;
+    let sum = this.goals()
+      .map(goal => goal.completedPct)
+      .reduce((a, b) => a + b, 0);
+    return Math.round(sum / this.goals().count()) || 0;
   }
 });
 
