@@ -2,7 +2,8 @@
   <div class="panel panel-default bar">
     <p class="vertical-text">{{milestone.title}}</p>
   </div>
-  <div class="panel panel-default milestone-content">
+  <div class="panel panel-default milestone-content
+              {{#if milestone.hasCurrentDate}}panel-warning{{/if}}">
     {{#if milestone._id}}
       <div class="panel-heading">{{milestone.title true}}</div>
       <ul class="list-group">
