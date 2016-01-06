@@ -29,16 +29,12 @@ Template._milestonesForm.events({
   'click .js-insert-milestone': function(e, t) {
     let type = t.selectedType.get();
     // TODO: Refactor validations and posting
-    if (type !== 'strategic' && !$('#parentId').val()) {
-      return $('#parentId').parent('.form-group').addClass('has-error');
-    }
 
     let period = t.$('#period').val();
 
     // TODO: pass date format to moment.js
     Milestones.insert(_.extend(Milestones.boundsFor(moment(period), type), {
       'period': period || undefined,
-      'parentId': t.$('#parentId').val(),
       'type': type,
       'userId': Meteor.userId()
     }), function(err) {

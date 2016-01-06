@@ -2,22 +2,14 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="parentId">Type of Milestone</label>
-        <select class="form-control" id="type">
+        <label for="type">Type of Milestone</label>
+        <select class="form-control" id="type" name="type">
           {{#each currentType in types }}
             <option value="{{currentType}}" {{attrIfEq currentType type 'selected'}}>{{currentType}}</option>
           {{/each}}
         </select>
       </div>
       {{#unless $eq type 'strategic' }}
-        <div class="form-group">
-          <label for="parentId">Parent Milestone</label>
-          <select class="form-control" id="parentId">
-            {{#each parent in parents }}
-              <option value="{{parent._id}}">{{parent.title 'extended'}}</option>
-            {{/each}}
-          </select>
-        </div>
         <div class="form-group">
           <label class="control-label" for="period">
             {{periodTitle}} <span class="period-err-msg"></span>

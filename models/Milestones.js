@@ -6,7 +6,6 @@ Milestones.attachSchema(new SimpleSchema({
   'period': { 'type': String, 'optional': true },
   'type': { 'type': String, 'allowedValues': Milestones.validTypes },
   'userId': { 'type': String },
-  'parentId': { 'type': String, 'optional': true },
   'startsAt': { 'type': Date, 'optional': true, 'label': 'Start Period' },
   'endsAt': { 'type': Date, 'optional': true, 'label': 'End Period' }
 }));
