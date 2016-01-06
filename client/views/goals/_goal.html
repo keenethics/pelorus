@@ -6,7 +6,7 @@
     {{else}}
       {{goal.title}}
     {{/if}}
-    ({{goal.completedPct}}%)
+    ({{ $or goal.completedPct 0}}%)
 
     <div class="pull-right">
       {{#unless $gt goal.children.count 0}}
