@@ -72,6 +72,11 @@ Milestones.helpers({
       .map(goal => goal.completedPct)
       .reduce((a, b) => a + b, 0);
     return Math.round(sum / this.goals().count()) || 0;
+  },
+  'isCurrent': function() {
+    return (this.type !== 'strategic') &&
+      moment(this.startsAt).isSameOrBefore() &&
+      moment(this.endsAt).isSameOrAfter();
   }
 });
 

@@ -1,13 +1,11 @@
 <template name="_milestone">
-  <div class="panel panel-default bar">
-    <div>
-    <div class="vertical-text">
+  <div class="panel panel-{{#if milestone.isCurrent}}warning{{else}}default{{/if}} bar">
+    <p class="{{#if milestone.isCurrent}}text-warning{{/if}} vertical-text">
       {{milestone.title}}
       {{#if milestone.progress}} ({{milestone.progress}}%){{/if}}
-    </div>
-    </div>
+    </p>
   </div>
-  <div class="panel panel-default milestone-content">
+  <div class="panel panel-{{#if milestone.isCurrent}}warning{{else}}default{{/if}} milestone-content">
     {{#if milestone._id}}
       <div class="panel-heading">
         {{milestone.title true}}
