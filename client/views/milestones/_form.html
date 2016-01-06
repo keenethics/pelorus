@@ -14,7 +14,7 @@
           <label for="parentId">Parent Milestone</label>
           <select class="form-control" id="parentId">
             {{#each parent in parents }}
-              <option value="{{parent._id}}" {{attrIfEq selectedParentId parent._id 'selected'}}>{{parent.title 'extended'}}</option>
+              <option value="{{parent._id}}">{{parent.title 'extended'}}</option>
             {{/each}}
           </select>
         </div>
