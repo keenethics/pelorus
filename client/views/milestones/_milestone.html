@@ -1,9 +1,10 @@
 <template name="_milestone">
-  <div class="panel panel-default bar">
-    <p class="vertical-text">{{milestone.title}}</p>
+  <div class="panel panel-{{#if milestone.isCurrent}}warning{{else}}default{{/if}} bar">
+    <p class="{{#if milestone.isCurrent}}text-warning{{/if}} vertical-text">
+      {{milestone.title}}
+    </p>
   </div>
-  <div class="panel panel-default milestone-content
-              {{#if milestone.isCurrent}}panel-warning{{/if}}">
+  <div class="panel panel-{{#if milestone.isCurrent}}warning{{else}}default{{/if}} milestone-content">
     {{#if milestone._id}}
       <div class="panel-heading">{{milestone.title true}}</div>
       <ul class="list-group">
