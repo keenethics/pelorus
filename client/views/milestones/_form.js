@@ -3,29 +3,6 @@ Template._milestonesForm.onCreated(function() {
   this.selectedParentId = new ReactiveVar();
 });
 
-Template._milestonesForm.onRendered(function() {
-  this.autorun(()=> {
-    let selectedParentId = this.selectedParentId.get();
-    let parentMilestone = Milestones.findOne(selectedParentId);
-    if (parentMilestone && parentMilestone.type !== 'strategic') {
-      let parentPeriod = moment(parentMilestone.period);
-      let year = parentPeriod.year();
-      let month = Number(parentPeriod.month()) + 1;
-      let week = Number(parentPeriod.week());
-      let dateStr = year;
-      let $input = this.$('#period');
-      if (this.selectedType.get() === 'week') {
-        let weekStr = week < 10 ? '0' + week : week;
-        dateStr += '-W' + weekStr;
-      } else {
-        let monthStr = month < 10 ? '0' + month : month;
-        dateStr += '-' + monthStr;
-      }
-      $input[0].defaultValue = dateStr;
-    }
-  });
-});
-
 Template._milestonesForm.helpers({
   'parents': function() {
     let type = Template.instance().selectedType.get();
