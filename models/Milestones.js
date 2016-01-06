@@ -42,7 +42,7 @@ Milestones.relativeType = (type, levelDiff) => {
 
 Milestones.periodFormats = extended => ({
   'year': { 'parse': 'YYYY', 'display': 'YYYY' },
-  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMMM' },
+  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMM' },
   'week': { 'parse': '', 'display': extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
