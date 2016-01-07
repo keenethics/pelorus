@@ -52,6 +52,7 @@ Milestones.helpers({
   'parent': function() {
     return Milestones.findOne({
       'type': Milestones.relativeType(this.type, -1),
+      'userId': this.userId,
       'startsAt': { '$lte': this.startsAt },
       'endsAt': { '$gte': this.endsAt }
     });
@@ -59,6 +60,7 @@ Milestones.helpers({
   'children': function() {
     return Milestones.find({
       'type': Milestones.relativeType(this.type, +1),
+      'userId': this.userId,
       'startsAt': { '$gte': this.startsAt },
       'endsAt': { '$lte': this.endsAt }
     }, {'sort': {'startsAt': -1}});
