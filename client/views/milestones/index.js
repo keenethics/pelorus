@@ -1,7 +1,10 @@
 Template.milestonesIndex.helpers({
   'milestones': function() {
     let milestone = this.parentMilestone;
-    if (!milestone) return Milestones.find({'type': 'strategic'});
+    if (!milestone) return Milestones.find(
+      {'type': 'strategic'},
+      {'sort': {'startsAt': -1}}
+    );
     
     let type = Milestones.relativeType(milestone.type, +1);
     if (!type) return [];

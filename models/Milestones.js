@@ -84,8 +84,7 @@ Milestones.helpers({
     return Math.round(sum / this.goals().count());
   },
   'isCurrent': function() {
-    return this.type !== 'strategic' &&
-      moment(this.startsAt).isSameOrBefore() &&
+    return moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
   }
 });
