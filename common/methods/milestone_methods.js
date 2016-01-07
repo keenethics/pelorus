@@ -9,7 +9,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error(
         'forbidden-action',
-        'Can\'t add milestone. User must be logged in.'
+        'User should be logged in.'
       );
     }
 
@@ -30,8 +30,7 @@ Meteor.methods({
     return Milestones.insert(milestone);
   },
 
-  copyMilestoneGoals: function(fromId, toId) {
-    check(fromId, String);
+  copyMilestoneGoals: function(toId) {
     check(toId, String);
 
     this.unblock();
@@ -39,24 +38,20 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error(
         'forbidden-action',
-        'Can\'t copy goals of parent milectone. User must be logged in.'
+        'Error copying goals: user should be logged in.'
       );
     }
 
-    const parentMilestone = Milestones.findOne({
-      _id: fromId,
-      userId: this.userId
-    });
     const childMilestone = Milestones.findOne({
       _id: toId,
       userId: this.userId
     });
+    const parentMilestone = childMilestone.parent();
 
     if (!(parentMilestone && childMilestone)) {
       throw new Meteor.Error(
         'forbidden-action',
-        `Can\'t copy goals of parent milectone.
-        One or both of milestones are not found.`
+        'Error copying goals: receiver or source milestone not found.'
       );
     }
 
