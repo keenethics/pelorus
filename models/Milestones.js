@@ -85,6 +85,18 @@ Milestones.helpers({
     }
 
     return moment(this.period, format.parse).format(format.display);
+  },
+  'progress': function() {
+    let sum = this.goals()
+      .map(goal => goal.completedPct)
+      .filter(Number)
+      .reduce((a, b) => a + b, 0);
+    return Math.round(sum / this.goals().count());
+  },
+  'isCurrent': function() {
+    return (this.type !== 'strategic') &&
+      moment(this.startsAt).isSameOrBefore() &&
+      moment(this.endsAt).isSameOrAfter();
   }
 });
 
