@@ -38,7 +38,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error(
         'forbidden-action',
-        'Error copying goals: user should be logged in.'
+        'User should be logged in.'
       );
     }
 
@@ -51,7 +51,7 @@ Meteor.methods({
     if (!(parentMilestone && childMilestone)) {
       throw new Meteor.Error(
         'forbidden-action',
-        'Error copying goals: receiver or source milestone not found.'
+        'Receiver or source milestone not found.'
       );
     }
 
