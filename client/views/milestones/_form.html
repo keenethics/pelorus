@@ -1,5 +1,12 @@
 <template name="_milestonesForm">
   <div class="modal-body">
+    <div class="alert alert-danger" style="display: none;">
+      <button type="button" class="close js-error-close" aria-hidden="true">
+        &times;
+      </button>
+
+      {{error}}
+    </div>
     <form>
       <div class="form-group">
         <label for="type">Type of Milestone</label>

@@ -1,5 +1,18 @@
 Template._milestonesForm.onCreated(function() {
   this.selectedType = new ReactiveVar(this.data.type || 'week');
+  this.error = new ReactiveVar(null);
+});
+
+Template._milestonesForm.onRendered(function() {
+  this.autorun(() => {
+    const err = this.error.get();
+
+    if (err) {
+      this.$('.alert').show();
+    } else {
+      this.$('.alert').hide();
+    }
+  });
 });
 
 Template._milestonesForm.helpers({
@@ -22,6 +35,9 @@ Template._milestonesForm.helpers({
   },
   types: function() {
     return Milestones.validTypes;
+  },
+  error: function() {
+    return Template.instance().error.get();
   }
 });
 
@@ -38,6 +54,7 @@ Template._milestonesForm.events({
           periodErrMsg.text(` (${err.reason})`);
           return tpl.$('#period').parent('.form-group').addClass('has-error');
         }
+        tpl.error.set(err.reason);
       } else {
         if (formData.copyGoals) {
           Meteor.call('copyMilestoneGoals', milestoneData.parentId, _id);
@@ -52,5 +69,8 @@ Template._milestonesForm.events({
     if (type) {
       t.selectedType.set(type);
     }
+  },
+  'click .js-error-close': function(e, tpl) {
+    tpl.error.set(null);
   }
 });
