@@ -58,14 +58,7 @@ Meteor.methods({
     const parentGoals = Goals.find({
       milestoneId: parentMilestone._id,
       userId: this.userId,
-      $or: [
-        { completed: false },
-        {
-          completed: {
-            $exists: false
-          }
-        }
-      ]
+      completed: { $ne: true }
     });
 
     return parentGoals.map(parentGoal => {
