@@ -67,7 +67,6 @@ Meteor.methods({
         parentId: parentGoal._id,
         milestoneId: toId,
         userId: parentGoal.userId,
-        pctOfParentGoal: parentGoal.completedPct,
         completedPct: 0
       };
 
