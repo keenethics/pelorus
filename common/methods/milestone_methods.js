@@ -30,8 +30,8 @@ Meteor.methods({
     return Milestones.insert(milestone);
   },
 
-  copyMilestoneGoals: function(toId) {
-    check(toId, String);
+  copyGoalsFromParentMilestone: function(milestoneId) {
+    check(milestoneId, String);
 
     this.unblock();
 
@@ -43,7 +43,7 @@ Meteor.methods({
     }
 
     const childMilestone = Milestones.findOne({
-      _id: toId,
+      _id: milestoneId,
       userId: this.userId
     });
     const parentMilestone = childMilestone.parent();
@@ -65,7 +65,7 @@ Meteor.methods({
       let childGoal = {
         title: parentGoal.title,
         parentId: parentGoal._id,
-        milestoneId: toId,
+        milestoneId: milestoneId,
         userId: parentGoal.userId,
         completedPct: 0
       };

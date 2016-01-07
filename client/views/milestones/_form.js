@@ -57,7 +57,7 @@ Template._milestonesForm.events({
         tpl.error.set(err.reason);
       } else {
         if (formData.copyGoals) {
-          Meteor.call('copyMilestoneGoals', milestoneData.parentId, _id);
+          Meteor.call('copyGoalsFromParentMilestone', _id);
         }
 
         $modal.modal('hide');
