@@ -24,10 +24,7 @@ Meteor.methods({
         'Milestone for this period already created!');
     }
 
-    const bounds = Milestones.boundsFor(
-      moment(data.period),
-      data.type
-    );
+    const bounds = Milestones.boundsFor(moment(data.period), data.type);
     const milestone = _.extend(data, bounds, {userId: this.userId});
 
     return Milestones.insert(milestone);
