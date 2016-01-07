@@ -46,12 +46,20 @@ Meteor.methods({
       _id: milestoneId,
       userId: this.userId
     });
-    const parentMilestone = childMilestone.parent();
 
-    if (!(parentMilestone && childMilestone)) {
+    if (!childMilestone) {
       throw new Meteor.Error(
         'forbidden-action',
-        'Receiver or source milestone not found.'
+        'Receiver milestone is not found.'
+      );
+    }
+
+    const parentMilestone = childMilestone.parent();
+
+    if (!parentMilestone) {
+      throw new Meteor.Error(
+        'forbidden-action',
+        'Source milestone is not found.'
       );
     }
 
