@@ -1,7 +1,7 @@
 <template name="milestonesShow">
   <div class="row">
     {{#each childMilestone in milestone.children }}
-      <div class="col-md-3"> 
+      <div class="col-md-3">
         {{> _milestonesColumn milestone=childMilestone type=childMistone.type }}
       </div>
     {{/each}}

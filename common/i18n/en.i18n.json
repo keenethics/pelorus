@@ -21,5 +21,7 @@
   "Parent Goal": "Parent Goal",
   "None": "None",
   "Save": "Save",
-  "undefined": "undefined"
+  "undefined": "undefined",
+  "Progress": "Progress",
+  "Copy goals from parent milestone": "Copy goals from parent milestone"
 }

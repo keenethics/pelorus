@@ -15,11 +15,13 @@
   "Type of Milestone": "Тип Періоду",
   "Parent Milestone": "Відноситься до Періоду",
   "Add": "Додати",
-  "Add Goal": "Додати Мету",
+  "Add Goal": "Додати Ціль",
   "Title": "Назва",
   "Priority": "Пріоритет",
-  "Parent Goal": "Є субметою",
+  "Parent Goal": "Є субціллю",
   "None": "Не обрано",
   "Save": "Зберегти",
-  "undefined": "не визначено"
+  "undefined": "не визначено",
+  "Progress": "Прогрес",
+  "Copy goals from parent milestone": "Копіювати цілі з батьківського періоду"
 }

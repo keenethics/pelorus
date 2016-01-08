@@ -21,5 +21,7 @@
   "Parent Goal": "Есть подцелью",
   "None": "Не выбрано",
   "Save": "Cохранить",
-  "undefined": "не определено"
+  "undefined": "не определено",
+  "Progress": "Прогресс",
+  "Copy goals from parent milestone": "Копировать цели из родительского этапа"
 }

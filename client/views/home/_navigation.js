@@ -6,11 +6,7 @@ Template.navigation.events({
       'template': '_milestonesForm', data }, document.body);
   },
   'click .js-set-language': function( e ) {
-    let chosenLanguage = $(e.target).text();
-    if (chosenLanguage === 'English') chosenLanguage = 'en';
-    if (chosenLanguage === 'Русский') chosenLanguage = 'ru';
-    if (chosenLanguage === 'Українська') chosenLanguage = 'ua';
-    // change user's interface language
+    let chosenLanguage = $(e.target).data('lang');
     TAPi18n.setLanguage(chosenLanguage);
     Session.set('language', chosenLanguage);
     Meteor.call('updateUserLanguage', chosenLanguage);

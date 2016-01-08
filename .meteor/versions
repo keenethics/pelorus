@@ -69,7 +69,7 @@ minifiers@1.1.7
 minimongo@1.0.10
 mobile-experience@1.0.1
 mobile-status-bar@1.0.6
-momentjs:moment@2.10.6
+momentjs:moment@2.11.0
 mongo@1.1.2
 mongo-id@1.0.1
 natestrauser:animate-css@3.4.0
@@ -77,6 +77,7 @@ npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+pcel:serialize@1.0.1
 promise@0.5.0
 raix:eventemitter@0.1.3
 raix:handlebar-helpers@0.2.5

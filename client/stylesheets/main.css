@@ -13,8 +13,10 @@
 
 .bar {
   width: 20px;
-  position: relative;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .submilestones {
@@ -28,11 +30,7 @@
 }
 
 .vertical-text {
-  transform: translate(0, 50%) rotate(-90deg);
-  top: 50%;
-  left: 0;
-  right: 0;
-  position: absolute;
+  transform: rotate(-90deg);
   white-space: nowrap;
 }
 

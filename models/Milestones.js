@@ -3,24 +3,43 @@ Milestones = new Mongo.Collection('milestones');
 Milestones.validTypes = ['strategic', 'year', 'month', 'week'];
 
 Milestones.attachSchema(new SimpleSchema({
-  'period': { 'type': String, 'optional': true },
-  'type': { 'type': String, 'allowedValues': Milestones.validTypes },
-  'userId': { 'type': String },
-  'parentId': { 'type': String, 'optional': true },
-  'startsAt': { 'type': Date, 'optional': true, 'label': 'Start Period' },
-  'endsAt': { 'type': Date, 'optional': true, 'label': 'End Period' }
+  period: {
+    type: String,
+    optional: true
+  },
+  type: {
+    type: String,
+    allowedValues: Milestones.validTypes
+  },
+  userId: {
+    type: String
+  },
+  parentId: {
+    type: String,
+    optional: true
+  },
+  startsAt: {
+    type: Date,
+    optional: true,
+    label: 'Start Period'
+  },
+  endsAt: {
+    type: Date,
+    optional: true,
+    label: 'End Period'
+  }
 }));
 
 Milestones.boundsFor = (date, type) => {
   if (type === 'strategic') {
     return {
-      'startsAt': moment(2000, 'YYYY').toDate(),
-      'endsAt': moment().add(100, 'y').toDate()
+      startsAt: moment(2000, 'YYYY').toDate(),
+      endsAt: moment().add(100, 'y').toDate()
     };
   }
   return {
-    'startsAt': Milestones.bound(date.clone().startOf(type), 'start').toDate(),
-    'endsAt': Milestones.bound(date.clone().endOf(type), 'end').toDate()
+    startsAt: Milestones.bound(date.clone().startOf(type), 'start').toDate(),
+    endsAt: Milestones.bound(date.clone().endOf(type), 'end').toDate()
   };
 };
 
@@ -41,20 +60,20 @@ Milestones.relativeType = (type, levelDiff) => {
 };
 
 Milestones.periodFormats = extended => ({
-  'year': { 'parse': 'YYYY', 'display': 'YYYY' },
-  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMMM' },
-  'week': { 'parse': '', 'display': extended ? 'DD MMMM YYYY' : 'DD MMM' }
+  year: { parse: 'YYYY', display: 'YYYY' },
+  month: { parse: 'YYYY-MM', display: extended ? 'MMMM YYYY' : 'MMM' },
+  week: { parse: '', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
 Milestones.helpers({
-  'goals': function() {
-    return Goals.find({'milestoneId': this._id}, {'sort': {'priority': 1}});
+  goals: function() {
+    return Goals.find({milestoneId: this._id}, {sort: {priority: 1}});
   },
-  'parent': function() { return Milestones.findOne(this.parentId); },
-  'children': function() {
-    return Milestones.find({'parentId': this._id}, {'sort': {'startsAt': -1}});
+  parent: function() { return Milestones.findOne(this.parentId); },
+  children: function() {
+    return Milestones.find({parentId: this._id}, {sort: {startsAt: -1}});
   },
-  'title': function(extended) {
+  title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
     if (this.type === 'strategic') return 'Strategic';
     if (this.type === 'week') {
@@ -66,22 +85,44 @@ Milestones.helpers({
     }
 
     return moment(this.period, format.parse).format(format.display);
+  },
+  'newGoalPriority': function() {
+    let priority = 0;
+    let goalWithMaxPriority = Goals.findOne(
+      {'milestoneId': this._id},
+      {'sort': {'priority': -1}});
+    if (goalWithMaxPriority && !Number.isNaN(goalWithMaxPriority.priority)) {
+      priority = goalWithMaxPriority.priority + 1;
+    }
+    return priority;
+  },
+  'progress': function() {
+    let sum = this.goals()
+      .map(goal => goal.completedPct)
+      .filter(Number)
+      .reduce((a, b) => a + b, 0);
+    return Math.round(sum / this.goals().count());
+  },
+  'isCurrent': function() {
+    return this.type !== 'strategic' &&
+      moment(this.startsAt).isSameOrBefore() &&
+      moment(this.endsAt).isSameOrAfter();
   }
 });
 
 Milestones.allow({
-  'insert': function(userId, doc) {
+  insert: function(userId, doc) {
     let milestone = Milestones.findOne({
-      'userId': userId,
-      'period': doc.period,
-      'type': doc.type
+      userId: userId,
+      period: doc.period,
+      type: doc.type
     });
-    if (!!milestone) {
+    if (milestone) {
       throw new Meteor.Error('period-invalid',
         'Milestone for this period already created!');
     }
     return userId === doc.userId && !milestone;
   },
-  'update': function(userId, doc) { return userId === doc.userId; },
-  'remove': function() { return false; }
+  update: function(userId, doc) { return userId === doc.userId; },
+  remove: function() { return false; }
 });
