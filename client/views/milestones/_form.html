@@ -18,14 +18,6 @@
       </div>
       {{#unless $eq type 'strategic' }}
         <div class="form-group">
-          <label for="parentId">Parent Milestone</label>
-          <select class="form-control" id="parentId" name="parentId">
-            {{#each parent in parents }}
-              <option value="{{parent._id}}">{{parent.title 'extended'}}</option>
-            {{/each}}
-          </select>
-        </div>
-        <div class="form-group">
           <label class="control-label" for="period">
             {{periodTitle}} <span class="period-err-msg"></span>
           </label>

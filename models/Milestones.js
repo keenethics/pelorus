@@ -14,10 +14,6 @@ Milestones.attachSchema(new SimpleSchema({
   userId: {
     type: String
   },
-  parentId: {
-    type: String,
-    optional: true
-  },
   startsAt: {
     type: Date,
     optional: true,
@@ -69,9 +65,21 @@ Milestones.helpers({
   goals: function() {
     return Goals.find({milestoneId: this._id}, {sort: {priority: 1}});
   },
-  parent: function() { return Milestones.findOne(this.parentId); },
+  parent: function() {
+    return Milestones.findOne({
+      type: Milestones.relativeType(this.type, -1),
+      userId: this.userId,
+      startsAt: { $lte: this.startsAt },
+      endsAt: { $gte: this.endsAt }
+    });
+  },
   children: function() {
-    return Milestones.find({parentId: this._id}, {sort: {startsAt: -1}});
+    return Milestones.find({
+      type: Milestones.relativeType(this.type, +1),
+      userId: this.userId,
+      startsAt: { $gte: this.startsAt },
+      endsAt: { $lte: this.endsAt }
+    }, {sort: {startsAt: -1}});
   },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
@@ -86,7 +94,7 @@ Milestones.helpers({
 
     return moment(this.period, format.parse).format(format.display);
   },
-  'newGoalPriority': function() {
+  newGoalPriority: function() {
     let priority = 0;
     let goalWithMaxPriority = Goals.findOne(
       {'milestoneId': this._id},
@@ -96,16 +104,15 @@ Milestones.helpers({
     }
     return priority;
   },
-  'progress': function() {
+  progress: function() {
     let sum = this.goals()
       .map(goal => goal.completedPct)
       .filter(Number)
       .reduce((a, b) => a + b, 0);
     return Math.round(sum / this.goals().count());
   },
-  'isCurrent': function() {
-    return this.type !== 'strategic' &&
-      moment(this.startsAt).isSameOrBefore() &&
+  isCurrent: function() {
+    return moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
   }
 });
