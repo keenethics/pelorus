@@ -2,8 +2,7 @@ Meteor.methods({
   addMilestone: function(data) {
     check(data, {
       type: String,
-      parentId: Match.Optional(String),
-      period: Match.Optional(String)
+      period: String
     });
 
     if (!this.userId) {
@@ -24,7 +23,7 @@ Meteor.methods({
         'Milestone for this period already created!');
     }
 
-    const bounds = Milestones.boundsFor(moment(data.period), data.type);
+    const bounds = Milestones.boundsFor(data.period, data.type);
     const milestone = _.extend(data, bounds, {userId: this.userId});
 
     return Milestones.insert(milestone);

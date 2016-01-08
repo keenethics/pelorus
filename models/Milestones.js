@@ -30,13 +30,25 @@ Milestones.attachSchema(new SimpleSchema({
   }
 }));
 
-Milestones.boundsFor = (date, type) => {
+Milestones.boundsFor = (period, type) => {
   if (type === 'strategic') {
+    [firstYear, lastYear] = period.split('-');
+
+    if (+lastYear < +firstYear) {
+      // TODO: come up with other error message
+      throw new Meteor.Error('period-invalid',
+        'Last year should be greater than first'
+      );
+    }
+
     return {
-      startsAt: moment(2000, 'YYYY').toDate(),
-      endsAt: moment().add(100, 'y').toDate()
+      startsAt: moment(firstYear, 'YYYY').toDate(),
+      endsAt: moment(lastYear, 'YYYY').endOf('year').toDate()
     };
   }
+
+  const date = moment(period);
+
   return {
     startsAt: Milestones.bound(date.clone().startOf(type), 'start').toDate(),
     endsAt: Milestones.bound(date.clone().endOf(type), 'end').toDate()
@@ -75,7 +87,7 @@ Milestones.helpers({
   },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
-    if (this.type === 'strategic') return 'Strategic';
+    if (this.type === 'strategic') return this.period || 'Strategic';
     if (this.type === 'week') {
       let periods = [
         moment(this.period).startOf('week').format('DD'),
@@ -86,14 +98,14 @@ Milestones.helpers({
 
     return moment(this.period, format.parse).format(format.display);
   },
-  'progress': function() {
+  progress: function() {
     let sum = this.goals()
       .map(goal => goal.completedPct)
       .filter(Number)
       .reduce((a, b) => a + b, 0);
     return Math.round(sum / this.goals().count());
   },
-  'isCurrent': function() {
+  isCurrent: function() {
     return (this.type !== 'strategic') &&
       moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
