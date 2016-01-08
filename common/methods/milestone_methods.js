@@ -2,7 +2,7 @@ Meteor.methods({
   addMilestone: function(data) {
     check(data, {
       type: String,
-      period: Match.Optional(String)
+      period: String
     });
 
     if (!this.userId) {

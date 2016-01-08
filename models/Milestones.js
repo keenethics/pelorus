@@ -33,22 +33,18 @@ Milestones.boundsFor = (date, type) => {
       endsAt: moment().add(100, 'y').toDate()
     };
   }
+  isoType = type === 'week' ? 'isoWeek' : type;
   return {
-    startsAt: Milestones.bound(date.clone().startOf(type), 'start').toDate(),
-    endsAt: Milestones.bound(date.clone().endOf(type), 'end').toDate()
+    startsAt: Milestones.bound(date.clone().startOf(isoType), 'start').toDate(),
+    endsAt: Milestones.bound(date.clone().endOf(isoType), 'end').toDate()
   };
 };
 
 // Returns nearest week bound for given date
 Milestones.bound = (date, type = 'start') => {
-  let _date = date;
-  if (type === 'start' && date.day() > 4) {
-    _date = date.add(1, 'w');
-  }
-  if (type === 'end' && date.day() <= 4) {
-    _date = date.subtract(1, 'w');
-  }
-  return _date[`${type}Of`]('isoWeek');
+  if (type === 'start' && date.day() > 4)  date.add(1, 'w');
+  if (type === 'end'   && date.day() <= 4) date.subtract(1, 'w');
+  return date[`${type}Of`]('isoWeek');
 };
 
 Milestones.relativeType = (type, levelDiff) => {
@@ -97,8 +93,8 @@ Milestones.helpers({
   newGoalPriority: function() {
     let priority = 0;
     let goalWithMaxPriority = Goals.findOne(
-      {'milestoneId': this._id},
-      {'sort': {'priority': -1}});
+      {milestoneId: this._id},
+      {sort: {priority: -1}});
     if (goalWithMaxPriority && !Number.isNaN(goalWithMaxPriority.priority)) {
       priority = goalWithMaxPriority.priority + 1;
     }
