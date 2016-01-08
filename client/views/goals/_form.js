@@ -6,22 +6,8 @@ Template._goalsForm.onCreated(function() {
 Template._goalsForm.onRendered(function() {
   this.autorun(() => {
     let parentId = this.parentId.get();
-    let priority = 0;
-    let anotherGoal;
-    if (parentId) {
-      anotherGoal = Goals.findOne(parentId);
-      if (anotherGoal && anotherGoal.priority) {
-        priority =  anotherGoal.priority;
-      }
-    } else {
-      anotherGoal = Goals.findOne(
-        {'milestoneId': this.data.milestone._id},
-        {'sort': {'priority': -1}});
-      if (anotherGoal && !Number.isNaN(anotherGoal.priority)) {
-        priority = anotherGoal.priority + 1;
-      }
-    }
-    this.priority.set(priority);
+    let parentPriority = (Goals.findOne(parentId) || {}).priority;
+    this.priority.set(parentPriority || this.data.milestone.newGoalPriority());
   });
 });
 
