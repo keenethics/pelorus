@@ -1,5 +1,9 @@
 Template._milestonesForm.onCreated(function() {
+  const currentYear = moment().year();
+
   this.selectedType = new ReactiveVar(this.data.type || 'week');
+  this.firstYear = new ReactiveVar(currentYear);
+  this.lastYear = new ReactiveVar(currentYear + 5);
   this.error = new ReactiveVar(null);
 });
 
@@ -36,6 +40,12 @@ Template._milestonesForm.helpers({
   types: function() {
     return Milestones.validTypes;
   },
+  firstYear: function() {
+    return Template.instance().firstYear.get();
+  },
+  lastYear: function() {
+    return Template.instance().lastYear.get();
+  },
   error: function() {
     return Template.instance().error.get();
   }
@@ -44,17 +54,21 @@ Template._milestonesForm.helpers({
 Template._milestonesForm.events({
   'click .js-insert-milestone': function(e, tpl) {
     const formData = tpl.$('form').serializeJSON();
-    const milestoneData = _.omit(formData, ['copyGoals']);
+    const milestoneData = _.omit(formData,
+      ['copyGoals', 'firstYear', 'lastYear']
+    );
     const $modal = $('#formModal');
+
+    milestoneData.period = `${formData.firstYear}-${formData.lastYear}`;
 
     Meteor.call('addMilestone', milestoneData, function(err, _id) {
       if (err) {
+        tpl.error.set(err.reason);
         if (err.error === 'period-invalid') {
           let periodErrMsg = tpl.$('.period-err-msg');
           periodErrMsg.text(` (${err.reason})`);
           return tpl.$('#period').parent('.form-group').addClass('has-error');
         }
-        tpl.error.set(err.reason);
       } else {
         if (formData.copyGoals) {
           Meteor.call('copyGoalsFromParentMilestone', _id);
