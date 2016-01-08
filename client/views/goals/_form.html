@@ -2,18 +2,18 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">{{_ "Title"}}</label>
         <input type="text" class="form-control" id="title" value="{{goal.title}}">
       </div>
       <div class="form-group">
-        <label for="title">Priority</label>
+        <label for="title">{{_ "Priority"}}</label>
         <input type="number" class="form-control" id="priority" value="{{goal.priority}}">
       </div>
       {{#unless $eq milestone.type 'strategic' }}
         <div class="form-group">
-          <label for="parentId">Parent Goal</label>
+          <label for="parentId">{{_ "Parent Goal"}}</label>
           <select class="form-control" id="parentId">
-            <option value="">None</option>
+            <option value="">{{_ "None"}}</option>
             {{#each parent in parents }}
               <option value="{{parent._id}}">{{parent.title}}</option>
             {{/each}}
@@ -23,6 +23,6 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary js-save">Save</button>
+    <button type="button" class="btn btn-primary js-save">{{_ "Save"}}</button>
   </div>
 </template>

@@ -4,12 +4,22 @@
   "Home": "Home",
   "About": "About",
   "strategic": "strategic",
+  "Strategic": "Strategic",
   "year": "year",
   "month": "month",
   "week": "week",
   "Week": "Week",
+  "Month": "Month",
+  "Year": "Year",
   "Add Milestone": "Add Milestone",
   "Type of Milestone": "Type of Milestone",
   "Parent Milestone": "Parent Milestone",
-  "Add": "Add"
+  "Add": "Add",
+  "Add Goal": "Add Goal",
+  "Title": "Title",
+  "Priority": "Priority",
+  "Parent Goal": "Parent Goal",
+  "None": "None",
+  "Save": "Save",
+  "undefined": "undefined"
 }
