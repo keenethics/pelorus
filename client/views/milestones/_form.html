@@ -1,5 +1,12 @@
 <template name="_milestonesForm">
   <div class="modal-body">
+    <div class="alert alert-danger" style="display: none;">
+      <button type="button" class="close js-error-close" aria-hidden="true">
+        &times;
+      </button>
+
+      {{error}}
+    </div>
     <form>
       <div class="form-group">
         <label for="type">Type of Milestone</label>
@@ -14,7 +21,12 @@
           <label class="control-label" for="period">
             {{periodTitle}} <span class="period-err-msg"></span>
           </label>
-          <input type="{{periodInputType}}" class="form-control" id="period" min="2000">
+          <input type="{{periodInputType}}" class="form-control" id="period" name="period" min="2000">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="copyGoals"> Copy goals from parent milestone
+          </label>
         </div>
       {{/unless}}
     </form>
@@ -23,4 +35,3 @@
     <button type="button" class="btn btn-primary js-insert-milestone">Add</button>
   </div>
 </template>
-
