@@ -19,6 +19,7 @@ dburles:collection-helpers
 meteorhacks:fast-render
 twbs:bootstrap
 ian:accounts-ui-bootstrap-3
+pcel:serialize
 
 ecmascript
 standard-minifiers
