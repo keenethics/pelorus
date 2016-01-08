@@ -62,8 +62,8 @@ Milestones.periodFormats = extended => ({
 });
 
 Milestones.helpers({
-  goals: function() {
-    return Goals.find({milestoneId: this._id}, {sort: {priority: 1}});
+  goals: function(query) {
+    return Goals.find({...query, milestoneId: this._id}, {sort: {priority: 1}});
   },
   parent: function() {
     return Milestones.findOne({
