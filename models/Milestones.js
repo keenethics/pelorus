@@ -59,7 +59,7 @@ Milestones.periodFormats = extended => ({
 
 Milestones.helpers({
   goals: function(query) {
-    return Goals.find({...query, milestoneId: this._id}, {sort: {priority: 1}});
+    return Goals.find({...query, milestoneId: this._id}, {sort: {rank: 1}});
   },
   parent: function() {
     return Milestones.findOne({
@@ -90,15 +90,10 @@ Milestones.helpers({
 
     return moment(this.period, format.parse).format(format.display);
   },
-  newGoalPriority: function() {
-    let priority = 0;
-    let goalWithMaxPriority = Goals.findOne(
-      {milestoneId: this._id},
-      {sort: {priority: -1}});
-    if (goalWithMaxPriority && !Number.isNaN(goalWithMaxPriority.priority)) {
-      priority = goalWithMaxPriority.priority + 1;
-    }
-    return priority;
+  newGoalRank: function() {
+    let lastGoal = Goals.findOne({milestoneId: this._id}, {sort: {rank: -1}});
+    let lastRank = lastGoal && lastGoal.rank || 0;
+    return lastRank + 1;
   },
   progress: function() {
     let sum = this.goals()
