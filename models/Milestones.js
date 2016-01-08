@@ -98,6 +98,16 @@ Milestones.helpers({
 
     return moment(this.period, format.parse).format(format.display);
   },
+  newGoalPriority: function() {
+    let priority = 0;
+    let goalWithMaxPriority = Goals.findOne(
+      {milestoneId: this._id},
+      {sort: {priority: -1}});
+    if (goalWithMaxPriority && !Number.isNaN(goalWithMaxPriority.priority)) {
+      priority = goalWithMaxPriority.priority + 1;
+    }
+    return priority;
+  },
   progress: function() {
     let sum = this.goals()
       .map(goal => goal.completedPct)
@@ -106,7 +116,7 @@ Milestones.helpers({
     return Math.round(sum / this.goals().count());
   },
   isCurrent: function() {
-    return (this.type !== 'strategic') &&
+    return this.type !== 'strategic' &&
       moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
   }
