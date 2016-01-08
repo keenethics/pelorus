@@ -7,7 +7,6 @@ Template._goal.events({
       'data': { 'milestone': this.milestone, 'goal': this.goal }
     });
   },
-
   'click .js-goal-completed': function() {
     Meteor.call('toggleGoalCompletion', this.goal._id);
   },

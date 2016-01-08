@@ -25,16 +25,22 @@ Template._goalsForm.events({
     // TODO: Refactor validations and posting
     let $title = t.$('#title');
     let title = $title.val();
+
     let parentId = t.parentId.get();
+    let progress = t.$('#progress').val();
 
     if (!title) return $title.parent('.form-group').addClass('has-error');
+    if (!progress || progress < 0 || progress > 100) {
+      return $('#progress').parent('.form-group').addClass('has-error');
+    }
 
     let data = {
       'title': title,
       'priority': t.priority.get(),
       'parentId': parentId ? parentId : undefined,
       'milestoneId': this.milestone._id,
-      'userId': Meteor.userId()
+      'userId': Meteor.userId(),
+      'completedPct': progress
     };
 
     if (this.goal._id) {
@@ -52,4 +58,3 @@ Template._goalsForm.events({
     t.priority.set(Number(e.currentTarget.value));
   }
 });
-

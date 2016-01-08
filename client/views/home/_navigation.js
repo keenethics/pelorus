@@ -4,7 +4,18 @@ Template.navigation.events({
     Blaze.renderWithData(Template._formModal, {
       'title': 'Add Milestone',
       'template': '_milestonesForm', data }, document.body);
+  },
+  'click .js-set-language': function( e ) {
+    let chosenLanguage = $(e.target).text();
+    Session.set('language', chosenLanguage);
+    Meteor.call('updateUserLanguage', chosenLanguage);
   }
+});
+
+Accounts.onLogin(function() {
+  let language = Session.get('language');
+  if (!language) return;
+  Meteor.call('updateUserLanguage', language);
 });
 
 Template.navigation.helpers({

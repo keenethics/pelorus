@@ -42,7 +42,7 @@ Milestones.relativeType = (type, levelDiff) => {
 
 Milestones.periodFormats = extended => ({
   'year': { 'parse': 'YYYY', 'display': 'YYYY' },
-  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMMM' },
+  'month': { 'parse': 'YYYY-MM', 'display': extended ? 'MMMM YYYY' : 'MMM' },
   'week': { 'parse': '', 'display': extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
@@ -76,6 +76,18 @@ Milestones.helpers({
       priority = goalWithMaxPriority.priority + 1;
     }
     return priority;
+  },
+  'progress': function() {
+    let sum = this.goals()
+      .map(goal => goal.completedPct)
+      .filter(Number)
+      .reduce((a, b) => a + b, 0);
+    return Math.round(sum / this.goals().count());
+  },
+  'isCurrent': function() {
+    return this.type !== 'strategic' &&
+      moment(this.startsAt).isSameOrBefore() &&
+      moment(this.endsAt).isSameOrAfter();
   }
 });
 
