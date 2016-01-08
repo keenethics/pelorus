@@ -4,7 +4,7 @@
   </div>
   <div class="panel panel-default milestone-content">
     {{#if milestone._id}}
-      <div class="panel-heading">{{milestone.title true}}</div>
+      <div class="panel-heading">{{_ milestone.title true}}</div>
       <ul class="list-group">
         {{# each goal in milestone.goals}}
           {{> _goal goal=goal milestone=milestone}}
