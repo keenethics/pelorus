@@ -13,9 +13,13 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="{{ activeIfTemplateIs 'home' }}">
-                <a href="/">{{_ "Home" lang=currentUser.profile.language }}</a>
+                <a href="/">{{_ "Home" }}</a>
               </li>
-              <li class="{{ activeIfTemplateIs 'about' }}" ><a href="/about">About</a></li>
+              <li class="{{ activeIfTemplateIs 'about' }}" >
+                <a href="/about">
+                {{_ "About" }}
+                </a>
+              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {{#if canAddMilestones}}
@@ -23,7 +27,7 @@
                   <a class="js-add-milestone">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true">
                     </span>
-                    {{_ "Add a milestone" lang=currentUser.profile.language }}
+                    {{_ "Add a milestone" }}
                   </a>
                 </li>
               {{/if}}
@@ -36,7 +40,7 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a>{{_ "Select language" lang=currentUser.profile.language }}</a></li>
+                    <li><a>{{_ "Select language" }}</a></li>
                     <li class="divider"></li>
                     <li><a class="js-set-language" href="#">English</a></li>
                     <li><a class="js-set-language" href="#">Русский</a></li>

@@ -1,5 +1,15 @@
 {
   "Select language": "Виберіть мову",
   "Add a milestone": "Додати період...",
-  "Home": "Головна"
+  "Home": "Головна",
+  "About": "Про нас",
+  "strategic": "стратегічний",
+  "year": "рік",
+  "month": "місяць",
+  "week": "тиждень",
+  "Week": "Тиждень",
+  "Add Milestone": "Додати Період",
+  "Type of Milestone": "Тип Періоду",
+  "Parent Milestone": "Батьківський Період",
+  "Add": "Додати"
 }

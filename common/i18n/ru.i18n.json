@@ -1,5 +1,15 @@
 { 
   "Select language": "Выберите язык",
   "Add a milestone": "Добавить этап...",
-  "Home": "Главная"
+  "Home": "Главная",
+  "About": "О нас",
+  "strategic": "стратегический",
+  "year": "год",
+  "month": "месяц",
+  "week": "неделя",
+  "Week": "Неделя",
+  "Add Milestone": "Добавить Этап",
+  "Type of Milestone": "Тип Этапа",
+  "Parent Milestone": "Родительский Этап",
+  "Add": "Добавить"
 }

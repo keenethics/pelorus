@@ -2,16 +2,17 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="parentId">Type of Milestone</label>
+        <label for="parentId">{{_ "Type of Milestone" }}</label>
         <select class="form-control" id="type">
           {{#each currentType in types }}
-            <option value="{{currentType}}" {{attrIfEq currentType type 'selected'}}>{{currentType}}</option>
+            <option value="{{currentType}}" {{attrIfEq currentType type 'selected'}}>
+            {{_ currentType }}</option>
           {{/each}}
         </select>
       </div>
       {{#unless $eq type 'strategic' }}
         <div class="form-group">
-          <label for="parentId">Parent Milestone</label>
+          <label for="parentId">{{_ "Parent Milestone" }}</label>
           <select class="form-control" id="parentId">
             {{#each parent in parents }}
               <option value="{{parent._id}}">{{parent.title 'extended'}}</option>
@@ -20,7 +21,8 @@
         </div>
         <div class="form-group">
           <label class="control-label" for="period">
-            {{periodTitle}} <span class="period-err-msg"></span>
+            {{_ periodTitle }}
+            <span class="period-err-msg"></span>
           </label>
           <input type="{{periodInputType}}" class="form-control" id="period" min="2000">
         </div>
@@ -28,7 +30,9 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary js-insert-milestone">Add</button>
+    <button type="button" class="btn btn-primary js-insert-milestone">
+      {{_ "Add" }}
+    </button>
   </div>
 </template>
 

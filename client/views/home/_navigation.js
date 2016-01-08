@@ -10,6 +10,8 @@ Template.navigation.events({
     if (chosenLanguage === 'English') chosenLanguage = 'en';
     if (chosenLanguage === 'Русский') chosenLanguage = 'ru';
     if (chosenLanguage === 'Українська') chosenLanguage = 'ua';
+    // change user's interface language
+    TAPi18n.setLanguage(chosenLanguage);
     Session.set('language', chosenLanguage);
     Meteor.call('updateUserLanguage', chosenLanguage);
   }

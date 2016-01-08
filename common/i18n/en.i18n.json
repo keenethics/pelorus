@@ -1,5 +1,15 @@
 { 
   "Select language": "Select language",
   "Add a milestone": "Add a milestone...",
-  "Home": "Home"
+  "Home": "Home",
+  "About": "About",
+  "strategic": "strategic",
+  "year": "year",
+  "month": "month",
+  "week": "week",
+  "Week": "Week",
+  "Add Milestone": "Add Milestone",
+  "Type of Milestone": "Type of Milestone",
+  "Parent Milestone": "Parent Milestone",
+  "Add": "Add"
 }
