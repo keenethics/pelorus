@@ -17,7 +17,7 @@ Meteor.startup(function() {
     let parentGoalIds = [];
 
     milestones.forEach(milestone => {
-      milestoneData = _.extend(milestone, {userId, 'parentId': milestoneId});
+      milestoneData = _.extend(milestone, { userId });
       milestoneId = Milestones.insert(milestoneData);
 
       goals.forEach(goal => {
