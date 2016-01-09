@@ -23,5 +23,6 @@
   "Save": "Cохранить",
   "undefined": "не определено",
   "Progress": "Прогресс",
-  "Copy goals from parent milestone": "Копировать цели из родительского этапа"
+  "Copy goals from parent milestone": "Копировать цели из родительского этапа",
+  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 есть наиболее важной целью)"
 }

@@ -13,12 +13,6 @@ Template.navigation.events({
   }
 });
 
-Accounts.onLogin(function() {
-  let language = Session.get('language');
-  if (!language) return;
-  Meteor.call('updateUserLanguage', language);
-});
-
 Template.navigation.helpers({
   'canAddMilestones': function() {
     return Meteor.userId() && Session.get('canAddMilestones');

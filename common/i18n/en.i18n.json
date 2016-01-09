@@ -23,5 +23,6 @@
   "Save": "Save",
   "undefined": "undefined",
   "Progress": "Progress",
-  "Copy goals from parent milestone": "Copy goals from parent milestone"
+  "Copy goals from parent milestone": "Copy goals from parent milestone",
+  "Rank (#1 is goal you'd refuse last)": "Rank (#1 is goal you'd refuse last)"
 }
