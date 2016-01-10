@@ -6,13 +6,13 @@
         <input type="text" class="form-control" id="title" value="{{goal.title}}">
       </div>
       <div class="form-group">
-        <label for="title">Priority</label>
-        <input type="number" class="form-control" id="priority" value="{{priority}}">
+        <label for="title">Rank (#1 is goal you'd refuse last)</label>
+        <input type="number" class="form-control" id="rank" value="{{rank}}">
       </div>
       <div class="form-group">
         <label for="title">Progress</label>
         <input type="number" class="form-control" id="progress" min="0" max="100"
-          value="{{goal.completedPct}}">
+          value="{{$or goal.completedPct 0}}">
       </div>
       {{#unless $eq milestone.type 'strategic' }}
         <div class="form-group">

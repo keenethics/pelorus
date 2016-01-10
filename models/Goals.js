@@ -10,9 +10,9 @@ Goals.attachSchema(new SimpleSchema({
     'label': 'Parent Goal ID',
     'optional': true
   },
-  'priority': {
+  'rank': {
     'type': Number,
-    'label': 'Goal priority',
+    'label': 'Goal rank',
     'optional': true
   },
   'milestoneId': {
@@ -41,7 +41,7 @@ Goals.attachSchema(new SimpleSchema({
 Goals.helpers({
   'parent': function() { return Goals.findOne(this.parentId); },
   'children': function() {
-    return Goals.find({'parentId': this._id}, {'sort': {'priority': 1}});
+    return Goals.find({'parentId': this._id}, {'sort': {'rank': 1}});
   },
   'milestone': function() { return Milestones.findOne(this.milestoneId); }
 });

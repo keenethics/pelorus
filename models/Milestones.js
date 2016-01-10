@@ -14,10 +14,6 @@ Milestones.attachSchema(new SimpleSchema({
   userId: {
     type: String
   },
-  parentId: {
-    type: String,
-    optional: true
-  },
   startsAt: {
     type: Date,
     optional: true,
@@ -48,23 +44,19 @@ Milestones.boundsFor = (period, type) => {
   }
 
   const date = moment(period);
+  const isoType = type === 'week' ? 'isoWeek' : type;
 
   return {
-    startsAt: Milestones.bound(date.clone().startOf(type), 'start').toDate(),
-    endsAt: Milestones.bound(date.clone().endOf(type), 'end').toDate()
+    startsAt: Milestones.bound(date.clone().startOf(isoType), 'start').toDate(),
+    endsAt: Milestones.bound(date.clone().endOf(isoType), 'end').toDate()
   };
 };
 
 // Returns nearest week bound for given date
 Milestones.bound = (date, type = 'start') => {
-  let _date = date;
-  if (type === 'start' && date.day() > 4) {
-    _date = date.add(1, 'w');
-  }
-  if (type === 'end' && date.day() <= 4) {
-    _date = date.subtract(1, 'w');
-  }
-  return _date[`${type}Of`]('isoWeek');
+  if (type === 'start' && date.day() > 4)  date.add(1, 'w');
+  if (type === 'end'   && date.day() <= 4) date.subtract(1, 'w');
+  return date[`${type}Of`]('isoWeek');
 };
 
 Milestones.relativeType = (type, levelDiff) => {
@@ -78,12 +70,24 @@ Milestones.periodFormats = extended => ({
 });
 
 Milestones.helpers({
-  goals: function() {
-    return Goals.find({milestoneId: this._id}, {sort: {priority: 1}});
+  goals: function(query) {
+    return Goals.find({...query, milestoneId: this._id}, {sort: {rank: 1}});
   },
-  parent: function() { return Milestones.findOne(this.parentId); },
+  parent: function() {
+    return Milestones.findOne({
+      type: Milestones.relativeType(this.type, -1),
+      userId: this.userId,
+      startsAt: { $lte: this.startsAt },
+      endsAt: { $gte: this.endsAt }
+    });
+  },
   children: function() {
-    return Milestones.find({parentId: this._id}, {sort: {startsAt: -1}});
+    return Milestones.find({
+      type: Milestones.relativeType(this.type, +1),
+      userId: this.userId,
+      startsAt: { $gte: this.startsAt },
+      endsAt: { $lte: this.endsAt }
+    }, {sort: {startsAt: -1}});
   },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
@@ -108,6 +112,11 @@ Milestones.helpers({
     }
     return priority;
   },
+  newGoalRank: function() {
+    let lastGoal = Goals.findOne({milestoneId: this._id}, {sort: {rank: -1}});
+    let lastRank = lastGoal && lastGoal.rank || 0;
+    return lastRank + 1;
+  },
   progress: function() {
     let sum = this.goals()
       .map(goal => goal.completedPct)
@@ -116,8 +125,7 @@ Milestones.helpers({
     return Math.round(sum / this.goals().count());
   },
   isCurrent: function() {
-    return this.type !== 'strategic' &&
-      moment(this.startsAt).isSameOrBefore() &&
+    return moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
   }
 });

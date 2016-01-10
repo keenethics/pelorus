@@ -41,43 +41,28 @@ Meteor.methods({
       );
     }
 
-    const childMilestone = Milestones.findOne({
+    const milestone = Milestones.findOne({
       _id: milestoneId,
       userId: this.userId
     });
 
-    if (!childMilestone) {
+    const parentMilestone = milestone && milestone.parent();
+
+    if (!milestone || !parentMilestone) {
       throw new Meteor.Error(
         'forbidden-action',
-        'Receiver milestone is not found.'
+        'Receiver or source milestone not found.'
       );
     }
 
-    const parentMilestone = childMilestone.parent();
-
-    if (!parentMilestone) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'Source milestone is not found.'
-      );
-    }
-
-    const parentGoals = Goals.find({
-      milestoneId: parentMilestone._id,
-      userId: this.userId,
-      completed: { $ne: true }
-    });
-
-    return parentGoals.map(parentGoal => {
-      let childGoal = {
-        title: parentGoal.title,
-        parentId: parentGoal._id,
+    return parentMilestone.goals({completed: { $ne: true }}).map(goal => {
+      return Goals.insert({
+        title: goal.title,
+        parentId: goal._id,
         milestoneId: milestoneId,
-        userId: parentGoal.userId,
+        userId: goal.userId,
         completedPct: 0
-      };
-
-      return Goals.insert(childGoal);
+      });
     });
   }
 });

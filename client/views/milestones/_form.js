@@ -20,12 +20,6 @@ Template._milestonesForm.onRendered(function() {
 });
 
 Template._milestonesForm.helpers({
-  parents: function() {
-    let type = Template.instance().selectedType.get();
-    return type && Milestones.find({
-      type: Milestones.relativeType(type, -1),
-      userId: Meteor.userId() });
-  },
   periodTitle: function() {
     let type = Template.instance().selectedType.get();
     return type && s.capitalize(type);

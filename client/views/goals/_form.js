@@ -1,13 +1,13 @@
 Template._goalsForm.onCreated(function() {
-  this.priority = new ReactiveVar(this.data.goal && this.data.goal.priority);
+  this.rank = new ReactiveVar(this.data.goal && this.data.goal.rank);
   this.parentId = new ReactiveVar();
 });
 
 Template._goalsForm.onRendered(function() {
   this.autorun(() => {
     let parentId = this.parentId.get();
-    let parentPriority = (Goals.findOne(parentId) || {}).priority;
-    this.priority.set(parentPriority || this.data.milestone.newGoalPriority());
+    let parentPriority = (Goals.findOne(parentId) || {}).rank;
+    this.rank.set(parentPriority || this.data.milestone.newGoalRank());
   });
 });
 
@@ -15,8 +15,8 @@ Template._goalsForm.helpers({
   'parents': function() {
     return this.milestone.parent() && this.milestone.parent().goals();
   },
-  'priority': function() {
-    return Template.instance().priority.get();
+  'rank': function() {
+    return Template.instance().rank.get();
   }
 });
 
@@ -36,7 +36,7 @@ Template._goalsForm.events({
 
     let data = {
       'title': title,
-      'priority': t.priority.get(),
+      'rank': t.rank.get(),
       'parentId': parentId ? parentId : undefined,
       'milestoneId': this.milestone._id,
       'userId': Meteor.userId(),
@@ -54,7 +54,7 @@ Template._goalsForm.events({
   'change #parentId': function(e, t) {
     t.parentId.set(e.currentTarget.value);
   },
-  'change #priority': function(e, t) {
-    t.priority.set(Number(e.currentTarget.value));
+  'change #rank': function(e, t) {
+    t.rank.set(Number(e.currentTarget.value));
   }
 });

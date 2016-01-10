@@ -1,7 +1,7 @@
 goals:
   - title: "Goal number 1"
-    priority: 1
+    rank: 1
   - title: "Goal number 2"
-    priority: 2
+    rank: 2
   - title: "Goal number 3"
-    priority: 3
+    rank: 3
