@@ -24,6 +24,21 @@ Meteor.methods({
     }
 
     const bounds = Milestones.boundsFor(data.period, data.type);
+
+    if (data.type === 'strategic') {
+      const intersectingMilestones = Milestones.find({
+        $or: [
+          { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
+          { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
+        ]
+      });
+
+      if (intersectingMilestones.count()) {
+        throw new Meteor.Error('period-invalid',
+          'New strategic milestone intersects existing one.');
+      }
+    }
+
     const milestone = _.extend(data, bounds, {userId: this.userId});
 
     return Milestones.insert(milestone);
