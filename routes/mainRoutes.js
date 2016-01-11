@@ -4,7 +4,9 @@ Router.route('/', {
     return Meteor.user() ? 'milestonesIndex' : 'landing_page';
   },
   data() {
-    return { activeType: new ReactiveVar('week') };
+    const activeType = this.params.query.activeType || 'week';
+
+    return { activeType: new ReactiveVar(activeType) };
   },
   onAfterAction: function() {
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
