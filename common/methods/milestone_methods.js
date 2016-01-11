@@ -22,14 +22,12 @@ Meteor.methods({
         { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
       ]
     };
-    const existingError = data.type === 'strategic' ?
-      'New strategic milestone intersects existing one.'
-      : 'Milestone for this period already created!';
 
     const existingMilestone = Milestones.findOne(existingQuery);
 
     if (existingMilestone) {
-      throw new Meteor.Error('period-invalid', existingError);
+      throw new Meteor.Error('period-invalid',
+        'Milestone intersects existing one.');
     }
 
     const milestone = _.extend(data, bounds, {userId: this.userId});
