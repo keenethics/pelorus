@@ -8,7 +8,6 @@
   display: flex;
   justify-content: space-between;
   flex: 1 100%;
-  min-height: 175px;
 }
 
 .bar {
