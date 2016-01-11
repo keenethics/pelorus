@@ -102,16 +102,6 @@ Milestones.helpers({
 
     return moment(this.period, format.parse).format(format.display);
   },
-  newGoalPriority: function() {
-    let priority = 0;
-    let goalWithMaxPriority = Goals.findOne(
-      {milestoneId: this._id},
-      {sort: {priority: -1}});
-    if (goalWithMaxPriority && !Number.isNaN(goalWithMaxPriority.priority)) {
-      priority = goalWithMaxPriority.priority + 1;
-    }
-    return priority;
-  },
   newGoalRank: function() {
     let lastGoal = Goals.findOne({milestoneId: this._id}, {sort: {rank: -1}});
     let lastRank = lastGoal && lastGoal.rank || 0;
