@@ -41,5 +41,37 @@ Meteor.methods({
     }
 
     return Goals.remove(goalId);
+  },
+
+  'updateGoal': function(goalId, data) {
+    check(goalId, String);
+    check(data, {
+      'title': String,
+      'rank': Number,
+      'milestoneId': String,
+      'userId': String,
+      'completedPct': Number
+    });
+
+    const goal = Goals.findOne(goalId);
+
+    if (this.userId !== goal.userId) {
+      throw new Meteor.Error('forbidden-action', 'Goal can\'t be changed.');
+    }
+
+    return Goals.update({'_id': goalId}, {'$set': data});
+  },
+
+  'insertGoal': function(data) {
+    check(data, {
+      'title': String,
+      'rank': Number,
+      'milestoneId': String,
+      'userId': String,
+      'completedPct': Number
+    });
+
+    return Goals.insert(data);
   }
+
 });

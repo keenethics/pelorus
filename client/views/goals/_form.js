@@ -27,10 +27,10 @@ Template._goalsForm.events({
     let title = $title.val();
 
     let parentId = t.parentId.get();
-    let progress = t.$('#progress').val();
+    let progress = Number(t.$('#progress').val());
 
     if (!title) return $title.parent('.form-group').addClass('has-error');
-    if (!progress || progress < 0 || progress > 100) {
+    if (progress < 0 || progress > 100) {
       return $('#progress').parent('.form-group').addClass('has-error');
     }
 
@@ -44,9 +44,9 @@ Template._goalsForm.events({
     };
 
     if (this.goal._id) {
-      Goals.update(this.goal._id, {'$set': data});
+      Meteor.call('updateGoal', this.goal._id, data);
     } else {
-      Goals.insert(data);
+      Meteor.call('insertGoal', data);
     }
 
     $('#formModal').modal('hide');

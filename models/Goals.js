@@ -48,14 +48,8 @@ Goals.helpers({
 
 if (Meteor.isServer) {
   Goals.allow({
-    'insert': function(userId, doc) {
-      return userId === doc.userId;
-    },
-    'update': function(userId, doc) {
-      return userId === doc.userId;
-    },
-    'remove': function(userId, doc) {
-      return userId === doc.userId && doc.children().count() === 0;
-    }
+    insert: () => false,
+    update: () => false,
+    remove: () => false
   });
 }
