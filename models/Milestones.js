@@ -16,7 +16,12 @@ Milestones.attachSchema(new SimpleSchema({
   startsAt: {
     type: Date,
     optional: true,
-    label: 'Start Period'
+    label: 'Start Period',
+    custom: function() {
+      if (this.value > this.field('endsAt').value) {
+        return 'period-invalid';
+      }
+    }
   },
   endsAt: {
     type: Date,
@@ -25,16 +30,13 @@ Milestones.attachSchema(new SimpleSchema({
   }
 }));
 
+SimpleSchema.messages({
+  'period-invalid': 'Last year should be greater than first'
+});
+
 Milestones.boundsFor = (period, type) => {
   if (type === 'strategic') {
     [firstYear, lastYear] = period.split('-');
-
-    if (+lastYear < +firstYear) {
-      // TODO: come up with other error message
-      throw new Meteor.Error('period-invalid',
-        'Last year should be greater than first'
-      );
-    }
 
     return {
       startsAt: moment(firstYear, 'YYYY').toDate(),
