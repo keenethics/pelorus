@@ -12,31 +12,30 @@ Meteor.methods({
       );
     }
 
-    const existingMilestone = Milestones.findOne({
-      userId: this.userId,
-      period: data.period,
-      type: data.type
-    });
-
-    if (existingMilestone) {
-      throw new Meteor.Error('period-invalid',
-        'Milestone for this period already created!');
-    }
-
     const bounds = Milestones.boundsFor(data.period, data.type);
 
-    if (data.type === 'strategic') {
-      const intersectingMilestones = Milestones.find({
-        $or: [
-          { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
-          { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
-        ]
-      });
+    let existingQuery = {
+      userId: this.userId,
+      type: data.type
+    };
+    let existingError;
 
-      if (intersectingMilestones.count()) {
-        throw new Meteor.Error('period-invalid',
-          'New strategic milestone intersects existing one.');
-      }
+    if (data.type === 'strategic') {
+      existingError = 'New strategic milestone intersects existing one.';
+      existingQuery.$or = [
+        { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
+        { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
+      ];
+    } else {
+      existingError = 'Milestone for this period already created!';
+      existingQuery.startsAt = bounds.startsAt;
+      existingQuery.endsAt = bounds.endsAt;
+    }
+
+    const existingMilestone = Milestones.findOne(existingQuery);
+
+    if (existingMilestone) {
+      throw new Meteor.Error('period-invalid', existingError);
     }
 
     const milestone = _.extend(data, bounds, {userId: this.userId});
