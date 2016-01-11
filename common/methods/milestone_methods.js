@@ -14,23 +14,17 @@ Meteor.methods({
 
     const bounds = Milestones.boundsFor(data.period, data.type);
 
-    let existingQuery = {
+    const existingQuery = {
       userId: this.userId,
-      type: data.type
-    };
-    let existingError;
-
-    if (data.type === 'strategic') {
-      existingError = 'New strategic milestone intersects existing one.';
-      existingQuery.$or = [
+      type: data.type,
+      $or: [
         { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
         { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
-      ];
-    } else {
-      existingError = 'Milestone for this period already created!';
-      existingQuery.startsAt = bounds.startsAt;
-      existingQuery.endsAt = bounds.endsAt;
-    }
+      ]
+    };
+    const existingError = data.type === 'strategic' ?
+      'New strategic milestone intersects existing one.'
+      : 'Milestone for this period already created!';
 
     const existingMilestone = Milestones.findOne(existingQuery);
 
