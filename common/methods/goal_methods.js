@@ -56,7 +56,7 @@ Meteor.methods({
       throw new Meteor.Error('forbidden-action', 'Goal doesn\'t exist.');
     }
 
-    return Goals.update({_id: goalId}, {$set: data});
+    return Goals.update(goalId, {$set: data});
   },
 
   insertGoal: function(data) {
@@ -68,9 +68,7 @@ Meteor.methods({
       completedPct: Number
     });
 
-    let goalData = _.extend(data, {userId: this.userId});
-
-    return Goals.insert(goalData);
+    return Goals.insert(_.extend(data, {userId: this.userId}));
   }
 
 });
