@@ -52,15 +52,11 @@ Meteor.methods({
       completedPct: Number
     });
 
-    let goalData = _.extend(data, {userId: this.userId});
-
-    const goal = Goals.find({_id: goalId, userId: this.userId}).count();
-
-    if (goal === 0) {
+    if (Goals.find({_id: goalId, userId: this.userId}).count() === 0) {
       throw new Meteor.Error('forbidden-action', 'Goal doesn\'t exist.');
     }
 
-    return Goals.update({_id: goalId}, {$set: goalData});
+    return Goals.update({_id: goalId}, {$set: data});
   },
 
   insertGoal: function(data) {

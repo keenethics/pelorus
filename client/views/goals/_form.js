@@ -42,9 +42,8 @@ Template._goalsForm.events({
       completedPct: progress
     };
 
-    let dataForUpdateGoal = _.omit(data, 'userId', 'milestoneId');
     if (this.goal._id) {
-      Meteor.call('updateGoal', this.goal._id, dataForUpdateGoal);
+      Meteor.call('updateGoal', this.goal._id, _.omit(data, 'milestoneId'));
     } else {
       Meteor.call('insertGoal', data);
     }
