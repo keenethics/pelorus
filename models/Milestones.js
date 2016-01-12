@@ -1,6 +1,6 @@
 Milestones = new Mongo.Collection('milestones');
 
-Milestones.validTypes = ['strategic', 'year', 'month', 'week'];
+Milestones.validTypes = ['years', 'year', 'month', 'week'];
 
 Milestones.attachSchema(new SimpleSchema({
   period: {
@@ -35,7 +35,7 @@ SimpleSchema.messages({
 });
 
 Milestones.boundsFor = (period, type) => {
-  if (type === 'strategic') {
+  if (type === 'years') {
     [firstYear, lastYear] = period.split('-');
 
     return {
@@ -92,11 +92,11 @@ Milestones.helpers({
   },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
-    if (this.type === 'strategic') return this.period;
+    if (this.type === 'years') return this.period;
     if (this.type === 'week') {
       let periods = [
-        moment(this.period).startOf('week').format('DD'),
-        moment(this.period).endOf('week').format(format.display)
+        moment(this.startsAt).format('DD'),
+        moment(this.endsAt).format(format.display)
       ];
       return periods.join('-');
     }

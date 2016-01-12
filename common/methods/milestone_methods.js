@@ -1,15 +1,9 @@
 Meteor.methods({
   addMilestone: function(data) {
-    check(data, {
-      type: String,
-      period: String
-    });
+    check(data, {type: String, period: String});
 
     if (!this.userId) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'User should be logged in.'
-      );
+      throw new Meteor.Error('forbidden-action', 'User should be logged in.');
     }
 
     const bounds = Milestones.boundsFor(data.period, data.type);
@@ -19,7 +13,7 @@ Meteor.methods({
       type: data.type,
       $or: [
         { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
-        { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
+        { endsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } }
       ]
     };
 
@@ -41,10 +35,7 @@ Meteor.methods({
     this.unblock();
 
     if (!this.userId) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'User should be logged in.'
-      );
+      throw new Meteor.Error('forbidden-action', 'User should be logged in.');
     }
 
     const milestone = Milestones.findOne({
