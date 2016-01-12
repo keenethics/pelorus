@@ -35,29 +35,18 @@ SimpleSchema.messages({
 });
 
 Milestones.boundsFor = (period, type) => {
-  if (type === 'years') {
-    [firstYear, lastYear] = period.split('-');
-
-    return {
-      startsAt: moment(firstYear, 'YYYY').toDate(),
-      endsAt: moment(lastYear, 'YYYY').endOf('year').toDate()
-    };
-  }
-
-  const date = moment(period);
-  const isoType = type === 'week' ? 'isoWeek' : type;
-
+  const start = moment(type === 'years' ? period.split('-')[0] : period);
+  const end   = moment(type === 'years' ? period.split('-')[1] : period);
   return {
-    startsAt: Milestones.bound(date.clone().startOf(isoType), 'start').toDate(),
-    endsAt: Milestones.bound(date.clone().endOf(isoType), 'end').toDate()
+    startsAt: Milestones.weekBound(start.startOf(type), 'start').toDate(),
+    endsAt: Milestones.weekBound(end.endOf(type), 'end').toDate()
   };
 };
 
-// Returns nearest week bound for given date
-Milestones.bound = (date, type = 'start') => {
+Milestones.weekBound = (date, type = 'start') => {
   if (type === 'start' && date.day() > 4)  date.add(1, 'w');
   if (type === 'end'   && date.day() <= 4) date.subtract(1, 'w');
-  return date[`${type}Of`]('isoWeek');
+  return date[`${type}Of`]('week');
 };
 
 Milestones.relativeType = (type, levelDiff) => {
