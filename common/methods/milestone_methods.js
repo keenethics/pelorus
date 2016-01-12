@@ -17,9 +17,7 @@ Meteor.methods({
       ]
     };
 
-    const existingMilestone = Milestones.findOne(existingQuery);
-
-    if (existingMilestone) {
+    if (Milestones.find(existingQuery).count() > 0) {
       throw new Meteor.Error('period-invalid',
         'Milestone intersects existing one.');
     }
