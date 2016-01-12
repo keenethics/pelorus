@@ -1,5 +1,5 @@
 Meteor.methods({
-  'toggleGoalCompletion': function(goalId) {
+  toggleGoalCompletion: function(goalId) {
     check(goalId, String);
 
     if (!this.userId) {
@@ -22,16 +22,16 @@ Meteor.methods({
     }
 
     return Goals.update({
-      '_id': goalId,
-      'userId': this.userId
+      _id: goalId,
+      userId: this.userId
     }, {
-      '$set': {
-        'completed': !goal.completed
+      $set: {
+        completed: !goal.completed
       }
     });
   },
 
-  'removeGoal': function(goalId) {
+  removeGoal: function(goalId) {
     check(goalId, String);
 
     const goal = Goals.findOne(goalId);
@@ -41,5 +41,34 @@ Meteor.methods({
     }
 
     return Goals.remove(goalId);
+  },
+
+  updateGoal: function(goalId, data) {
+    check(goalId, String);
+    check(data, {
+      title: String,
+      rank: Number,
+      parentId: Match.OneOf(String, null),
+      completedPct: Number
+    });
+
+    if (Goals.find({_id: goalId, userId: this.userId}).count() === 0) {
+      throw new Meteor.Error('forbidden-action', 'Goal doesn\'t exist.');
+    }
+
+    return Goals.update(goalId, {$set: data});
+  },
+
+  insertGoal: function(data) {
+    check(data, {
+      title: String,
+      rank: Number,
+      parentId: Match.OneOf(String, null),
+      milestoneId: String,
+      completedPct: Number
+    });
+
+    return Goals.insert(_.extend(data, {userId: this.userId}));
   }
+
 });
