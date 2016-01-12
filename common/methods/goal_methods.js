@@ -1,5 +1,5 @@
 Meteor.methods({
-  'toggleGoalCompletion': function(goalId) {
+  toggleGoalCompletion: function(goalId) {
     check(goalId, String);
 
     if (!this.userId) {
@@ -22,16 +22,16 @@ Meteor.methods({
     }
 
     return Goals.update({
-      '_id': goalId,
-      'userId': this.userId
+      _id: goalId,
+      userId: this.userId
     }, {
-      '$set': {
-        'completed': !goal.completed
+      $set: {
+        completed: !goal.completed
       }
     });
   },
 
-  'removeGoal': function(goalId) {
+  removeGoal: function(goalId) {
     check(goalId, String);
 
     const goal = Goals.findOne(goalId);
@@ -43,35 +43,38 @@ Meteor.methods({
     return Goals.remove(goalId);
   },
 
-  'updateGoal': function(goalId, data) {
+  updateGoal: function(goalId, data) {
     check(goalId, String);
     check(data, {
-      'title': String,
-      'rank': Number,
-      'milestoneId': String,
-      'userId': String,
-      'completedPct': Number
+      title: String,
+      rank: Number,
+      parentId: Match.OneOf(String, null),
+      completedPct: Number
     });
 
-    const goal = Goals.findOne(goalId);
+    let goalData = _.extend(data, {userId: this.userId});
 
-    if (this.userId !== goal.userId) {
-      throw new Meteor.Error('forbidden-action', 'Goal can\'t be changed.');
+    const goal = Goals.find({_id: goalId, userId: this.userId}).count();
+
+    if (goal === 0) {
+      throw new Meteor.Error('forbidden-action', 'Goal doesn\'t exist.');
     }
 
-    return Goals.update({'_id': goalId}, {'$set': data});
+    return Goals.update({_id: goalId}, {$set: goalData});
   },
 
-  'insertGoal': function(data) {
+  insertGoal: function(data) {
     check(data, {
-      'title': String,
-      'rank': Number,
-      'milestoneId': String,
-      'userId': String,
-      'completedPct': Number
+      title: String,
+      rank: Number,
+      parentId: Match.OneOf(String, null),
+      milestoneId: String,
+      completedPct: Number
     });
 
-    return Goals.insert(data);
+    let goalData = _.extend(data, {userId: this.userId});
+
+    return Goals.insert(goalData);
   }
 
 });
