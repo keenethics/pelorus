@@ -53,7 +53,8 @@ Template._milestonesForm.events({
     );
     const $modal = $('#formModal');
 
-    milestoneData.period = `${formData.firstYear}-${formData.lastYear}`;
+    if (milestoneData.type == 'years')
+      milestoneData.period = `${formData.firstYear}-${formData.lastYear}`;
 
     Meteor.call('addMilestone', milestoneData, function(err, _id) {
       if (err) {
