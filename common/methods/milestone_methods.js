@@ -12,18 +12,24 @@ Meteor.methods({
       );
     }
 
-    const existingMilestone = Milestones.findOne({
+    const bounds = Milestones.boundsFor(data.period, data.type);
+
+    const existingQuery = {
       userId: this.userId,
-      period: data.period,
-      type: data.type
-    });
+      type: data.type,
+      $or: [
+        { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
+        { endsAt: {$gte: bounds.startsAt, $lte: bounds.endsAt} }
+      ]
+    };
+
+    const existingMilestone = Milestones.findOne(existingQuery);
 
     if (existingMilestone) {
       throw new Meteor.Error('period-invalid',
-        'Milestone for this period already created!');
+        'Milestone intersects existing one.');
     }
 
-    const bounds = Milestones.boundsFor(moment(data.period), data.type);
     const milestone = _.extend(data, bounds, {userId: this.userId});
 
     return Milestones.insert(milestone);

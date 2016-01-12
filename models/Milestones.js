@@ -4,8 +4,7 @@ Milestones.validTypes = ['strategic', 'year', 'month', 'week'];
 
 Milestones.attachSchema(new SimpleSchema({
   period: {
-    type: String,
-    optional: true
+    type: String
   },
   type: {
     type: String,
@@ -17,7 +16,12 @@ Milestones.attachSchema(new SimpleSchema({
   startsAt: {
     type: Date,
     optional: true,
-    label: 'Start Period'
+    label: 'Start Period',
+    custom: function() {
+      if (this.value > this.field('endsAt').value) {
+        return 'period-invalid';
+      }
+    }
   },
   endsAt: {
     type: Date,
@@ -26,14 +30,23 @@ Milestones.attachSchema(new SimpleSchema({
   }
 }));
 
-Milestones.boundsFor = (date, type) => {
+SimpleSchema.messages({
+  'period-invalid': 'Last year should be greater than first'
+});
+
+Milestones.boundsFor = (period, type) => {
   if (type === 'strategic') {
+    [firstYear, lastYear] = period.split('-');
+
     return {
-      startsAt: moment(2000, 'YYYY').toDate(),
-      endsAt: moment().add(100, 'y').toDate()
+      startsAt: moment(firstYear, 'YYYY').toDate(),
+      endsAt: moment(lastYear, 'YYYY').endOf('year').toDate()
     };
   }
-  isoType = type === 'week' ? 'isoWeek' : type;
+
+  const date = moment(period);
+  const isoType = type === 'week' ? 'isoWeek' : type;
+
   return {
     startsAt: Milestones.bound(date.clone().startOf(isoType), 'start').toDate(),
     endsAt: Milestones.bound(date.clone().endOf(isoType), 'end').toDate()
@@ -79,7 +92,7 @@ Milestones.helpers({
   },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
-    if (this.type === 'strategic') return 'Strategic';
+    if (this.type === 'strategic') return this.period;
     if (this.type === 'week') {
       let periods = [
         moment(this.period).startOf('week').format('DD'),

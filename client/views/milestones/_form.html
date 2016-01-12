@@ -17,20 +17,29 @@
           {{/each}}
         </select>
       </div>
-      {{#unless $eq type 'strategic' }}
+      {{#if $eq type 'strategic' }}
+        <div class="form-group">
+          <label class="control-label" for="firstYear">First year</label>
+          <input type="year" required class="form-control" id="firstYear" name="firstYear" min="2000" value="{{firstYear}}">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="lastYear">Last year</label>
+          <input type="year" required class="form-control" id="lastYear" name="lastYear" min="2000" value="{{lastYear}}">
+        </div>
+      {{else}}
         <div class="form-group">
           <label class="control-label" for="period">
             {{_ periodTitle }}
             <span class="period-err-msg"></span>
           </label>
-          <input type="{{periodInputType}}" class="form-control" id="period" name="period" min="2000">
+          <input type="{{periodInputType}}" required class="form-control" id="period" name="period" min="2000">
         </div>
         <div class="checkbox">
           <label>
             <input type="checkbox" name="copyGoals"> {{_ "Copy goals from parent milestone"}}
           </label>
         </div>
-      {{/unless}}
+      {{/if}}
     </form>
   </div>
   <div class="modal-footer">
