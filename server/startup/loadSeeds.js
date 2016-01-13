@@ -6,7 +6,7 @@ let mode = process.env.NODE_ENV;
 Meteor.startup(function() {
   if (mode !== 'development') return;
   YAML.eval(Assets.getText('users.yml')).users.forEach(user => {
-    if (Meteor.users.find({'username': user.username}).count() > 0) return;
+    if (Meteor.users.find({username: user.username}).count() > 0) return;
 
     let milestones = YAML.eval(Assets.getText('milestones.yml')).milestones;
     let goals = YAML.eval(Assets.getText('goals.yml')).goals;
@@ -17,13 +17,14 @@ Meteor.startup(function() {
     let parentGoalIds = [];
 
     milestones.forEach(milestone => {
-      milestoneData = _.extend(milestone, { userId });
+      const bounds = Milestones.boundsFor(milestone.period, milestone.type);
+      milestoneData = _.extend(milestone, bounds, { userId });
       milestoneId = Milestones.insert(milestoneData);
 
       goals.forEach(goal => {
         let parentGoalIndex = parentGoalIds.length - 3;
         goalData = _.extend(goal, {userId, milestoneId,
-                          'parentId': parentGoalIds[parentGoalIndex]});
+                          parentId: parentGoalIds[parentGoalIndex]});
         goalId = Goals.insert(goalData);
         parentGoalIds.push(goalId);
       });
