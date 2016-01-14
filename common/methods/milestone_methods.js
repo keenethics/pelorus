@@ -17,12 +17,17 @@ Meteor.methods({
       ]
     };
 
+    const milestone = _.extend(data, bounds, {userId: this.userId});
+
+    if (data.type !== 'years' && !Milestones._transform(milestone).parent()) {
+      throw new Meteor.Error('period-invalid',
+        'No parent milestone for this period.');
+    }
+
     if (Milestones.find(existingQuery).count() > 0) {
       throw new Meteor.Error('period-invalid',
         'Milestone intersects existing one.');
     }
-
-    const milestone = _.extend(data, bounds, {userId: this.userId});
 
     return Milestones.insert(milestone);
   },
