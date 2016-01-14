@@ -8,8 +8,6 @@ Meteor.methods({
 
     const bounds = Milestones.boundsFor(data.period, data.type);
 
-    let parentType = Milestones.relativeType(data.type, -1);
-
     const existingQuery = {
       userId: this.userId,
       type: data.type,
@@ -21,7 +19,7 @@ Meteor.methods({
 
     const milestone = _.extend(data, bounds, {userId: this.userId});
 
-    if (parentType && !Milestones._transform(milestone).parent()) {
+    if (data.type !== 'years' && !Milestones._transform(milestone).parent()) {
       throw new Meteor.Error('period-invalid',
         'No parent milestone for this period.');
     }
