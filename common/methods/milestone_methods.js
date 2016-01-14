@@ -2,14 +2,13 @@ Meteor.methods({
   addMilestone: function(data) {
     check(data, {type: String, period: String});
 
-    let parentIndex = _.indexOf(Milestones.validTypes, data.type) - 1;
-    let milestoneParent = Milestones.validTypes[parentIndex];
-
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in.');
     }
 
     const bounds = Milestones.boundsFor(data.period, data.type);
+
+    let parentType = Milestones.relativeType(data.type, -1);
 
     const existingQuery = {
       userId: this.userId,
@@ -20,16 +19,9 @@ Meteor.methods({
       ]
     };
 
-    const parentQuery = {
-      $and: [
-        { type: milestoneParent },
-        { userId: this.userId },
-        { startsAt: { $lte: bounds.startsAt } },
-        { endsAt: { $gte: bounds.endsAt } }
-      ]
-    };
+    const milestone = _.extend(data, bounds, {userId: this.userId});
 
-    if (milestoneParent && Milestones.find(parentQuery).count() === 0) {
+    if (parentType && !Milestones._transform(milestone).parent()) {
       throw new Meteor.Error('period-invalid',
         'No parent milestone for this period.');
     }
@@ -38,8 +30,6 @@ Meteor.methods({
       throw new Meteor.Error('period-invalid',
         'Milestone intersects existing one.');
     }
-
-    const milestone = _.extend(data, bounds, {userId: this.userId});
 
     return Milestones.insert(milestone);
   },
