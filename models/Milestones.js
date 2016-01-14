@@ -90,7 +90,7 @@ Milestones.helpers({
       return periods.join('-');
     }
 
-    return moment(this.period, format.parse).format(format.display);
+    return moment(this.period, format.parse).locale(Meteor.user().profile.language).format(format.display);
   },
   newGoalRank: function() {
     let lastGoal = Goals.findOne({milestoneId: this._id}, {sort: {rank: -1}});

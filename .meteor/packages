@@ -35,8 +35,11 @@ random
 ejson
 spacebars
 check
-momentjs:moment
 aldeed:autoform
 underscorestring:underscore.string
 reactive-var
 tap:i18n
+rzymek:moment
+rzymek:moment-locale-en-ca
+rzymek:moment-locale-uk
+rzymek:moment-locale-ru
