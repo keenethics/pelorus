@@ -1,6 +1,7 @@
 Meteor.startup(function() {
   Tracker.autorun(function() {
-    TAPi18n.setLanguage(Meteor.user().profile.language ||
-        Session.get('language') || 'en');
+    let lan = Session.get('language') || 'en';
+    TAPi18n.setLanguage(lan);
+    moment.locale(lan);
   });
 });
