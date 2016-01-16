@@ -36,6 +36,8 @@ ejson
 spacebars
 check
 momentjs:moment
+rzymek:moment-locale-ru
+rzymek:moment-locale-uk
 aldeed:autoform
 underscorestring:underscore.string
 reactive-var
