@@ -6,7 +6,8 @@ Meteor.methods({
       throw new Meteor.Error('forbidden-action', 'User should be logged in.');
     }
 
-    const bounds = Milestones.boundsFor(data.period, data.type);
+    const locale = Meteor.user().profile.language;
+    const bounds = Milestones.boundsFor(data.period, data.type, locale);
 
     const existingQuery = {
       userId: this.userId,
