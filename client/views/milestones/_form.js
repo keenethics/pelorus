@@ -47,29 +47,18 @@ Template._milestonesForm.helpers({
 
 Template._milestonesForm.events({
   'click .js-insert-milestone': function(e, tpl) {
-    const formData = tpl.$('form').serializeJSON();
-    const milestoneData = _.omit(formData,
-      ['copyGoals', 'firstYear', 'lastYear']
-    );
-    const $modal = $('#formModal');
+    const data = tpl.$('form').serializeJSON();
+    const period = data.period || `${data.firstYear}-${data.lastYear}`;
+    const milestone = {period, type: data.type};
 
-    if (milestoneData.type == 'years')
-      milestoneData.period = `${formData.firstYear}-${formData.lastYear}`;
+    Meteor.call('addMilestone', milestone, !!data.copyGoals, (err) => {
+      if (!err) return $('#formModal').modal('hide');
 
-    Meteor.call('addMilestone', milestoneData, function(err, _id) {
-      if (err) {
-        tpl.error.set(err.reason);
-        if (err.error === 'period-invalid') {
-          let periodErrMsg = tpl.$('.period-err-msg');
-          periodErrMsg.text(` (${err.reason})`);
-          return tpl.$('#period').parent('.form-group').addClass('has-error');
-        }
-      } else {
-        if (formData.copyGoals) {
-          Meteor.call('copyGoalsFromParentMilestone', _id);
-        }
-
-        $modal.modal('hide');
+      tpl.error.set(err.reason);
+      if (err.error === 'period-invalid') {
+        let periodErrMsg = tpl.$('.period-err-msg');
+        periodErrMsg.text(` (${err.reason})`);
+        return tpl.$('#period').parent('.form-group').addClass('has-error');
       }
     });
   },

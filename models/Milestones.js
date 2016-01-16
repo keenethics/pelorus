@@ -81,6 +81,17 @@ Milestones.helpers({
       endsAt: { $lte: this.endsAt }
     }, {sort: {startsAt: -1}});
   },
+  siblings: function() {
+    return Milestones.find({
+      _id: { $ne: this._id },
+      userId: this.userId,
+      type: this.type,
+      $or: [
+        { startsAt: { $gte: this.startsAt, $lte: this.endsAt } },
+        { endsAt: { $gte: this.startsAt, $lte: this.endsAt } }
+      ]
+    });
+  },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
     if (this.type === 'years') return this.period;
