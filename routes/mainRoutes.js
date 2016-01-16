@@ -25,11 +25,9 @@ Router.route('/milestones/:_id', {
 });
 
 Router.onBeforeAction(function() {
-  Session.set('canAddMilestones', true);
   this.next();
 }, { only: ['home'] });
 
 Router.onBeforeAction(function() {
-  Session.set('canAddMilestones', false);
   this.next();
 }, { except: ['home'] });

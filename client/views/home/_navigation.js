@@ -11,9 +11,3 @@ Template.navigation.events({
     if (Meteor.userId()) Meteor.call('updateUserLanguage', language);
   }
 });
-
-Template.navigation.helpers({
-  'canAddMilestones': function() {
-    return Meteor.userId() && Session.get('canAddMilestones');
-  }
-});
