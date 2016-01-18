@@ -20,8 +20,11 @@ Template._milestonesForm.onRendered(function() {
 });
 
 Template._milestonesForm.helpers({
-  types: function() {
+  types: () => {
     return Milestones.validTypes;
+  },
+  periodInputType: (type) => {
+    return type && type === 'year' ? 'number' : type;
   }
 });
 
