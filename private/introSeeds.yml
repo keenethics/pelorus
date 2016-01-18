@@ -1,0 +1,16 @@
+seeds:
+  - title: "Buy a house"
+    period: "2016-2017"
+    type: "years"
+    children:
+      - title: "Get well-paid job"
+        period: "2016"
+        type: "year"
+        children:
+          - title: "Complete a job interview"
+            period: "2016-01"
+            type: "month"
+            children:
+              - title: "Prepare for the interview"
+                period: "2016-W01"
+                type: "week"

@@ -1,8 +1,6 @@
 Router.route('/', {
   name: 'home',
-  template: function() {
-    return Meteor.user() ? 'milestonesIndex' : 'landing_page';
-  },
+  template: 'milestonesIndex',
   data() {
     const activeType = this.params.query.activeType || 'week';
 
