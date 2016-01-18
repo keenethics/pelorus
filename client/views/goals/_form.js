@@ -14,9 +14,6 @@ Template._goalsForm.onRendered(function() {
 Template._goalsForm.helpers({
   parents: function() {
     return this.milestone.parent() && this.milestone.parent().goals();
-  },
-  rank: function() {
-    return Template.instance().rank.get();
   }
 });
 
