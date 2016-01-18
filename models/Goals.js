@@ -45,7 +45,16 @@ Goals.helpers({
   children: function() {
     return Goals.find({parentId: this._id}, {sort: {rank: 1}});
   },
-  milestone: function() { return Milestones.findOne(this.milestoneId); }
+  milestone: function() { return Milestones.findOne(this.milestoneId); },
+  createChild: function(milestoneId) {
+    return Goals.insert({
+      title: this.title,
+      milestoneId,
+      parentId: this._id,
+      completedPct: 0,
+      userId: this.userId
+    });
+  }
 });
 
 if (Meteor.isServer) {

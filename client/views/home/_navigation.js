@@ -5,16 +5,9 @@ Template.navigation.events({
       'title': 'Add Milestone',
       'template': '_milestonesForm', data }, document.body);
   },
-  'click .js-set-language': function( e ) {
-    let chosenLanguage = $(e.target).data('lang');
-    TAPi18n.setLanguage(chosenLanguage);
-    Session.set('language', chosenLanguage);
-    Meteor.call('updateUserLanguage', chosenLanguage);
-  }
-});
-
-Template.navigation.helpers({
-  'canAddMilestones': function() {
-    return Meteor.userId() && Session.get('canAddMilestones');
+  'click .js-set-language': function(e) {
+    let language = $(e.target).data('lang');
+    Session.set('language', language);
+    if (Meteor.userId()) Meteor.call('updateUserLanguage', language);
   }
 });

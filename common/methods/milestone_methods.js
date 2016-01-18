@@ -1,68 +1,28 @@
 Meteor.methods({
-  addMilestone: function(data) {
-    check(data, {type: String, period: String});
+  addMilestone: function(params, copyGoals) {
+    check(params, {type: String, period: String});
+    check(copyGoals, Match.Optional(Boolean));
 
-    if (!this.userId) {
+    if (!this.userId)
       throw new Meteor.Error('forbidden-action', 'User should be logged in.');
+
+    const locale = Meteor.user().profile.language;
+    const bounds = Milestones.boundsFor(params.period, params.type, locale);
+    const data = _.extend(params, bounds, {userId: this.userId});
+
+    if (params.type !== 'years' && !Milestones._transform(data).parent())
+      throw new Meteor.Error('period-invalid', 'Parent milestone needed');
+    if (Milestones._transform(data).siblings().count() > 0)
+      throw new Meteor.Error('period-invalid', 'Period intersection detected');
+
+    const milestoneId = Milestones.insert(data);
+
+    if (copyGoals && params.type !== 'years') {
+      Milestones.findOne(milestoneId).parent()
+        .goals({completed: { $ne: true }})
+        .map(goal => goal.createChild(milestoneId));
     }
 
-    const bounds = Milestones.boundsFor(data.period, data.type);
-
-    const existingQuery = {
-      userId: this.userId,
-      type: data.type,
-      $or: [
-        { startsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } },
-        { endsAt: { $gte: bounds.startsAt, $lte: bounds.endsAt } }
-      ]
-    };
-
-    const milestone = _.extend(data, bounds, {userId: this.userId});
-
-    if (data.type !== 'years' && !Milestones._transform(milestone).parent()) {
-      throw new Meteor.Error('period-invalid',
-        'No parent milestone for this period.');
-    }
-
-    if (Milestones.find(existingQuery).count() > 0) {
-      throw new Meteor.Error('period-invalid',
-        'Milestone intersects existing one.');
-    }
-
-    return Milestones.insert(milestone);
-  },
-
-  copyGoalsFromParentMilestone: function(milestoneId) {
-    check(milestoneId, String);
-
-    this.unblock();
-
-    if (!this.userId) {
-      throw new Meteor.Error('forbidden-action', 'User should be logged in.');
-    }
-
-    const milestone = Milestones.findOne({
-      _id: milestoneId,
-      userId: this.userId
-    });
-
-    const parentMilestone = milestone && milestone.parent();
-
-    if (!milestone || !parentMilestone) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'Receiver or source milestone not found.'
-      );
-    }
-
-    return parentMilestone.goals({completed: { $ne: true }}).map(goal => {
-      return Goals.insert({
-        title: goal.title,
-        parentId: goal._id,
-        milestoneId: milestoneId,
-        userId: goal.userId,
-        completedPct: 0
-      });
-    });
+    return milestoneId;
   }
 });

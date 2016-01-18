@@ -35,19 +35,20 @@ SimpleSchema.messages({
   'period-invalid': 'Last year should be greater than first'
 });
 
-Milestones.boundsFor = (period, type) => {
-  const start = moment(type === 'years' ? period.split('-')[0] : period);
-  const end   = moment(type === 'years' ? period.split('-')[1] : period);
+Milestones.boundsFor = (period, type, locale = 'en') => {
+  const parse = Milestones.periodFormats()[type].parse;
+  const start = moment(type === 'years' ? period.split('-')[0] : period, parse);
+  const end   = moment(type === 'years' ? period.split('-')[1] : period, parse);
   return {
-    startsAt: Milestones.weekBound(start.startOf(type), 'start').toDate(),
-    endsAt: Milestones.weekBound(end.endOf(type), 'end').toDate()
+    startsAt: Milestones.weekBound(start.locale(locale).startOf(type), 'start'),
+    endsAt: Milestones.weekBound(end.locale(locale).endOf(type), 'end')
   };
 };
 
-Milestones.weekBound = (date, type = 'start') => {
-  if (type === 'start' && date.day() > 4)  date.add(1, 'w');
-  if (type === 'end'   && date.day() <= 4) date.subtract(1, 'w');
-  return date[`${type}Of`]('week');
+Milestones.weekBound = (momentObj, type = 'start') => {
+  if (type === 'start' && momentObj.day() > 4)  momentObj.add(1, 'w');
+  if (type === 'end'   && momentObj.day() <= 4) momentObj.subtract(1, 'w');
+  return momentObj[`${type}Of`]('week').toDate();
 };
 
 Milestones.relativeType = (type, levelDiff) => {
@@ -55,9 +56,10 @@ Milestones.relativeType = (type, levelDiff) => {
 };
 
 Milestones.periodFormats = extended => ({
+  years: { parse: 'YYYY', display: 'YYYY' },
   year: { parse: 'YYYY', display: 'YYYY' },
   month: { parse: 'YYYY-MM', display: extended ? 'MMMM YYYY' : 'MMM' },
-  week: { parse: '', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
+  week: { parse: 'YYYY-[W]WW', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
 Milestones.helpers({
@@ -79,6 +81,17 @@ Milestones.helpers({
       startsAt: { $gte: this.startsAt },
       endsAt: { $lte: this.endsAt }
     }, {sort: {startsAt: -1}});
+  },
+  siblings: function() {
+    return Milestones.find({
+      _id: { $ne: this._id },
+      userId: this.userId,
+      type: this.type,
+      $or: [
+        { startsAt: { $gte: this.startsAt, $lte: this.endsAt } },
+        { endsAt: { $gte: this.startsAt, $lte: this.endsAt } }
+      ]
+    });
   },
   title: function(extended) {
     let format = Milestones.periodFormats(extended)[this.type];
