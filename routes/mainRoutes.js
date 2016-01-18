@@ -11,10 +11,6 @@ Router.route('/', {
   }
 });
 
-Router.route('/about', {
-  name: 'about'
-});
-
 Router.route('/milestones/:_id', {
   name: 'milestonesShow',
   data: function() {
