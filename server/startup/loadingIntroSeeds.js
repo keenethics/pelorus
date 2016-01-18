@@ -1,28 +1,27 @@
 
-function loadingSeeds(milestones, goals, parentGoal) {
-  let mchildrens = milestones[0].children;
-  let gchildrens = goals[0].children;
+function loadingSeeds(seeds, parentGoal) {
+  let goals = JSON.parse(JSON.stringify(seeds));
   let userId = null;
   let milestoneId = null;
-  let gparent = null;
+  let goalParentId = null;
 
-  milestones.forEach(milestone => {
+  seeds.forEach(milestone => {
+    let seedChildrens = seeds[0].children;
     const bounds = Milestones.boundsFor(milestone.period, milestone.type);
     milestoneData = _.extend(milestone, bounds, { userId });
     milestoneId = Milestones.insert(milestoneData);
 
     goals.forEach(goal => {
       goalData = _.extend(goal, {userId, milestoneId, parentId: parentGoal});
-      gparent = Goals.insert(goalData);
+      goalParentId = Goals.insert(goalData);
     });
 
-    if (mchildrens) loadingSeeds(mchildrens, gchildrens, gparent);
+    if (seedChildrens) loadingSeeds(seedChildrens, goalParentId);
   });
 }
 
 Meteor.startup(function() {
   if (Milestones.find({userId: null}).count()) return;
-  let milestones = YAML.eval(Assets.getText('introSeeds.yml')).seeds;
-  let goals = YAML.eval(Assets.getText('introSeeds.yml')).seeds;
-  loadingSeeds(milestones, goals);
+  let seeds = YAML.eval(Assets.getText('introSeeds.yml')).seeds;
+  loadingSeeds(seeds);
 });
