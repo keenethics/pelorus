@@ -22,6 +22,7 @@
   flex-direction: column;
   flex: 1 100%;
   margin-left: 3px;
+  display: flex;
 }
 
 .panel {
