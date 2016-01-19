@@ -6,8 +6,10 @@ Template.navigation.events({
       'template': '_milestonesForm', data }, document.body);
   },
   'click .js-set-language': function(e) {
-    let language = $(e.target).data('lang');
-    Session.set('language', language);
-    if (Meteor.userId()) Meteor.call('updateUserLanguage', language);
+    let prevLanguage = Meteor.user().profile.language;
+    let chosenLanguage = $(e.target).data('lang');
+    Session.set('language', chosenLanguage);
+    if (Meteor.userId()) Meteor.call('updateUserLanguage', chosenLanguage);
+    if (Meteor.userId()) Meteor.call('recalculateBounds', prevLanguage, chosenLanguage);
   }
 });
