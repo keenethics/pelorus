@@ -1,5 +1,6 @@
 Template._milestone.events({
   'click .js-add-goal': function(e) {
+    if (!Meteor.user()) return;
     e.preventDefault();
     Template._formModal.show({
       title: 'Add Goal',

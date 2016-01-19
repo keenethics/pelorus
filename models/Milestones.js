@@ -11,7 +11,8 @@ Milestones.attachSchema(new SimpleSchema({
     allowedValues: Milestones.validTypes
   },
   userId: {
-    type: String
+    type: String,
+    optional: true
   },
   startsAt: {
     type: Date,

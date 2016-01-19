@@ -20,7 +20,9 @@ Goals.attachSchema(new SimpleSchema({
     label: 'Milestone ID' },
   userId: {
     type: String,
-    label: 'User ID' },
+    label: 'User ID',
+    optional: true
+  },
   completedPct: {
     type: Number,
     label: 'Percent Completed',
