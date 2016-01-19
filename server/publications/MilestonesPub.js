@@ -1,5 +1,4 @@
-Meteor.publish('Milestones', function () {
-  if(!this.userId) return [];
-  return Milestones.find({userId: this.userId});
+Meteor.publish('Milestones', function() {
+  return Milestones.find({userId: this.userId || null});
 });
 

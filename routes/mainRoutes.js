@@ -1,8 +1,6 @@
 Router.route('/', {
   name: 'home',
-  template: function() {
-    return Meteor.user() ? 'milestonesIndex' : 'landing_page';
-  },
+  template: 'milestonesIndex',
   data() {
     const activeType = this.params.query.activeType || 'week';
 
@@ -11,10 +9,6 @@ Router.route('/', {
   onAfterAction: function() {
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
-});
-
-Router.route('/about', {
-  name: 'about'
 });
 
 Router.route('/milestones/:_id', {

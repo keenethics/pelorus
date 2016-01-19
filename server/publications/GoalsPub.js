@@ -1,5 +1,4 @@
-Meteor.publish('Goals', function () {
-  if(!this.userId) return [];
-  return Goals.find({userId: this.userId});
+Meteor.publish('Goals', function() {
+  return Goals.find({userId: this.userId || null});
 });
 
