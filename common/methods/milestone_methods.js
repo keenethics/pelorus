@@ -24,29 +24,5 @@ Meteor.methods({
     }
 
     return milestoneId;
-  },
-  recalculateBounds: function(prevLocale, newLocale) {
-    let milestones = Milestones.find({userId: this.userId}, {
-      fields: {
-        userId: 1,
-        period: 1,
-        type: 1
-      }
-    });
-
-    if (!milestones.count() ||
-      ((prevLocale == 'ru' && newLocale == 'uk') ||
-        (prevLocale == 'uk' && newLocale == 'ru')))
-      return;
-
-    milestones.forEach(function(milestone) {
-      let bounds = Milestones.boundsFor(milestone.period, milestone.type, newLocale);
-      Milestones.update({
-        _id: milestone._id,
-        userId: milestone.userId
-      }, {
-        $set: bounds
-      });
-    });
   }
 });
