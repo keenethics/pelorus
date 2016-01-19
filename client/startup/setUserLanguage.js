@@ -5,7 +5,9 @@ Meteor.startup(function() {
   });
 
   Tracker.autorun(function() {
-    TAPi18n.setLanguage(Session.get('language') || 'en');
-    moment.locale(Session.get('language') || 'en');
+    const language = Session.get('language') || 'en';
+    TAPi18n.setLanguage(language);
+    moment.locale(language);
+    accountsUIBootstrap3.setLanguage(language === 'uk' ? 'ua' : language);
   });
 });
