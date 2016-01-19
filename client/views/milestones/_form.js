@@ -20,28 +20,11 @@ Template._milestonesForm.onRendered(function() {
 });
 
 Template._milestonesForm.helpers({
-  periodTitle: function() {
-    let type = Template.instance().selectedType.get();
-    return type && s.capitalize(type);
-  },
-  periodInputType: function() {
-    let type = Template.instance().selectedType.get();
-    return type && type === 'year' ? 'number' : type;
-  },
-  type: function() {
-    return Template.instance().selectedType.get();
-  },
-  types: function() {
+  types: () => {
     return Milestones.validTypes;
   },
-  firstYear: function() {
-    return Template.instance().firstYear.get();
-  },
-  lastYear: function() {
-    return Template.instance().lastYear.get();
-  },
-  error: function() {
-    return Template.instance().error.get();
+  periodInputType: (type) => {
+    return type && type === 'year' ? 'number' : type;
   }
 });
 

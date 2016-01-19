@@ -5,34 +5,36 @@
         &times;
       </button>
 
-      {{error}}
+      {{instance.error.get}}
     </div>
     <form>
       <div class="form-group">
         <label for="type">{{_ "Type of Milestone" }}</label>
         <select class="form-control" id="type" name="type">
           {{#each currentType in types }}
-            <option value="{{currentType}}" {{attrIfEq currentType type 'selected'}}>
+            <option value="{{currentType}}" {{attrIfEq currentType instance.selectedType.get 'selected'}}>
             {{_ currentType }}</option>
           {{/each}}
         </select>
       </div>
-      {{#if $eq type 'years' }}
+      {{#if $eq instance.selectedType.get 'years'}}
         <div class="form-group">
           <label class="control-label" for="firstYear">First year</label>
-          <input type="year" required class="form-control" id="firstYear" name="firstYear" min="2000" value="{{firstYear}}">
+          <input type="year" required class="form-control" id="firstYear" name="firstYear" min="2000" value="{{instance.firstYear.get}}">
         </div>
         <div class="form-group">
           <label class="control-label" for="lastYear">Last year</label>
-          <input type="year" required class="form-control" id="lastYear" name="lastYear" min="2000" value="{{lastYear}}">
+          <input type="year" required class="form-control" id="lastYear" name="lastYear" min="2000" value="{{instance.lastYear.get}}">
         </div>
       {{else}}
         <div class="form-group">
-          <label class="control-label" for="period">
-            {{_ periodTitle }}
+          <label class="control-label text-capitalize" for="period">
+            {{#if instance.selectedType.get }}
+              {{_ instance.selectedType.get}}
+            {{/if}}
             <span class="period-err-msg"></span>
           </label>
-          <input type="{{periodInputType}}" required class="form-control" id="period" name="period" min="2000">
+          <input type="{{periodInputType instance.selectedType.get}}" required class="form-control" id="period" name="period" min="2000">
         </div>
         <div class="checkbox">
           <label>
