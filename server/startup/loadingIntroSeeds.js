@@ -1,22 +1,21 @@
+/* loading demo data for unregistered users */
 
 function loadingSeeds(seeds, parentGoal) {
-  let goals = JSON.parse(JSON.stringify(seeds));
   let userId = null;
   let milestoneId = null;
   let goalParentId = null;
 
-  seeds.forEach(milestone => {
-    let seedChildrens = seeds[0].children;
-    const bounds = Milestones.boundsFor(milestone.period, milestone.type);
-    milestoneData = _.extend(milestone, bounds, { userId });
+  seeds.forEach(seed => {
+    let seedChildren = seeds[0].children;
+    const bounds = Milestones.boundsFor(seed.period, seed.type);
+
+    let milestoneData = _.extend({ userId }, seed, bounds);
     milestoneId = Milestones.insert(milestoneData);
 
-    goals.forEach(goal => {
-      goalData = _.extend(goal, {userId, milestoneId, parentId: parentGoal});
-      goalParentId = Goals.insert(goalData);
-    });
+    let goalData = _.extend({userId, milestoneId, parentId: parentGoal}, seed);
+    goalParentId = Goals.insert(goalData);
 
-    if (seedChildrens) loadingSeeds(seedChildrens, goalParentId);
+    if (seedChildren) loadingSeeds(seedChildren, goalParentId);
   });
 }
 

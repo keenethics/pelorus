@@ -14,3 +14,6 @@ seeds:
               - title: "Prepare for the interview"
                 period: "2016-W01"
                 type: "week"
+              - title: "Send a lot of resumes"
+                period: "2016-W02"
+                type: "week"
