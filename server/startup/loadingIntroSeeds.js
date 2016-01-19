@@ -5,10 +5,10 @@ function loadingSeeds(seeds, parentId) {
     let userId = null;
     const bounds = Milestones.boundsFor(seed.period, seed.type);
 
-    let milestoneData = _.extend({ userId }, seed, bounds);
+    let milestoneData = _.extend({userId}, seed, bounds);
     let milestoneId = Milestones.insert(milestoneData);
 
-    let goalData = _.extend({userId, milestoneId, parentId: parentId}, seed);
+    let goalData = _.extend({userId, milestoneId, parentId}, seed);
     let goalParentId = Goals.insert(goalData);
 
     if (seed.children) loadingSeeds(seed.children, goalParentId);
