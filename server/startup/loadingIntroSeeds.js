@@ -6,7 +6,6 @@ function loadingSeeds(seeds, parentGoal) {
   let goalParentId = null;
 
   seeds.forEach(seed => {
-    let seedChildren = seeds[0].children;
     const bounds = Milestones.boundsFor(seed.period, seed.type);
 
     let milestoneData = _.extend({ userId }, seed, bounds);
@@ -15,7 +14,7 @@ function loadingSeeds(seeds, parentGoal) {
     let goalData = _.extend({userId, milestoneId, parentId: parentGoal}, seed);
     goalParentId = Goals.insert(goalData);
 
-    if (seedChildren) loadingSeeds(seedChildren, goalParentId);
+    if (seed.children) loadingSeeds(seed.children, goalParentId);
   });
 }
 
