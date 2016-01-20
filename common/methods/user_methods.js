@@ -8,14 +8,10 @@ Meteor.methods({
     Meteor.users.update(this.userId, {
       '$set': { 'profile.language': chosenLanguage }});
 
-    Milestones.find({
-      userId: this.userId
-    }).forEach(function(milestone) {
+    Milestones.find({ userId: this.userId }).forEach(function(milestone) {
       let bounds = Milestones.boundsFor(milestone.period,
         milestone.type, chosenLanguage);
-      Milestones.update(milestone._id, {
-        $set: bounds
-      });
+      Milestones.update(milestone._id, { $set: bounds });
     });
   }
 });
