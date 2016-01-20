@@ -39,8 +39,6 @@ Template._milestonesForm.events({
 
       tpl.error.set(err.reason);
       if (err.error === 'period-invalid') {
-        let periodErrMsg = tpl.$('.period-err-msg');
-        periodErrMsg.text(` (${err.reason})`);
         return tpl.$('#period').parent('.form-group').addClass('has-error');
       }
     });

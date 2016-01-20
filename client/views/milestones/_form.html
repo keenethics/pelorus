@@ -5,7 +5,7 @@
         &times;
       </button>
 
-      {{instance.error.get}}
+      {{_ instance.error.get}}
     </div>
     <form>
       <div class="form-group">
@@ -32,7 +32,7 @@
             {{#if instance.selectedType.get }}
               {{_ instance.selectedType.get}}
             {{/if}}
-            <span class="period-err-msg"></span>
+            <span class="period-err-msg">({{_ instance.error.get}})</span>
           </label>
           <input type="{{periodInputType instance.selectedType.get}}" required class="form-control" id="period" name="period" min="2000">
         </div>
