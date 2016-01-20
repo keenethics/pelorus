@@ -21,5 +21,7 @@
   "undefined": "не визначено",
   "Progress": "Прогрес",
   "Copy goals from parent milestone": "Копіювати цілі з батьківського періоду",
-  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 є найбільш важливою ціллю)"
+  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 є найбільш важливою ціллю)",
+  "Parent milestone needed": "Відсутній більш стратегічний період",
+  "Period intersection detected": "Такий період вже додано"
 }

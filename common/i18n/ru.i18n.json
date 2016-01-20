@@ -21,5 +21,7 @@
   "undefined": "не определено",
   "Progress": "Прогресс",
   "Copy goals from parent milestone": "Копировать цели из родительского этапа",
-  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 есть наиболее важной целью)"
+  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 есть наиболее важной целью)",
+  "Parent milestone needed": "Отсутствует более стратегический этап",
+  "Period intersection detected": "Такой этап уже добавлен"
 }
