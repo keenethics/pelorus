@@ -23,5 +23,11 @@
   "Copy goals from parent milestone": "Copy goals from parent milestone",
   "Rank (#1 is goal you'd refuse last)": "Rank (#1 is goal you'd refuse last)",
   "Parent milestone needed": "Parent milestone needed",
-  "Period intersection detected": "Period intersection detected"
-}
+  "Period intersection detected": "Period intersection detected",
+  "User should be logged in.": "User should be logged in.",
+  "Can't toggle goal completion. User must be logged in.": "Can't toggle goal completion. User must be logged in.",
+  "Can't toggle goal completion. Goal is not found.": "Can't toggle goal completion. Goal is not found.",
+  "Goal can't be removed.": "Goal can't be removed.",
+  "Goal doesn't exist.": "Goal doesn't exist.",
+  "User isn't logged in.": "User isn't logged in."
+  }

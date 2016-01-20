@@ -23,5 +23,11 @@
   "Copy goals from parent milestone": "Копировать цели из родительского этапа",
   "Rank (#1 is goal you'd refuse last)": "Ранг (№1 есть наиболее важной целью)",
   "Parent milestone needed": "Отсутствует более стратегический этап",
-  "Period intersection detected": "Такой этап уже добавлен"
+  "Period intersection detected": "Такой этап уже добавлен",
+  "User should be logged in.": "Пользователь должен войти в систему.",
+  "Can't toggle goal completion. User must be logged in.": "Невозможно изменить состояние цели. Пользователь должен войти в систему.",
+  "Can't toggle goal completion. Goal is not found.": "Невозможно изменить состояние цели. Цель не найдена.",
+  "Goal can't be removed.": "Цель не может быть удалена.",
+  "Goal doesn't exist.": "Цель не существует",
+  "User isn't logged in.": "Пользователь не вошел в систему."
 }
