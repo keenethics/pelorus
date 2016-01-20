@@ -21,5 +21,8 @@
   "undefined": "не визначено",
   "Progress": "Прогрес",
   "Copy goals from parent milestone": "Копіювати цілі з батьківського періоду",
-  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 є найбільш важливою ціллю)"
+  "Rank (#1 is goal you'd refuse last)": "Ранг (№1 є найбільш важливою ціллю)",
+  "Edit Goal": "Змінити Ціль",
+  "Welcome": "Ласкаво просимо",
+  "unregistered user": "Зареєструйтесь, будь ласка, або увійдій в систему якщо ви вже є нашим користувачем."
 }

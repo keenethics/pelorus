@@ -21,5 +21,8 @@
   "undefined": "undefined",
   "Progress": "Progress",
   "Copy goals from parent milestone": "Copy goals from parent milestone",
-  "Rank (#1 is goal you'd refuse last)": "Rank (#1 is goal you'd refuse last)"
+  "Rank (#1 is goal you'd refuse last)": "Rank (#1 is goal you'd refuse last)",
+  "Edit Goal": "Edit Goal",
+  "Welcome": "Welcome",
+  "unregistered user": "Please, log in if you already have an account with us or create a new one to use our service."
 }
