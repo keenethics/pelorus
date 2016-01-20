@@ -12,11 +12,6 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="{{ activeIfTemplateIs 'home' }}">
-                <a href="/">{{_ "Home" }}</a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
               {{#if currentUser}}
                 <li>
                   <a class="js-add-milestone">
@@ -26,7 +21,8 @@
                   </a>
                 </li>
               {{/if}}
-              {{> loginButtons}}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   <span class="glyphicon glyphicon-globe" aria-hidden="true">
@@ -40,6 +36,7 @@
                   <li><a class="js-set-language" href="#" data-lang="uk">Українська</a></li>
                 </ul>
               </li>
+              {{> loginButtons}}
             </ul>
           </div>
         </div>
