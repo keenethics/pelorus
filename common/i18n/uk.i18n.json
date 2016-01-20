@@ -24,5 +24,13 @@
   "Rank (#1 is goal you'd refuse last)": "Ранг (№1 є найбільш важливою ціллю)",
   "Edit Goal": "Змінити Ціль",
   "Welcome": "Ласкаво просимо",
-  "unregistered user": "Зареєструйтесь, будь ласка, або увійдій в систему якщо ви вже є нашим користувачем."
+  "unregistered user": "Зареєструйтесь, будь ласка, або увійдій в систему якщо ви вже є нашим користувачем.",
+  "Parent milestone needed": "Відсутній більш стратегічний період",
+  "Period intersection detected": "Такий період вже додано",
+  "User should be logged in.": "Користувач повинен увійти в систему.",
+  "Can't toggle goal completion. User must be logged in.": "Неможливо змінити стан цілі. Користувач повинен увійти в систему.",
+  "Can't toggle goal completion. Goal is not found.": "Неможливо змінити стан цілі. Ціль не знайдено.",
+  "Goal can't be removed.": "Ціль не можливо видалити.",
+  "Goal doesn't exist.": "Ціль не існує",
+  "User isn't logged in.": "Користувач не увійшов в систему."
 }
