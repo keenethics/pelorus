@@ -28,6 +28,11 @@
     </form>
   </div>
   <div class="modal-footer">
+    {{#if canDelete}}
+      <button type="button" class="btn btn-danger js-remove-goal" title="Remove">
+        {{_ "Delete"}}
+      </button>
+    {{/if}}
     <button type="button" class="btn btn-primary js-save">{{_ "Save"}}</button>
   </div>
 </template>

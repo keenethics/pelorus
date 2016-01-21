@@ -61,6 +61,6 @@
 
 .goal-content {
   white-space: normal;
-  margin: 0 3px 0 3px;
+  margin-left: 3px;
   flex-grow: 2;
 }

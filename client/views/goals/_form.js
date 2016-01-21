@@ -14,12 +14,14 @@ Template._goalsForm.onRendered(function() {
 Template._goalsForm.helpers({
   parents: function() {
     return this.milestone.parent() && this.milestone.parent().goals();
+  },
+  canDelete: function() {
+    return this.goal._id && this.goal.children().count() == 0;
   }
 });
 
 Template._goalsForm.events({
   'click .js-save': function(e, t) {
-    // TODO: Refactor validations and posting
     let $title = t.$('#title');
     let title = $title.val();
 
@@ -45,6 +47,12 @@ Template._goalsForm.events({
       Meteor.call('insertGoal', data);
     }
 
+    $('#formModal').modal('hide');
+  },
+  'click .js-remove-goal': function(e) {
+    e.preventDefault();
+    if (!Meteor.user()) return Template.modal.showLoginAlert();
+    Meteor.call('removeGoal', this.goal._id);
     $('#formModal').modal('hide');
   },
   'change #parentId': function(e, t) {
