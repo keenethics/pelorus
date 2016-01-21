@@ -1,8 +1,5 @@
 Template._formUserProfile.helpers({
-  days: function() {
-    return [{name: moment.weekdays(1), value: 1},
-            {name: moment.weekdays(7), value: 7}];
-  }
+  days: () => [1, 7].map(n => ({name: moment.weekdays(n), value: n}))
 });
 
 Template._formUserProfile.events({
