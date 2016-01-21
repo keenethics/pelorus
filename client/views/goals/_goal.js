@@ -2,12 +2,12 @@ Template._goal.events({
   'click .js-edit-goal': function(e) {
     e.preventDefault();
     if (!Meteor.user()) {
-      return Template._formModal.show({
+      return Template.modal.show({
         template: 'forUnregistered',
         title: 'Welcome'
       });
     }
-    Template._formModal.show({
+    Template.modal.show({
       title: 'Edit Goal',
       template: '_goalsForm',
       data: { milestone: this.milestone, goal: this.goal }
@@ -16,7 +16,7 @@ Template._goal.events({
   'click .js-goal-completed': function(e) {
     e.preventDefault();
     if (!Meteor.user()) {
-      return Template._formModal.show({
+      return Template.modal.show({
         template: 'forUnregistered',
         title: 'Welcome'
       });
@@ -27,7 +27,7 @@ Template._goal.events({
   'click .js-remove-goal': function(e) {
     e.preventDefault();
     if (!Meteor.user()) {
-      return Template._formModal.show({
+      return Template.modal.show({
         template: 'forUnregistered',
         title: 'Welcome'
       });

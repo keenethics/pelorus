@@ -1,9 +1,6 @@
 Template.navigation.events({
   'click .js-add-milestone': function() {
-    let data = { };
-    Blaze.renderWithData(Template._formModal, {
-      title: 'Add Milestone',
-      template: '_milestonesForm', data }, document.body);
+    Template.modal.show({title: 'Add Milestone', template: '_milestonesForm'});
   },
   'click .js-set-language': function(e) {
     let language = $(e.target).data('lang');

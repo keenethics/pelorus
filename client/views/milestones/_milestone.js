@@ -2,12 +2,12 @@ Template._milestone.events({
   'click .js-add-goal': function(e) {
     e.preventDefault();
     if (!Meteor.user()) {
-      return Template._formModal.show({
+      return Template.modal.show({
         template: 'forUnregistered',
         title: 'Welcome'
       });
     }
-    Template._formModal.show({
+    Template.modal.show({
       title: 'Add Goal',
       template: '_goalsForm',
       data: { milestone: this.milestone, goal: {} }
