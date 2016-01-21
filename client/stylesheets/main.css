@@ -59,6 +59,8 @@
   display: flex;
 }
 
-.goal-controls {
-  margin-left: 3px;
+.goal-content {
+  white-space: normal;
+  margin: 0 3px 0 3px;
+  flex-grow: 2;
 }

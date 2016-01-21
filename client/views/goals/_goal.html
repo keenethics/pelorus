@@ -2,6 +2,8 @@
   <li class="list-group-item goal">
     <div>
       <input type="checkbox" class="js-goal-completed" checked={{goal.completed}} />
+    </div>
+    <div class="goal-content">
       {{#if goal.completed}}
         <strike>{{goal.title}}</strike>
       {{else}}
@@ -10,7 +12,7 @@
       ({{ $or goal.completedPct 0}}%)
     </div>
 
-    <div class="goal-controls">
+    <div>
       {{#unless $gt goal.children.count 0}}
         <a href="#" class="js-remove-goal" title="Remove goal">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
