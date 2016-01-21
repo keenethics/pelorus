@@ -1,0 +1,18 @@
+<template name="_formUserProfile" >
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="firstDayOfWeek">{{_ "First day of the week"}}</label>
+        <select class="form-control" id="firstDayOfWeek">
+          <option value="">{{_ "None"}}</option>
+          {{#each day in firstDayOfWeek }}
+            <option value="{{day.value}}">{{_ day.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary js-save">{{_ "Save"}}</button>
+  </div>
+</template>
