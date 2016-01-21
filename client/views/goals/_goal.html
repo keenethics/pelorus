@@ -10,7 +10,7 @@
       ({{ $or goal.completedPct 0}}%)
     </div>
 
-    <div>
+    <div class="goal-controls">
       {{#unless $gt goal.children.count 0}}
         <a href="#" class="js-remove-goal" title="Remove goal">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
