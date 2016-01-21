@@ -12,3 +12,5 @@ Template.modal.helpers({
 Template.modal.show = data =>
   Blaze.renderWithData(Template.modal, data, document.body);
 
+Template.modal.showLoginAlert = =>
+  Template.modal.show({template: '_loginAlert', title: 'Welcome'});
