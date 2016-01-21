@@ -1,12 +1,14 @@
-<template name="_formUserProfile" >
+<template name="_formUserProfile">
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="firstDayOfWeek">{{_ "First day of the week"}}</label>
-        <select class="form-control" id="firstDayOfWeek">
+        <label for="dayDow">{{_ "First day of the week"}}</label>
+        <select class="form-control" id="dayDow">
           <option value="">{{_ "None"}}</option>
-          {{#each day in firstDayOfWeek }}
-            <option value="{{day.value}}">{{_ day.name}}</option>
+          {{#each day in days}}
+            <option class="text-capitalize" value="{{day.value}}">
+              {{_ day.name}}
+            </option>
           {{/each}}
         </select>
       </div>
