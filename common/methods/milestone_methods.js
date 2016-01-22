@@ -4,7 +4,7 @@ Meteor.methods({
     check(copyGoals, Match.Optional(Boolean));
 
     if (!this.userId) {
-      throw new Meteor.Error('forbidden-action', 'User should be logged in.');
+      throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
 
     const locale = Meteor.user().profile.language;

@@ -2,7 +2,7 @@ Meteor.methods({
   updateUserLanguage: function(chosenLanguage) {
     check(chosenLanguage, String);
     if (!this.userId) {
-      throw new Meteor.Error('forbidden-action', 'User isn\'t logged in.');
+      throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
 
     Meteor.users.update(this.userId, {
@@ -18,13 +18,9 @@ Meteor.methods({
   updateUserFirstDayOfWeek: function(chosenDay) {
     check(chosenDay, Number);
     if (!this.userId) {
-      throw new Meteor.Error('forbidden-action', 'User isn\'t logged in.');
+      throw new Meteor.Error('forbidden-action', 'User should be logged in.');
     }
 
     Meteor.users.update(this.userId, {$set: {'profile.weekDow': chosenDay}});
-
-    moment.locale(Meteor.user().profile.language, {
-      week: {dow: Meteor.user().profile.weekDow}
-    });
   }
 });

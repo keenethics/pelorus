@@ -1,12 +1,6 @@
-.dashed > .panel {
-  border-style: dashed;
-  min-height: 107px;
-}
-
-/* Milestone timeline layout */
+/* Milestone timeline */
 .milestone {
   display: flex;
-  justify-content: space-between;
   flex: 1 100%;
 }
 
@@ -25,26 +19,28 @@
   display: flex;
 }
 
-.panel {
-  margin-bottom: 3px;
-}
-
 .vertical-text {
   transform: rotate(-90deg);
   white-space: nowrap;
 }
 
-/* Milestone timeline layout level switching */
+.panel {
+  margin-bottom: 3px;
+}
+
+.dashed > .panel {
+  border-style: dashed;
+}
+
+/* Milestone level switching */
 .milestone-content {
   width: 0px;
   visibility: hidden;
-  display: block;
   white-space: nowrap;
   overflow-x: hidden;
 }
 
 .milestone.active > .milestone-content {
-  display: block;
   width: 100%;
   visibility: visible;
 }
@@ -55,4 +51,16 @@
 
 .milestone.active .submilestones {
   flex: 0%;
+}
+
+/* Goals */
+.goal {
+  justify-content: space-between;
+  display: flex;
+}
+
+.goal-content {
+  white-space: normal;
+  margin-left: 3px;
+  flex-grow: 2;
 }

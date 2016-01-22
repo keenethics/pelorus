@@ -9,7 +9,7 @@
     </div>
     <form>
       <div class="form-group">
-        <label for="type">{{_ "Type of Milestone" }}</label>
+        <label for="type">{{_ "Type of milestone" }}</label>
         <select class="form-control" id="type" name="type">
           {{#each currentType in types }}
             <option value="{{currentType}}" {{attrIfEq currentType instance.selectedType.get 'selected'}}>

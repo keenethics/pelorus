@@ -10,11 +10,5 @@ Template._goal.events({
     e.preventDefault();
     if (!Meteor.user()) return Template.modal.showLoginAlert();
     Meteor.call('toggleGoalCompletion', this.goal._id);
-  },
-
-  'click .js-remove-goal': function(e) {
-    e.preventDefault();
-    if (!Meteor.user()) return Template.modal.showLoginAlert();
-    Meteor.call('removeGoal', this.goal._id);
   }
 });

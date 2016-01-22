@@ -7,7 +7,7 @@ Goals.attachSchema(new SimpleSchema({
   },
   parentId: {
     type: Match.OneOf(String, null),
-    label: 'Parent Goal ID',
+    label: 'Parent goal ID',
     optional: true
   },
   rank: {
@@ -17,7 +17,8 @@ Goals.attachSchema(new SimpleSchema({
   },
   milestoneId: {
     type: String,
-    label: 'Milestone ID' },
+    label: 'Milestone ID'
+  },
   userId: {
     type: String,
     label: 'User ID',
@@ -47,13 +48,8 @@ Goals.helpers({
   },
   milestone: function() { return Milestones.findOne(this.milestoneId); },
   createChild: function(milestoneId) {
-    return Goals.insert({
-      title: this.title,
-      milestoneId,
-      parentId: this._id,
-      completedPct: 0,
-      userId: this.userId
-    });
+    let data = {milestoneId, parentId: this._id, completedPct: 0};
+    return Goals.insert(_.extend(_.pick(this, 'title', 'userId'), data));
   }
 });
 
