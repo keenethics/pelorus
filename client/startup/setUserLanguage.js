@@ -1,16 +1,16 @@
 Meteor.startup(function() {
   Tracker.autorun(function() {
     if ( !((Meteor.user() || {}).profile || {}).language ) {
-      return $.getJSON('http://ipinfo.io', function(ipData) {
-        Session.set('language', ipData.country.toLowerCase());
-      });
+      return Session.set('language', navigator.language.substring(0, 2));
     }
     Session.set('language', Meteor.user().profile.language);
   });
 
   Tracker.autorun(function() {
     let language = Session.get('language') || 'en';
-    if (language === 'ua') language = 'uk';
+
+    if (!['en', 'ru', 'ua'].indexOf(language)) language = 'en';
+
     TAPi18n.setLanguage(language);
     moment.locale(language);
     accountsUIBootstrap3.setLanguage(language === 'uk' ? 'ua' : language);
