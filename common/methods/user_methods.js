@@ -1,17 +1,15 @@
 Meteor.methods({
-  updateUserLanguage: function(chosenLanguage) {
-    check(chosenLanguage, String);
+  updateUserLanguage: function(locale) {
+    check(locale, String);
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
 
-    Meteor.users.update(this.userId, {
-      $set: { 'profile.language': chosenLanguage }});
+    Meteor.users.update(this.userId, { $set: { 'profile.language': locale } });
 
-    Milestones.find({ userId: this.userId }).forEach(function(milestone) {
-      let bounds = Milestones.boundsFor(milestone.period,
-        milestone.type, chosenLanguage);
-      Milestones.update(milestone._id, { $set: bounds });
+    Stages.find({ userId: this.userId }).forEach(function(stage) {
+      let bounds = Stages.boundsFor(stage.period, stage.type, locale);
+      Stages.update(stage._id, { $set: bounds });
     });
   },
 

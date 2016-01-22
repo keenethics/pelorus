@@ -56,7 +56,7 @@ Meteor.methods({
       title: String,
       rank: Number,
       parentId: Match.OneOf(String, null),
-      milestoneId: String,
+      stageId: String,
       completedPct: Number
     });
 

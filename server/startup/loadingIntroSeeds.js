@@ -3,12 +3,12 @@
 function loadingSeeds(seeds, parentId) {
   seeds.forEach(seed => {
     let userId = null;
-    const bounds = Milestones.boundsFor(seed.period, seed.type);
+    const bounds = Stages.boundsFor(seed.period, seed.type);
 
-    let milestoneData = _.extend({userId}, seed, bounds);
-    let milestoneId = Milestones.insert(milestoneData);
+    let stageData = _.extend({userId}, seed, bounds);
+    let stageId = Stages.insert(stageData);
 
-    let goalData = _.extend({userId, milestoneId, parentId}, seed);
+    let goalData = _.extend({userId, stageId, parentId}, seed);
     let goalParentId = Goals.insert(goalData);
 
     if (seed.children) loadingSeeds(seed.children, goalParentId);
@@ -16,7 +16,7 @@ function loadingSeeds(seeds, parentId) {
 }
 
 Meteor.startup(function() {
-  if (Milestones.find({userId: null}).count()) return;
+  if (Stages.find({userId: null}).count()) return;
   let seeds = YAML.eval(Assets.getText('introSeeds.yml')).seeds;
   loadingSeeds(seeds);
 });

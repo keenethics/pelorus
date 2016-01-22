@@ -1,5 +1,5 @@
-/* Milestone timeline */
-.milestone {
+/* Stages timeline */
+.stage {
   display: flex;
   flex: 1 100%;
 }
@@ -12,7 +12,7 @@
   align-items: center;
 }
 
-.submilestones {
+.substages {
   flex-direction: column;
   flex: 1 100%;
   margin-left: 3px;
@@ -32,24 +32,24 @@
   border-style: dashed;
 }
 
-/* Milestone level switching */
-.milestone-content {
+/* Stages level switching */
+.stage-content {
   width: 0px;
   visibility: hidden;
   white-space: nowrap;
   overflow-x: hidden;
 }
 
-.milestone.active > .milestone-content {
+.stage.active > .stage-content {
   width: 100%;
   visibility: visible;
 }
 
-.milestone.active > .bar {
+.stage.active > .bar {
   display: none;
 }
 
-.milestone.active .submilestones {
+.stage.active .substages {
   flex: 0%;
 }
 
@@ -59,8 +59,9 @@
   display: flex;
 }
 
-.goal-content {
+.active > .stage-content .goal-content {
   white-space: normal;
+  word-break: break-all;
   margin-left: 3px;
   flex-grow: 2;
 }
