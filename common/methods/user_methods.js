@@ -2,7 +2,7 @@ Meteor.methods({
   'updateUserLanguage': function(chosenLanguage) {
     check(chosenLanguage, String);
     if (!this.userId) {
-      throw new Meteor.Error('forbidden-action', 'User isn\'t logged in.');
+      throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
 
     Meteor.users.update(this.userId, {

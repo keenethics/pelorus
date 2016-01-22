@@ -3,10 +3,7 @@ Meteor.methods({
     check(goalId, String);
 
     if (!this.userId) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'Can\'t toggle goal completion. User must be logged in.'
-      );
+      throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
 
     const goal = Goals.findOne({
@@ -14,12 +11,7 @@ Meteor.methods({
       userId: this.userId
     });
 
-    if (!goal) {
-      throw new Meteor.Error(
-        'forbidden-action',
-        'Can\'t toggle goal completion. Goal is not found.'
-      );
-    }
+    if (!goal) throw new Meteor.Error('forbidden-action', 'Goal not found');
 
     return Goals.update({
       _id: goalId,
@@ -37,7 +29,7 @@ Meteor.methods({
     const goal = Goals.findOne(goalId);
 
     if (this.userId !== goal.userId || goal.children().count()) {
-      throw new Meteor.Error('forbidden-action', 'Goal can\'t be removed.');
+      throw new Meteor.Error('forbidden-action', 'Goal can\'t be removed');
     }
 
     return Goals.remove(goalId);
@@ -53,7 +45,7 @@ Meteor.methods({
     });
 
     if (Goals.find({_id: goalId, userId: this.userId}).count() === 0) {
-      throw new Meteor.Error('forbidden-action', 'Goal doesn\'t exist.');
+      throw new Meteor.Error('forbidden-action', 'Goal not found');
     }
 
     return Goals.update(goalId, {$set: data});

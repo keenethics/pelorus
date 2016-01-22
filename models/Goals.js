@@ -7,7 +7,7 @@ Goals.attachSchema(new SimpleSchema({
   },
   parentId: {
     type: Match.OneOf(String, null),
-    label: 'Parent Goal ID',
+    label: 'Parent goal ID',
     optional: true
   },
   rank: {
