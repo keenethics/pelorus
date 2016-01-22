@@ -7,13 +7,13 @@ Template._goalsForm.onRendered(function() {
   this.autorun(() => {
     let parentId = this.parentId.get();
     let parentPriority = (Goals.findOne(parentId) || {}).rank;
-    this.rank.set(parentPriority || this.data.milestone.newGoalRank());
+    this.rank.set(parentPriority || this.data.stage.newGoalRank());
   });
 });
 
 Template._goalsForm.helpers({
   parents: function() {
-    return this.milestone.parent() && this.milestone.parent().goals();
+    return this.stage.parent() && this.stage.parent().goals();
   },
   canDelete: function() {
     return this.goal._id && this.goal.children().count() == 0;
@@ -37,12 +37,12 @@ Template._goalsForm.events({
       title: title,
       rank: t.rank.get(),
       parentId: parentId || null,
-      milestoneId: this.milestone._id,
+      stageId: this.stage._id,
       completedPct: progress
     };
 
     if (this.goal._id) {
-      Meteor.call('updateGoal', this.goal._id, _.omit(data, 'milestoneId'));
+      Meteor.call('updateGoal', this.goal._id, _.omit(data, 'stageId'));
     } else {
       Meteor.call('insertGoal', data);
     }

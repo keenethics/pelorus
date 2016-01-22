@@ -3,7 +3,7 @@ Template._goal.events({
     e.preventDefault();
     if (!Meteor.user()) return Template.modal.showLoginAlert();
 
-    let data = { milestone: this.milestone, goal: this.goal };
+    let data = { stage: this.stage, goal: this.goal };
     Template.modal.show({title: 'Edit Goal', template: '_goalsForm', data});
   },
   'click .js-goal-completed': function(e) {
