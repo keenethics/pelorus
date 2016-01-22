@@ -11,5 +11,14 @@ Meteor.methods({
       let bounds = Stages.boundsFor(stage.period, stage.type, locale);
       Stages.update(stage._id, { $set: bounds });
     });
+  },
+
+  updateUserFirstDayOfWeek: function(chosenDay) {
+    check(chosenDay, Number);
+    if (!this.userId) {
+      throw new Meteor.Error('forbidden-action', 'User should be logged in.');
+    }
+
+    Meteor.users.update(this.userId, {$set: {'profile.weekDow': chosenDay}});
   }
 });
