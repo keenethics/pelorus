@@ -1,14 +1,14 @@
-Milestones = new Mongo.Collection('milestones');
+Stages = new Mongo.Collection('stages');
 
-Milestones.validTypes = ['years', 'year', 'month', 'week'];
+Stages.validTypes = ['years', 'year', 'month', 'week'];
 
-Milestones.attachSchema(new SimpleSchema({
+Stages.attachSchema(new SimpleSchema({
   period: {
     type: String
   },
   type: {
     type: String,
-    allowedValues: Milestones.validTypes
+    allowedValues: Stages.validTypes
   },
   userId: {
     type: String,
@@ -35,55 +35,55 @@ SimpleSchema.messages({
   'period-invalid': 'Last year should be greater than first'
 });
 
-Milestones.boundsFor = (period, type, locale = 'en') => {
-  const parse = Milestones.periodFormats()[type].parse;
+Stages.boundsFor = (period, type, locale = 'en') => {
+  const parse = Stages.periodFormats()[type].parse;
   const start = moment(type === 'years' ? period.split('-')[0] : period, parse);
   const end   = moment(type === 'years' ? period.split('-')[1] : period, parse);
   return {
-    startsAt: Milestones.weekBound(start.locale(locale).startOf(type), 'start'),
-    endsAt: Milestones.weekBound(end.locale(locale).endOf(type), 'end')
+    startsAt: Stages.weekBound(start.locale(locale).startOf(type), 'start'),
+    endsAt: Stages.weekBound(end.locale(locale).endOf(type), 'end')
   };
 };
 
-Milestones.weekBound = (momentObj, type = 'start') => {
+Stages.weekBound = (momentObj, type = 'start') => {
   if (type === 'start' && momentObj.weekday() > 4)  momentObj.add(1, 'w');
   if (type === 'end'   && momentObj.weekday() <= 4) momentObj.subtract(1, 'w');
   return momentObj[`${type}Of`]('week').toDate();
 };
 
-Milestones.relativeType = (type, levelDiff) => {
-  return Milestones.validTypes[Milestones.validTypes.indexOf(type) + levelDiff];
+Stages.relativeType = (type, levelDiff) => {
+  return Stages.validTypes[Stages.validTypes.indexOf(type) + levelDiff];
 };
 
-Milestones.periodFormats = extended => ({
+Stages.periodFormats = extended => ({
   years: { parse: 'YYYY', display: 'YYYY' },
   year: { parse: 'YYYY', display: 'YYYY' },
   month: { parse: 'YYYY-MM', display: extended ? 'MMMM YYYY' : 'MMM' },
   week: { parse: 'YYYY-[W]WW', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
-Milestones.helpers({
+Stages.helpers({
   goals: function(query) {
-    return Goals.find({...query, milestoneId: this._id}, {sort: {rank: 1}});
+    return Goals.find({...query, stageId: this._id}, {sort: {rank: 1}});
   },
   parent: function() {
-    return Milestones.findOne({
-      type: Milestones.relativeType(this.type, -1),
+    return Stages.findOne({
+      type: Stages.relativeType(this.type, -1),
       userId: this.userId,
       startsAt: { $lte: this.startsAt },
       endsAt: { $gte: this.endsAt }
     });
   },
   children: function() {
-    return Milestones.find({
-      type: Milestones.relativeType(this.type, +1),
+    return Stages.find({
+      type: Stages.relativeType(this.type, +1),
       userId: this.userId,
       startsAt: { $gte: this.startsAt },
       endsAt: { $lte: this.endsAt }
     }, {sort: {startsAt: -1}});
   },
   siblings: function() {
-    return Milestones.find({
+    return Stages.find({
       _id: { $ne: this._id },
       userId: this.userId,
       type: this.type,
@@ -94,7 +94,7 @@ Milestones.helpers({
     });
   },
   title: function(extended) {
-    let format = Milestones.periodFormats(extended)[this.type];
+    let format = Stages.periodFormats(extended)[this.type];
     if (this.type === 'years') return this.period;
     if (this.type === 'week') {
       let periods = [
@@ -107,7 +107,7 @@ Milestones.helpers({
     return moment(this.period, format.parse).format(format.display);
   },
   newGoalRank: function() {
-    let lastGoal = Goals.findOne({milestoneId: this._id}, {sort: {rank: -1}});
+    let lastGoal = Goals.findOne({stageId: this._id}, {sort: {rank: -1}});
     let lastRank = lastGoal && lastGoal.rank || 0;
     return lastRank + 1;
   },
@@ -124,7 +124,7 @@ Milestones.helpers({
   }
 });
 
-Milestones.allow({
+Stages.allow({
   insert: () => false,
   update: () => false,
   remove: () => false

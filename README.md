@@ -9,10 +9,10 @@ about decomposing strategic goals into a series of simple steps. On each step yo
 your actual state vector for each goal and plan next steps accordingly. This way you can
 track your achievements on a regular basis and keep yourself up.
 
-To start you need to set up a "years" milestone - a milestone that can last a couple years.
+To start you need to set up a "years" stage - a stage that can last a couple years.
 Once you are done with it, you can enter your goals for that period.
 
-For each of the smaller periods (year, month and week) you can create milestones accordingly
+For each of the smaller periods (year, month and week) you can create stages accordingly
 and enter subgoals that are steps in reaching your strategic goals.
 
 That's it. You can now check your goals by the end of the day and set progress on each of them.
