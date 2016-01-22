@@ -1,12 +1,6 @@
-.dashed > .panel {
-  border-style: dashed;
-  min-height: 107px;
-}
-
-/* Milestone timeline layout */
-.milestone {
+/* Stages timeline */
+.stage {
   display: flex;
-  justify-content: space-between;
   flex: 1 100%;
 }
 
@@ -18,15 +12,11 @@
   align-items: center;
 }
 
-.submilestones {
+.substages {
   flex-direction: column;
   flex: 1 100%;
   margin-left: 3px;
   display: flex;
-}
-
-.panel {
-  margin-bottom: 3px;
 }
 
 .vertical-text {
@@ -34,25 +24,44 @@
   white-space: nowrap;
 }
 
-/* Milestone timeline layout level switching */
-.milestone-content {
+.panel {
+  margin-bottom: 3px;
+}
+
+.dashed > .panel {
+  border-style: dashed;
+}
+
+/* Stages level switching */
+.stage-content {
   width: 0px;
   visibility: hidden;
-  display: block;
   white-space: nowrap;
   overflow-x: hidden;
 }
 
-.milestone.active > .milestone-content {
-  display: block;
+.stage.active > .stage-content {
   width: 100%;
   visibility: visible;
 }
 
-.milestone.active > .bar {
+.stage.active > .bar {
   display: none;
 }
 
-.milestone.active .submilestones {
+.stage.active .substages {
   flex: 0%;
+}
+
+/* Goals */
+.goal {
+  justify-content: space-between;
+  display: flex;
+}
+
+.active > .stage-content .goal-content {
+  white-space: normal;
+  word-break: break-all;
+  margin-left: 3px;
+  flex-grow: 2;
 }

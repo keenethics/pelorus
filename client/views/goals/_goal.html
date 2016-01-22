@@ -1,23 +1,16 @@
 <template name="_goal">
-  <li class="list-group-item">
-    <input type="checkbox" class="js-goal-completed" checked={{goal.completed}} />
-    {{#if goal.completed}}
-      <strike>{{goal.title}}</strike>
-    {{else}}
-      {{goal.title}}
-    {{/if}}
-    ({{ $or goal.completedPct 0}}%)
-
-    <div class="pull-right" id="goal-control-buttons">
-      {{#unless $gt goal.children.count 0}}
-        <a href="#" class="js-remove-goal" title="Remove goal">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </a>
-      {{/unless}}
-
-      <a href="#" class="js-edit-goal" title="Edit goal">
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-      </a>
+  <a href="#" class="list-group-item goal">
+    <div>
+      <input type="checkbox" class="js-goal-completed" checked={{goal.completed}} />
     </div>
-  </li>
+
+    <div class="goal-content js-edit-goal">
+      {{#if goal.completed}}
+        <strike>{{goal.title}}</strike>
+      {{else}}
+        {{goal.title}}
+      {{/if}}
+      ({{ $or goal.completedPct 0}}%)
+    </div>
+  </a>
 </template>

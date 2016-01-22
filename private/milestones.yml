@@ -1,9 +1,0 @@
-milestones:
-  - period: "2016-2018"
-    type: "years"
-  - period: "2016"
-    type: "year"
-  - period: "2016-01"
-    type: "month"
-  - period: "2016-W03"
-    type: "week"

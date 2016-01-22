@@ -1,9 +1,6 @@
 Template.navigation.events({
-  'click .js-add-milestone': function() {
-    let data = { };
-    Blaze.renderWithData(Template._formModal, {
-      'title': 'Add Milestone',
-      'template': '_milestonesForm', data }, document.body);
+  'click .js-add-stage': function() {
+    Template.modal.show({title: 'Add stage', template: '_stagesForm'});
   },
   'click .js-set-language': function(e) {
     let language = $(e.target).data('lang');
@@ -16,7 +13,7 @@ Template.navigation.events({
       showProgress: true,
       steps: [
         {
-          element: '.js-add-milestone',
+          element: '.js-add-stage',
           intro: Meteor.settings.public.intro.steps.step1,
           step: 1,
           position: 'bottom'
@@ -26,15 +23,15 @@ Template.navigation.events({
           step: 2,
           position: 'left'
         }, {
-          element: '.milestone.active .submilestones .milestone .milestone',
+          element: '.stage.active .substages .substages .bar',
           intro: Meteor.settings.public.intro.steps.step3,
           step: 3,
           position: 'left'
         }, {
-          element: '#goal-control-buttons',
+          element: '.list-group-item.goal',
           intro: Meteor.settings.public.intro.steps.step4,
           step: 4,
-          position: 'left'
+          position: 'bottom'
         }
       ]
     });

@@ -1,7 +1,0 @@
-users:
-  - email: admin@test.com
-    username: admin
-    password: supersecret
-  - email: test@test.com
-    username: test
-    password: testtest

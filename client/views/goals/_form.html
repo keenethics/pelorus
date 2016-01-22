@@ -14,9 +14,9 @@
         <input type="number" class="form-control" id="progress" min="0" max="100"
           value="{{$or goal.completedPct 0}}">
       </div>
-      {{#unless $eq milestone.type 'years' }}
+      {{#unless $eq stage.type 'years' }}
         <div class="form-group">
-          <label for="parentId">{{_ "Parent Goal"}}</label>
+          <label for="parentId">{{_ "Parent goal"}}</label>
           <select class="form-control" id="parentId">
             <option value="">{{_ "None"}}</option>
             {{#each parent in parents }}
@@ -28,6 +28,11 @@
     </form>
   </div>
   <div class="modal-footer">
+    {{#if canDelete}}
+      <button type="button" class="btn btn-danger js-remove-goal" title="Remove">
+        {{_ "Delete"}}
+      </button>
+    {{/if}}
     <button type="button" class="btn btn-primary js-save">{{_ "Save"}}</button>
   </div>
 </template>

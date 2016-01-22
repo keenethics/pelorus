@@ -12,21 +12,17 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="{{ activeIfTemplateIs 'home' }}">
-                <a href="/">{{_ "Home" }}</a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
               {{#if currentUser}}
                 <li>
-                  <a class="js-add-milestone">
+                  <a class="js-add-stage">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true">
                     </span>
-                    {{_ "Add a milestone" }}
+                    {{_ "Add stage" }}
                   </a>
                 </li>
               {{/if}}
-              {{> loginButtons}}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
               {{#if currentUser}}
                 <li><a href="#" id="js-run-tutorial">
                   <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -45,6 +41,7 @@
                   <li><a class="js-set-language" href="#" data-lang="uk">Українська</a></li>
                 </ul>
               </li>
+              {{> loginButtons}}
             </ul>
           </div>
         </div>

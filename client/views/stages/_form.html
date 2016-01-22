@@ -1,15 +1,15 @@
-<template name="_milestonesForm">
+<template name="_stagesForm">
   <div class="modal-body">
     <div class="alert alert-danger" style="display: none;">
       <button type="button" class="close js-error-close" aria-hidden="true">
         &times;
       </button>
 
-      {{instance.error.get}}
+      {{_ instance.error.get}}
     </div>
     <form>
       <div class="form-group">
-        <label for="type">{{_ "Type of Milestone" }}</label>
+        <label for="type">{{_ "Type of stage" }}</label>
         <select class="form-control" id="type" name="type">
           {{#each currentType in types }}
             <option value="{{currentType}}" {{attrIfEq currentType instance.selectedType.get 'selected'}}>
@@ -32,20 +32,20 @@
             {{#if instance.selectedType.get }}
               {{_ instance.selectedType.get}}
             {{/if}}
-            <span class="period-err-msg"></span>
+            <span class="period-err-msg">({{_ instance.error.get}})</span>
           </label>
           <input type="{{periodInputType instance.selectedType.get}}" required class="form-control" id="period" name="period" min="2000">
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" name="copyGoals"> {{_ "Copy goals from parent milestone"}}
+            <input type="checkbox" name="copyGoals"> {{_ "Copy goals from parent stage"}}
           </label>
         </div>
       {{/if}}
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary js-insert-milestone">
+    <button type="button" class="btn btn-primary js-insert-stage">
       {{_ "Add" }}
     </button>
   </div>
