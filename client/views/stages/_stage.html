@@ -1,14 +1,14 @@
 <template name="_stage">
   <div class="panel panel-{{#if stage.isCurrent}}warning{{else}}default{{/if}} bar">
-    <p class="{{#if stage.isCurrent}}text-warning{{/if}} vertical-text">
+    <p class=" text-capitalize {{#if stage.isCurrent}}text-warning{{/if}} vertical-text">
       {{stage.title}}
       {{#if stage.progress}} ({{stage.progress}}%){{/if}}
     </p>
   </div>
   <div class="panel panel-{{#if stage.isCurrent}}warning{{else}}default{{/if}} stage-content">
     {{#if stage._id}}
-      <div class="panel-heading">
-        {{_ stage.title true}}
+      <div class="panel-heading text-capitalize">
+        {{stage.title true}}
         {{#if stage.progress}} ({{stage.progress}}%){{/if}}
       </div>
       <ul class="list-group">
