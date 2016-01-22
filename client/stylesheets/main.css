@@ -59,8 +59,9 @@
   display: flex;
 }
 
-.goal-content {
+.active > .stage-content .goal-content {
   white-space: normal;
+  word-break: break-all;
   margin-left: 3px;
   flex-grow: 2;
 }
