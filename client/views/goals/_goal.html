@@ -8,7 +8,7 @@
     {{/if}}
     ({{ $or goal.completedPct 0}}%)
 
-    <div class="pull-right">
+    <div class="pull-right" id="goal-control-buttons">
       {{#unless $gt goal.children.count 0}}
         <a href="#" class="js-remove-goal" title="Remove goal">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

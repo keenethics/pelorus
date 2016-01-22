@@ -1,0 +1,12 @@
+{
+  "public": {
+    "intro": {
+      "steps": {
+        "step1": "<strong>\"Add milestones\" -</strong> Milestone is a period during which you are planning to reach your goals. Milestones are hierarchical and can be created for week, month, year and several years (e.g. decade). Start here to create your first milestone and it's sub-milestones.",
+        "step2": "<strong>\"Add goal\" -</strong> Once you are done with setting up milestones, you can start creating goals for each of them. Goals can also be hierarchical so that one 5-years goal can have sub-goals for each year, month and week.",
+        "step3": "<strong>\"Month bar\" -</strong> You can switch between different types of milestones simply clicking it's folded caption.",
+        "step4": "<strong>\"Edit/Remove goal\" -</strong> If you feel you should change your goal, you can edit it's description any time or remove it (unless it has sub-goals)."
+      }
+    }
+  }
+}
