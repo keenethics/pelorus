@@ -1,15 +1,14 @@
 Meteor.startup(function() {
   Tracker.autorun(function() {
-    if ( !((Meteor.user() || {}).profile || {}).language ) {
-      return Session.set('language', navigator.language.substring(0, 2));
-    }
+    if ( !((Meteor.user() || {}).profile || {}).language ) return;
     Session.set('language', Meteor.user().profile.language);
   });
 
   Tracker.autorun(function() {
-    let language = Session.get('language') || 'en';
+    let defaultLang = navigator.language.substring(0, 2);
+    defaultLang = TAPi18n.getLanguages()[defaultLang] ? defaultLang : 'en';
 
-    if (!['en', 'ru', 'ua'].indexOf(language)) language = 'en';
+    let language = Session.get('language') || defaultLang;
 
     TAPi18n.setLanguage(language);
     moment.locale(language);
