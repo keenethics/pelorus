@@ -3,7 +3,9 @@ Goals = new Mongo.Collection('goals');
 Goals.attachSchema(new SimpleSchema({
   title: {
     type: String,
-    label: 'Title'
+    label: 'Title',
+    min: 3,
+    max: 140
   },
   parentId: {
     type: Match.OneOf(String, null),
@@ -26,7 +28,7 @@ Goals.attachSchema(new SimpleSchema({
   },
   progress: {
     type: Number,
-    label: 'Percent Completed',
+    label: 'Progress',
     min: 0,
     max: 100,
     optional: true

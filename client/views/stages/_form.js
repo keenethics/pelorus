@@ -7,18 +7,6 @@ Template._stagesForm.onCreated(function() {
   this.error = new ReactiveVar(null);
 });
 
-Template._stagesForm.onRendered(function() {
-  this.autorun(() => {
-    const err = this.error.get();
-
-    if (err) {
-      this.$('.alert').show();
-    } else {
-      this.$('.alert').hide();
-    }
-  });
-});
-
 Template._stagesForm.helpers({
   types: () => {
     return Stages.validTypes;

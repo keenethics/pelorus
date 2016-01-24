@@ -1,6 +1,7 @@
 Template._goalsForm.onCreated(function() {
   this.rank = new ReactiveVar(this.data.goal && this.data.goal.rank);
   this.parentId = new ReactiveVar(this.data.goal && this.data.goal.parentId);
+  this.error = new ReactiveVar(null);
 });
 
 Template._goalsForm.onRendered(function() {
@@ -16,32 +17,30 @@ Template._goalsForm.helpers({
     return this.stage.parent() && this.stage.parent().goals();
   },
   canDelete: function() {
-    return this.goal._id && this.goal.children().count() == 0;
+    return this.goal._id && this.goal.children().count() === 0;
   }
 });
 
 Template._goalsForm.events({
   'click .js-save': function(e, t) {
-    let $title = t.$('#title');
-    let title = $title.val();
+    let stageId = this.stage._id;
+    let data    = t.$('form').serializeJSON();
 
-    let parentId = t.parentId.get() || null;
-    let progress = Number(t.$('#progress').val());
+    //TODO: use same handler in stages form
+    let handler = (error) => {
+      t.error.set(error ? error.reason : null);
+      t.$('.form-group').removeClass('has-error');
+      JSON.parse(error.details).map(field => {
+        $(`[name^=${field.name}]`).parent('.form-group').addClass('has-error')
+      });
+      if (!error) $('#formModal').modal('hide');
+    };
 
-    //TODO: move validations to meteor method
-    if (!title) return $title.parent('.form-group').addClass('has-error');
-    if (progress < 0 || progress > 100) {
-      return $('#progress').parent('.form-group').addClass('has-error');
-    }
-
-    let data = { title, progress, parentId, rank: t.rank.get() };
     if (this.goal._id) {
-      Meteor.call('updateGoal', this.goal._id, data);
+      Meteor.call('updateGoal', this.goal._id, data, handler);
     } else {
-      Meteor.call('insertGoal', _.extend({stageId: this.stage._id}, data));
+      Meteor.call('insertGoal', _.extend({stageId}, data), handler);
     }
-
-    $('#formModal').modal('hide');
   },
   'click .js-remove-goal': function(e) {
     e.preventDefault();

@@ -1,12 +1,11 @@
 <template name="_stagesForm">
   <div class="modal-body">
-    <div class="alert alert-danger" style="display: none;">
-      <button type="button" class="close js-error-close" aria-hidden="true">
-        &times;
-      </button>
-
-      {{_ instance.error.get}}
-    </div>
+    {{#if instance.error.get}}
+      <div class="alert alert-danger">
+        <button type="button" class="close js-error-close" aria-hidden="true">&times;</button>
+        {{_ instance.error.get}}
+      </div>
+    {{/if}}
     <form>
       <div class="form-group">
         <label for="type">{{_ "Type of stage" }}</label>
