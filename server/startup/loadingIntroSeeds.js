@@ -17,6 +17,6 @@ function loadingSeeds(seeds, parentId) {
 
 Meteor.startup(function() {
   if (Stages.find({userId: null}).count()) return;
-  let seeds = YAML.eval(Assets.getText('introSeeds.yml')).seeds;
+  let seeds = YAML.eval(Assets.getText('intro_seeds.yml')).seeds;
   loadingSeeds(seeds);
 });
