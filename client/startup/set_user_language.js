@@ -12,7 +12,7 @@ Meteor.startup(function() {
 
     TAPi18n.setLanguage(language);
     moment.locale(language);
-    accountsUIBootstrap3.setLanguage(language === 'uk' ? 'ua' : language);
+    accountsUIBootstrap3.setLanguage(language);
 
     if ( !((Meteor.user() || {}).profile || {}).weekDow ) return;
     moment.locale(Meteor.user().profile.language, {
