@@ -1,6 +1,6 @@
 Template._goalsForm.onCreated(function() {
   this.rank = new ReactiveVar(this.data.goal && this.data.goal.rank);
-  this.parentId = new ReactiveVar();
+  this.parentId = new ReactiveVar(this.data.goal && this.data.goal.parentId);
 });
 
 Template._goalsForm.onRendered(function() {

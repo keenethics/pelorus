@@ -20,7 +20,9 @@
           <select class="form-control" id="parentId">
             <option value="">{{_ "None"}}</option>
             {{#each parent in parents }}
-              <option value="{{parent._id}}">{{parent.title}}</option>
+              <option selected="{{$eq parent._id instance.parentId.get}}" value="{{parent._id}}">
+                {{parent.title}}
+              </option>
             {{/each}}
           </select>
         </div>
