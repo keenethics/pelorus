@@ -24,14 +24,11 @@ Goals.attachSchema(new SimpleSchema({
     label: 'User ID',
     optional: true
   },
-  completedPct: {
+  progress: {
     type: Number,
     label: 'Percent Completed',
-    optional: true
-  },
-  completed: {
-    type: Boolean,
-    label: 'Task completed',
+    min: 0,
+    max: 100,
     optional: true
   }
 }));
@@ -43,7 +40,7 @@ Goals.helpers({
   },
   stage: function() { return Stages.findOne(this.stageId); },
   createChild: function(stageId) {
-    let data = {stageId, parentId: this._id, completedPct: 0};
+    let data = {stageId, parentId: this._id, progress: 0};
     return Goals.insert(_.extend(_.pick(this, 'title', 'userId'), data));
   }
 });

@@ -18,7 +18,7 @@ Meteor.methods({
       userId: this.userId
     }, {
       $set: {
-        completed: !goal.completed
+        progress: goal.progress == 100 ? 0 : 100
       }
     });
   },
@@ -41,7 +41,7 @@ Meteor.methods({
       title: String,
       rank: Number,
       parentId: Match.OneOf(String, null),
-      completedPct: Number
+      progress: Number
     });
 
     if (Goals.find({_id: goalId, userId: this.userId}).count() === 0) {
@@ -57,7 +57,7 @@ Meteor.methods({
       rank: Number,
       parentId: Match.OneOf(String, null),
       stageId: String,
-      completedPct: Number
+      progress: Number
     });
 
     return Goals.insert(_.extend(data, {userId: this.userId}));

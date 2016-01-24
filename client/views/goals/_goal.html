@@ -1,16 +1,16 @@
 <template name="_goal">
   <a href="#" class="list-group-item goal">
     <div>
-      <input type="checkbox" class="js-goal-completed" checked={{goal.completed}} />
+      <input type="checkbox" class="js-goal-completed" checked={{$eq goal.progress 100}} />
     </div>
 
     <div class="goal-content js-edit-goal">
-      {{#if goal.completed}}
+      {{#if $eq goal.progress 100}}
         <strike>{{goal.title}}</strike>
       {{else}}
         {{goal.title}}
       {{/if}}
-      ({{ $or goal.completedPct 0}}%)
+      ({{ $or goal.progress 0}}%)
     </div>
   </a>
 </template>

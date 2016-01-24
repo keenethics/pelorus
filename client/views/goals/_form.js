@@ -25,26 +25,20 @@ Template._goalsForm.events({
     let $title = t.$('#title');
     let title = $title.val();
 
-    let parentId = t.parentId.get();
+    let parentId = t.parentId.get() || null;
     let progress = Number(t.$('#progress').val());
 
+    //TODO: move validations to meteor method
     if (!title) return $title.parent('.form-group').addClass('has-error');
     if (progress < 0 || progress > 100) {
       return $('#progress').parent('.form-group').addClass('has-error');
     }
 
-    let data = {
-      title: title,
-      rank: t.rank.get(),
-      parentId: parentId || null,
-      stageId: this.stage._id,
-      completedPct: progress
-    };
-
+    let data = { title, progress, parentId, rank: t.rank.get() };
     if (this.goal._id) {
-      Meteor.call('updateGoal', this.goal._id, _.omit(data, 'stageId'));
+      Meteor.call('updateGoal', this.goal._id, data);
     } else {
-      Meteor.call('insertGoal', data);
+      Meteor.call('insertGoal', _.extend({stageId: this.stage._id}, data));
     }
 
     $('#formModal').modal('hide');

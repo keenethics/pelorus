@@ -22,7 +22,7 @@ Meteor.methods({
 
     if (copyGoals && params.type !== 'years') {
       Stages.findOne(stageId).parent()
-        .goals({completed: { $ne: true }})
+        .goals({progress: { $ne: 100 }})
         .map(goal => goal.createChild(stageId));
     }
 

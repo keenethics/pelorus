@@ -113,7 +113,7 @@ Stages.helpers({
   },
   progress: function() {
     let sum = this.goals()
-      .map(goal => goal.completedPct)
+      .map(goal => goal.progress)
       .filter(Number)
       .reduce((a, b) => a + b, 0);
     return Math.round(sum / this.goals().count());
