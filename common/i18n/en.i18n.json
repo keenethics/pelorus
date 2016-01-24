@@ -25,5 +25,10 @@
   "First day of the week": "First day of the week",
   "User should be logged in": "User should be logged in",
   "Goal can't be removed": "Goal can't be removed",
-  "Goal not found": "Goal not found"
+  "Goal not found": "Goal not found",
+  "Pelorus is": "Pelorus is a simple yet highly-effective strategic planning tool that helps reaching goals in a way of successive approximations",
+  "Stage is a goals period": "Stage is a timeframe for your goals. Stages are hierarchical and can be created for week, month, year and several years (e.g. decade). Start here to create your first stage",
+  "Create goals": "Once you have a stage, you can start creating goals for it. Goals are also hierarchical so that one 5-years goal can have sub-goals for each year, month and week. You can copy parent goals when creating substages",
+  "Switch views": "You can switch between different types of stages by simply clicking it's folded caption",
+  "Edit goal": "If you feel you should change your goal, you can edit it's description any time or remove it (unless it has sub-goals)"
 }
