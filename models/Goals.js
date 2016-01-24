@@ -29,11 +29,6 @@ Goals.attachSchema(new SimpleSchema({
     label: 'Percent Completed',
     optional: true
   },
-  pctOfParentGoal: {
-    type: Number,
-    label: 'Percent of Parent Goal',
-    optional: true
-  },
   completed: {
     type: Boolean,
     label: 'Task completed',
