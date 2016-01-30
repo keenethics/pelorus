@@ -53,6 +53,7 @@ iron:middleware-stack@1.0.11
 iron:router@1.0.12
 iron:url@1.0.11
 jquery@1.11.4
+keenethics:introjs@2.0.5
 launch-screen@1.0.4
 livedata@1.0.15
 localstorage@1.0.5
