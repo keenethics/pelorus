@@ -1,14 +1,16 @@
 Template.stagesIndex.helpers({
   stages: function() {
-    let stage = this.parentStage;
-    if (!stage) {
-      return Stages.find({type: 'years'}, {sort: {startsAt: -1}});
-    }
-    
-    let type = Stages.relativeType(stage.type, +1);
+    let parentStage = this.parentStage;
+    let type = parentStage ? Stages.relativeType(parentStage.type, 1) : 'years';
+
     if (!type) return [];
 
-    let children = stage._id ? stage.children().fetch() : [];
-    return _.any(children) ? children : [{type}];
+    if (parentStage) {
+      var children = parentStage._id && parentStage.children();
+    } else {
+      var children = Stages.find({type: 'years'}, {sort: {startsAt: -1}});
+    }
+    
+    return children && children.count() > 0 ? children : [{type}];
   }
 });

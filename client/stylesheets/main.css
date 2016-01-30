@@ -38,6 +38,7 @@
   visibility: hidden;
   white-space: nowrap;
   overflow-x: hidden;
+  min-height: 200px;
 }
 
 .stage.active > .stage-content {
