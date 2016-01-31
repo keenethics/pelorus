@@ -3,7 +3,7 @@ Template._loginButtonsLoggedInDropdown.events({
     e.preventDefault();
     Template.modal.show({
       title: 'Edit profile',
-      template: '_formUserProfile'
+      template: '_userForm'
     });
   }
 });
