@@ -94,17 +94,13 @@ Stages.helpers({
     });
   },
   title: function(extended) {
-    let format = Stages.periodFormats(extended)[this.type];
+    let format = Stages.periodFormats(extended)[this.type].display;
     if (this.type === 'years') return this.period;
-    if (this.type === 'week') {
-      let periods = [
-        moment(this.startsAt).format('DD'),
-        moment(this.endsAt).format(format.display)
-      ];
-      return periods.join('-');
-    }
+    if (!this.startsAt || !this.startsAt) return '';
 
-    return moment(this.period, format.parse).format(format.display);
+    let start = moment(this.startsAt).format('DD');
+    let end = moment(this.endsAt).format(format);
+    return this.type === 'week' ? `${start}-${end}` : end;
   },
   newGoalRank: function() {
     let lastGoal = Goals.findOne({stageId: this._id}, {sort: {rank: -1}});
