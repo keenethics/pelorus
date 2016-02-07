@@ -7,7 +7,7 @@ Meteor.methods({
 
     Meteor.users.update(this.userId, { $set: { 'profile.language': locale } });
     
-    // ToDo: call updateUserFirstDayOfWeek if user doesn't have weekDow set
+    // ToDo: call updateUserFirstDayOfWeek if user doesn't have firstDayOfWeek set
 
     // ToDo: move updating bounds to updateUserFirstDayOfWeek
     Stages.find({ userId: this.userId }).forEach(function(stage) {
@@ -22,6 +22,6 @@ Meteor.methods({
       throw new Meteor.Error('forbidden-action', 'User should be logged in.');
     }
 
-    Meteor.users.update(this.userId, {$set: {'profile.weekDow': chosenDay}});
+    Meteor.users.update(this.userId, {$set: {'profile.firstDayOfWeek': chosenDay}});
   }
 });

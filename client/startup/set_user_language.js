@@ -14,9 +14,9 @@ Meteor.startup(function() {
     moment.locale(language);
     accountsUIBootstrap3.setLanguage(language);
 
-    if ( !((Meteor.user() || {}).profile || {}).weekDow ) return;
+    if ( !((Meteor.user() || {}).profile || {}).firstDayOfWeek ) return;
     moment.locale(Meteor.user().profile.language, {
-      week: {dow: Meteor.user().profile.weekDow}
+      week: {dow: Meteor.user().profile.firstDayOfWeek}
     });
   });
 });
