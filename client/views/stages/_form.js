@@ -26,6 +26,8 @@ Template._stagesForm.events({
       if (!err) return $('#formModal').modal('hide');
 
       tpl.error.set(err.reason);
+
+      //ToDo: needs refactoring
       if (err.error === 'period-invalid') {
         return tpl.$('#period').parent('.form-group').addClass('has-error');
       }

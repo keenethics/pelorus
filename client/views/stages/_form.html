@@ -31,9 +31,9 @@
             {{#if instance.selectedType.get }}
               {{_ instance.selectedType.get}}
             {{/if}}
-            <span class="period-err-msg">({{_ instance.error.get}})</span>
           </label>
           <input type="{{periodInputType instance.selectedType.get}}" required class="form-control" id="period" name="period" min="2000">
+          <span class="help-block period-err-msg">{{_ instance.error.get}}</span>
         </div>
         <div class="checkbox">
           <label>
