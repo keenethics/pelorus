@@ -5,6 +5,7 @@ Template._goalsForm.onCreated(function() {
 });
 
 Template._goalsForm.onRendered(function() {
+  if(this.data.goal._id) return;
   this.autorun(() => {
     let parentId = this.parentId.get();
     let parentPriority = (Goals.findOne(parentId) || {}).rank;
