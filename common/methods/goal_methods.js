@@ -55,7 +55,7 @@ Meteor.methods({
     check(data, {
       title: String,
       rank: Number,
-      parentId: Match.OneOf(String, null),
+      parentId: Match.Optional(Match.OneOf(String, null)),
       stageId: String,
       progress: Number
     });

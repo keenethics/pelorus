@@ -28,12 +28,12 @@ Template._goalsForm.events({
 
     //TODO: use same handler in stages form
     let handler = (error) => {
+      if (!error) return $('#formModal').modal('hide');
       t.error.set(error ? error.reason : null);
       t.$('.form-group').removeClass('has-error');
       JSON.parse(error.details).map(field => {
         $(`[name^=${field.name}]`).parent('.form-group').addClass('has-error')
       });
-      if (!error) $('#formModal').modal('hide');
     };
 
     if (this.goal._id) {
