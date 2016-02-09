@@ -43,7 +43,7 @@ Goals.helpers({
   stage: function() { return Stages.findOne(this.stageId); },
   createChild: function(stageId) {
     let data = {stageId, parentId: this._id, progress: 0};
-    return Goals.insert(_.extend(_.pick(this, 'title', 'userId'), data));
+    return Goals.insert(_.extend(_.pick(this, 'title', 'userId', 'rank'), data));
   }
 });
 
