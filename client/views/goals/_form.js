@@ -5,12 +5,15 @@ Template._goalsForm.onCreated(function() {
 });
 
 Template._goalsForm.onRendered(function() {
-  if(this.data.goal._id) return;
-  this.autorun(() => {
-    let parentId = this.parentId.get();
-    let parentPriority = (Goals.findOne(parentId) || {}).rank;
-    this.rank.set(parentPriority || this.data.stage.newGoalRank());
-  });
+  $('#formModal').one('shown.bs.modal', () => $('[name=title]').focus());
+
+  if(!this.data.goal._id) {
+    this.autorun(() => {
+      let parentId = this.parentId.get();
+      let parentPriority = (Goals.findOne(parentId) || {}).rank;
+      this.rank.set(parentPriority || this.data.stage.newGoalRank());
+    });
+  }
 });
 
 Template._goalsForm.helpers({
