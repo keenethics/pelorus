@@ -59,6 +59,7 @@
 .goal {
   justify-content: space-between;
   display: flex;
+  padding: 2px 15px;
 }
 
 .active > .stage-content .goal-content {
