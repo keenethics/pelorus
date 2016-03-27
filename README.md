@@ -1,8 +1,8 @@
 # Pelorus 
 
 ## About
-Pelorus is a simple yet highly-effective planning tool that helps reaching goals in a way of
-successive approximations (based on Dynamic programming).
+[Pelorus](http://pelorus.ws) is a simple yet highly-effective planning tool that helps reaching
+goals in a way of successive approximations (based on Dynamic programming).
 
 It’s not actually a to-do list, but you can use it to improve to-do list compilation. It’s
 about decomposing strategic goals into a series of simple steps. On each step you can review
@@ -40,8 +40,9 @@ Other rules we enforce:
 
 ## Deployment
 
-We are currently using meteor.com as our [staging server](http://pelorus.meteor.com). Make sure you
-have permissions to deploy to `pelorus.meteor.com` before you initiating deployment.
+To deploy:
 
-To deploy run `meteor deploy pelorus.meteor.com`.
+1. Make sure you have [mupx](https://github.com/arunoda/meteor-up/tree/mupx) installed
+2. Prepare `mup.json` (you can use `mup.json.example` as an example)
+3. Run mupx delpoy
 
