@@ -22,7 +22,6 @@ ian:accounts-ui-bootstrap-3
 pcel:serialize
 
 ecmascript
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -43,3 +42,5 @@ underscorestring:underscore.string
 reactive-var
 tap:i18n
 keenethics:introjs
+standard-minifier-css
+standard-minifier-js
