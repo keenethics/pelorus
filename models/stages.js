@@ -98,9 +98,12 @@ Stages.helpers({
     if (this.type === 'years') return this.period;
     if (!this.startsAt || !this.startsAt) return '';
 
-    let start = moment(this.startsAt).format('DD');
-    let end = moment(this.endsAt).format(format);
-    return this.type === 'week' ? `${start}-${end}` : end;
+    let [start, end] = [moment(this.startsAt), moment(this.endsAt)];
+    if (this.type === 'week') {
+      return `${start.format('DD')}-${end.format(format)}`;
+    } else {
+      return end.subtract(3, 'days').format(format);
+    }
   },
   newGoalRank: function() {
     let lastGoal = Goals.findOne({stageId: this._id}, {sort: {rank: -1}});
