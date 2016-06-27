@@ -16,4 +16,4 @@ Template.modal.show = data =>
 
 Template.modal.showLoginAlert = () =>
   Template.modal.show({template: '_loginAlert', title: 'Welcome'});
-  
+ 
