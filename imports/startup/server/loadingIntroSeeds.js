@@ -1,10 +1,7 @@
 import '/imports/api/yaml.min.js';
-
-
 import { Stages } from '/imports/api/stages/stages.js';
 
-function loadingSeeds(seeds, parentId) {
-  
+function loadingSeeds(seeds, parentId) { 
   seeds.forEach(seed => {
     let userId = null;
     const bounds = Stages.boundsFor(seed.period, seed.type);
@@ -24,4 +21,3 @@ Meteor.startup(function() {
   let seeds = YAML.eval(Assets.getText('intro_seeds.yml')).seeds;
   loadingSeeds(seeds);
 });
-

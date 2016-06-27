@@ -1,6 +1,5 @@
 import './modal.html';
 
-
 Template.modal.onRendered(function() {
   this.$('#formModal').modal('show');
   this.$('#formModal').on('hidden.bs.modal', () => Blaze.remove(this.view));

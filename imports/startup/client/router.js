@@ -25,4 +25,3 @@ Router.onBeforeAction(function() {
 Router.onBeforeAction(function() {
   this.next();
 }, { except: ['home'] });
-

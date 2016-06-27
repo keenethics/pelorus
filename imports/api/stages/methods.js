@@ -1,7 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-
 import { Stages } from  './stages.js';
-
 
 Meteor.methods({
   addStage: function(params, copyGoals) {

@@ -1,6 +1,6 @@
 import './_form.html';
-
 import { Stages } from '/imports/api/stages/stages.js';
+
 Template._stagesForm.onCreated(function() {
   const currentYear = moment().year();
 

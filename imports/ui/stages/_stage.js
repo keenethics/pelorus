@@ -1,5 +1,6 @@
 import './_stage.html';
 import '../goals/_goal.js';
+
 Template._stage.events({
   'click .js-add-goal': function(e) {
     e.preventDefault();

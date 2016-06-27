@@ -1,7 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-
 import { Stages } from './stages/stages.js';
-
 
 Meteor.methods({
   updateUserLanguage: function(locale) {

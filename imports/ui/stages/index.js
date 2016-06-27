@@ -1,9 +1,6 @@
 import './index.html';
 import './_stage.js';
-
 import { Stages } from '/imports/api/stages/stages.js';
-
-
 
 Template.stagesIndex.helpers({
   stages: function() {
