@@ -5,19 +5,13 @@ import '../users/_login_alert.html';
 
 Template.navigation.events({
   'click .js-add-stage': function() {
-    if (!Meteor.user()) return Template.modal.showLoginAlert();
     Template.modal.show({title: 'Add stage', template: '_stagesForm'});
-  },
-  'click .js-set-language': function(e) {
-    let language = $(e.target).data('lang');
-    Session.set('language', language);
-    if (Meteor.userId()) Meteor.call('updateUserLanguage', language);
   },
   'click #js-run-tutorial': function(e, t) {
     e.preventDefault();
-    
+
     console.log(t)
-    
+
     let steps = [
       { intro: TAPi18n.__("Pelorus is") },
       {

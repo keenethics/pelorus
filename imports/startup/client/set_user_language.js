@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-Meteor.startup(function() {  
+Meteor.startup(function() {
   Tracker.autorun(function() {
     if ( !((Meteor.user() || {}).profile || {}).language ) return;
     Session.set('language', Meteor.user().profile.language);
