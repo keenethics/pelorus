@@ -2,6 +2,8 @@ import './_goal.html';
 import './_form.js';
 import '../users/_login_alert.html';
 
+// import React from 'react';
+
 Template._goal.events({
   'click .js-edit-goal': function(e) {
     e.preventDefault();

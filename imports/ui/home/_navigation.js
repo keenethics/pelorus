@@ -15,6 +15,9 @@ Template.navigation.events({
   },
   'click #js-run-tutorial': function(e, t) {
     e.preventDefault();
+    
+    console.log(t)
+    
     let steps = [
       { intro: TAPi18n.__("Pelorus is") },
       {

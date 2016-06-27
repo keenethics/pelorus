@@ -1,0 +1,23 @@
+{
+  "name": "pelorus",
+  "version": "1.0.0",
+  "description": "## About [Pelorus](http://pelorus.ws) is a simple yet highly-effective planning tool that helps reaching goals in a way of successive approximations (based on Dynamic programming).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keenethics/pelorus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keenethics/pelorus/issues"
+  },
+  "homepage": "https://github.com/keenethics/pelorus#readme",
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
