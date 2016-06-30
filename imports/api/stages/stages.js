@@ -3,7 +3,11 @@ import { Meteor } from 'meteor/meteor';
 
 export const Stages = new Mongo.Collection('stages');
 
+
 Stages.validTypes = ['years', 'year', 'month', 'week'];
+
+
+
 
 Stages.attachSchema(new SimpleSchema({
   period: {
@@ -65,8 +69,12 @@ Stages.periodFormats = extended => ({
   week: { parse: 'YYYY-[W]WW', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
 
+
+
+
 Stages.helpers({
   goals: function(query) {
+    console.log('goals')
     return Goals.find({...query, stageId: this._id}, {sort: {rank: 1}});
   },
   parent: function() {

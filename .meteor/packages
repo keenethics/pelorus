@@ -10,11 +10,9 @@ aldeed:collection2
 raix:handlebar-helpers
 matteodem:easy-security
 fastclick
-manuelschoebel:ms-seo
 browser-policy
 natestrauser:animate-css
 dburles:collection-helpers
-meteorhacks:fast-render
 twbs:bootstrap
 ian:accounts-ui-bootstrap-3
 pcel:serialize
@@ -42,3 +40,4 @@ tap:i18n
 keenethics:introjs
 standard-minifier-css
 standard-minifier-js
+react-meteor-data

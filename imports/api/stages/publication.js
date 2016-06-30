@@ -3,5 +3,6 @@ import { Mongo } from 'meteor/mongo';
 import { Stages } from './stages.js';
 
 Meteor.publish('Stages', function() {
+	// return Stages.find({});
 	return Stages.find({userId: this.userId || null});
 });

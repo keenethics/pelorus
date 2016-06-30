@@ -1,23 +1,24 @@
 import './_form.html';
 import { Stages } from '/imports/api/stages/stages.js';
 
-Template._stagesForm.onCreated(function() {
-  const currentYear = moment().year();
+// Template._stagesForm.onCreated(function() {
+//   const currentYear = moment().year();
 
-  this.selectedType = new ReactiveVar(this.data.type || 'week');
-  this.firstYear = new ReactiveVar(currentYear);
-  this.lastYear = new ReactiveVar(currentYear + 5);
-  this.error = new ReactiveVar(null);
-});
+//   this.selectedType = new ReactiveVar(this.data.type || 'week');
+//   this.firstYear = new ReactiveVar(currentYear);
+//   this.lastYear = new ReactiveVar(currentYear + 5);
+//   this.error = new ReactiveVar(null);
+// });
 
-Template._stagesForm.helpers({
-  types: () => {
-    return Stages.validTypes;
-  },
-  periodInputType: (type) => {
-    return type && type === 'year' ? 'number' : type;
-  }
-});
+// Template._stagesForm.helpers({
+//   types: () => {
+//     console.log(Stages)
+//     return Stages.validTypes;
+//   },
+//   periodInputType: (type) => {
+//     return type && type === 'year' ? 'number' : type;
+//   }
+// });
 
 Template._stagesForm.events({
   'click .js-insert-stage': function(e, tpl) {

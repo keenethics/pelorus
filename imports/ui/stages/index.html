@@ -1,6 +1,7 @@
 <template name="stagesIndex">
   {{#each stage in stages}}
     <div class="stage {{#unless stage._id}}dashed{{/unless}} {{#if $eq activeType.get stage.type}}active{{/if}}">
+    	{{stage}}
       {{> _stage stage=stage activeType=activeType}}
       <div class="substages">
         {{> stagesIndex activeType=activeType parentStage=stage }}

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import Navigation  from './home/Navigation.jsx';
-import Modal from './Modal.jsx';
+import Navigation  from './components/Navigation.jsx';
+import ModalLoggedAlert from './components/ModalLoggedAlert.jsx';
+import ModalAddStage from './components/ModalAddStage.jsx';
+import StagesUI from './components/StagesUI.jsx';
+// import StagesIndex from './components/StagesIndex.jsx';
 
 
 export default class Pelorus extends Component {
@@ -10,7 +13,9 @@ export default class Pelorus extends Component {
 		return (
 			<div className="container" style={{ 'marginTop': '10px' }}>
 				<Navigation />
-				<Modal />
+				<ModalLoggedAlert/>
+				<ModalAddStage/>
+				<StagesUI />
 			</div>
 		);
 	}

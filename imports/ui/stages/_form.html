@@ -1,30 +1,33 @@
 <template name="_stagesForm">
-  <div class="modal-body">
+  
     {{#if instance.error.get}}
       <div class="alert alert-danger">
         <button type="button" class="close js-error-close" aria-hidden="true">&times;</button>
         {{_ instance.error.get}}
       </div>
     {{/if}}
+    
     <form>
-      <div class="form-group">
+    <!--   <div class="form-group">
         <label for="type">{{_ "Type of stage" }}</label>
-        <select class="form-control" id="type" name="type">
+        <select class="form-control" id="type" name="type"> -->
+          <!-- edit this -->
           {{#each currentType in types }}
             <option value="{{currentType}}" {{attrIfEq currentType instance.selectedType.get 'selected'}}>
             {{_ currentType }}</option>
           {{/each}}
-        </select>
-      </div>
+          <!--  -->
+        <!-- </select> -->
+      <!-- </div> -->
       {{#if $eq instance.selectedType.get 'years'}}
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="control-label" for="firstYear">First year</label>
           <input type="year" required class="form-control" id="firstYear" name="firstYear" min="2000" value="{{instance.firstYear.get}}">
         </div>
         <div class="form-group">
           <label class="control-label" for="lastYear">Last year</label>
           <input type="year" required class="form-control" id="lastYear" name="lastYear" min="2000" value="{{instance.lastYear.get}}">
-        </div>
+        </div> -->
       {{else}}
         <div class="form-group">
           <label class="control-label text-capitalize" for="period">
@@ -33,7 +36,10 @@
             {{/if}}
           </label>
           <input type="{{periodInputType instance.selectedType.get}}" required class="form-control" id="period" name="period" min="2000">
+          <!--  -->
           <span class="help-block period-err-msg">{{_ instance.error.get}}</span>
+
+          
         </div>
         <div class="checkbox">
           <label>
@@ -42,10 +48,6 @@
         </div>
       {{/if}}
     </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary js-insert-stage">
-      {{_ "Add" }}
-    </button>
-  </div>
+  
+  
 </template>

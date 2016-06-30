@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { render } from 'react-dom';
-import './modal.js';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
-
-import Modal from './Modal.jsx';
+import ModalLoggedAlert from './ModalLoggedAlert.jsx';
 
 
 export default class Navigation extends Component {
@@ -20,9 +17,10 @@ export default class Navigation extends Component {
 	}
 
 	addStage(event) {
-		console.log('addStage');
-		
-		
+		if ( !Meteor.userId() ) {
+			return $('#logedAlert').modal('show');
+		}
+		$('#addStage').modal('show');	
 	}
 	runTutorial(e) {
 		console.log('runtutorial')
@@ -34,7 +32,7 @@ export default class Navigation extends Component {
 	}
 	render() {
 		return (
-			<span>
+			
 			<nav className="navbar navbar-default">
 				<div className="container-fluid">
 					<div className="navbar-header">
@@ -105,8 +103,8 @@ export default class Navigation extends Component {
 				</div>
 
 			</nav>
-			<div ref='modalcontainer'></div>
-			</span>
+			
+			
 			
 		)	
 	}
