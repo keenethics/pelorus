@@ -41,3 +41,5 @@ keenethics:introjs
 standard-minifier-css
 standard-minifier-js
 react-meteor-data
+kadira:flow-router
+kadira:react-layout

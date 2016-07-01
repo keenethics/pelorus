@@ -89,11 +89,11 @@ export default class ModalLoggedAlert extends Modal {
 	      					<div>
 	      					<div className="form-group">
           						<label className="control-label" for="firstYear">First year</label>
-          						<input type="year" required className="form-control" id="firstYear" name="firstYear" min="2000" value={ this.props.firstYear.curValue }/>
+          						<input type="year" required className="form-control" id="firstYear" name="firstYear" min="2000" />
         					</div>
         					<div className="form-group">
           						<label className="control-label" for="lastYear">Last year</label>
-          						<input type="year" required className="form-control" id="lastYear" name="lastYear" min="2000" value={ this.props.lastYear.curValue	 }/>
+          						<input type="year" required className="form-control" id="lastYear" name="lastYear" min="2000"  />
        						</div>
        						</div>	
 	      				: 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+	import React, { Component } from 'react';
 import Modal from './Modal.jsx';
 
 export default class ModalLoggedAlert extends Modal {
