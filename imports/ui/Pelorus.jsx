@@ -14,7 +14,6 @@ export default class Pelorus extends Component {
 			<div className="container" style={{ 'marginTop': '10px' }}>
 				<Navigation
           goTutorial={this.props.goTutorial}
-          language={ this.props.language }
         />
 				<ModalLoggedAlert/>
 				<ModalAddStage/>
@@ -27,8 +26,7 @@ export default class Pelorus extends Component {
 
 export default createContainer(() => {
   return {
-    goTutorial: GoTutorial,
-    language: Session.get('language')
+    goTutorial: GoTutorial
   };
 }, Pelorus);
 

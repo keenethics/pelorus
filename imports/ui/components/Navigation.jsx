@@ -3,14 +3,10 @@ import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import ModalLoggedAlert from './ModalLoggedAlert.jsx';
-import { TAPi18n } from 'meteor/tap:i18n';
+import I18n from 'meteor/timoruetten:react-i18n';
 
 
 export default class Navigation extends Component {
-  shouldComponentUpdate(nextProps) {
-    console.log(nextProps.language !== this.props.language);
-    return nextProps.language !== this.props.language;
-  }
   componentDidMount() {
     Blaze.render(Template._loginButtons,
 	    	ReactDOM.findDOMNode(this.refs.container));
@@ -56,8 +52,7 @@ export default class Navigation extends Component {
                           ref='stage'
                 					onClick={this.addStage.bind(this)}>
 	                  				<span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            { TAPi18n.__('Add Stage') }
-                            <TAP label="Add Stage" options={{ liked: 'React' }}/>
+                            <I18n i18nkey="Add stage" />
                 				</a>
               				</li>
             			</ul>
