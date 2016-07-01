@@ -6,9 +6,6 @@ export const Stages = new Mongo.Collection('stages');
 
 Stages.validTypes = ['years', 'year', 'month', 'week'];
 
-
-
-
 Stages.attachSchema(new SimpleSchema({
   period: {
     type: String

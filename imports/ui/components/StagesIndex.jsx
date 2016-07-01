@@ -23,17 +23,3 @@ export default class StagesIndex extends Component {
 		)
 	}
 }
-
-
-export default createContainer(() => {
-	
-	// Deps.autorun(function () {	
-	Meteor.subscribe('Stages');
-	// })
-	// console.log( Stages.find({}).fecth() )
-	
-  	return {
-    	stages: Stages.find({}).fetch()
-  	}
-}, StagesIndex);
-

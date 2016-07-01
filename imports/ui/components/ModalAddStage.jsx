@@ -9,7 +9,7 @@ export default class ModalLoggedAlert extends Modal {
 
 	constructor(props) {
         super(props);
- 
+
         this.state = {
             selectedTypeYears: true,
             selectedType: 'years',
@@ -19,30 +19,28 @@ export default class ModalLoggedAlert extends Modal {
     }
 
     handleChange(event) {
-    	
     	this.setState( { selectedType: event.target.value } )
-    	
     	if ( event.target.value === 'year' ) {
     		this.setState( { periodInputtype: 'number' } );
     	}
     	else {
-    		this.setState( { periodInputtype:  event.target.value } );	
+    		this.setState( { periodInputtype:  event.target.value } );
     	}
 
 
     	if ( event.target.value !== 'years' ) {
     		return this.setState( { selectedTypeYears:  false } );
-    	}	
-    	
+    	}
+
     	this.setState( { selectedTypeYears:  true } );
     }
 
     insertStage(e) {
-    	
+
     	const data = $(this.refs.form).serializeJSON();
     	const period = data.period || `${data.firstYear}-${data.lastYear}`;
     	const stage = {period, type: data.type};
-    	
+
     	Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
      		if (!err) return $('#addStage').modal('hide')
 
@@ -58,16 +56,16 @@ export default class ModalLoggedAlert extends Modal {
     }
 
 	render() {
-  		// 
+  		//
 	    let title = 'Add stage',
-	        content = 
-				<div> 
-				{ this.state.error ? 
+	        content =
+				<div>
+				{ this.state.error ?
 					<div className="alert alert-danger">
         				<button type="button" className="close js-error-close" aria-hidden="true">&times;</button>
         				{ this.state.error }
       				</div>
-				: 	'' 
+				: 	''
 				}
 
 
@@ -80,12 +78,12 @@ export default class ModalLoggedAlert extends Modal {
 	          					<option value={ elem }>
 		          					{ elem }
 		          				</option>
-	          					)) 	
+	          					))
 	          				}
 	        			</select>
 	      			</div>
-	      			
-	      			{ this.state.selectedTypeYears ? 
+
+	      			{ this.state.selectedTypeYears ?
 	      					<div>
 	      					<div className="form-group">
           						<label className="control-label" for="firstYear">First year</label>
@@ -95,8 +93,8 @@ export default class ModalLoggedAlert extends Modal {
           						<label className="control-label" for="lastYear">Last year</label>
           						<input type="year" required className="form-control" id="lastYear" name="lastYear" min="2000" value={ this.props.lastYear.curValue	 }/>
        						</div>
-       						</div>	
-	      				: 
+       						</div>
+	      				:
 	      					<div>
 	      					<div className="form-group">
 	          					<label className="control-label text-capitalize" for="period">
@@ -129,13 +127,13 @@ export default class ModalLoggedAlert extends Modal {
 
 export default createContainer(() => {
 	const currentYear = moment().year();
-  
 
-	return { 
+
+	return {
 		stageValidTypes: Stages.validTypes,
   		selectedType: new ReactiveVar(Stages.ValidTypes || 'week'),
   		firstYear: new ReactiveVar(currentYear),
   		lastYear: new ReactiveVar(currentYear + 5),
-  		error: new ReactiveVar(null),		 
+  		error: new ReactiveVar(null),
   	}
 }, ModalLoggedAlert);

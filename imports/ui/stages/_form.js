@@ -25,13 +25,12 @@ Template._stagesForm.events({
     const data = tpl.$('form').serializeJSON();
     const period = data.period || `${data.firstYear}-${data.lastYear}`;
     const stage = {period, type: data.type};
-
     Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
       if (!err) return $('#formModal').modal('hide');
 
       tpl.error.set(err.reason);
 
-      //ToDo: needs refactoring
+      // ToDo: needs refactoring
       if (err.error === 'period-invalid') {
         return tpl.$('#period').parent('.form-group').addClass('has-error');
       }

@@ -10,15 +10,15 @@ export default class StagesUI extends Component {
 
 	constructor(props) {
         super(props);
- 
-        this.state = {
-            stages: Stages.find({}).fetch(),
-        };
+
+        // this.state = {
+        //     stages: Stages.find({}).fetch(),
+        // };
     }
 
 
 	render() {
-		
+
 		console.log(this.props.stages)
 		return (
 			<div>
@@ -33,22 +33,21 @@ export default class StagesUI extends Component {
 					</div>
 				)) }
 			</div>
-			
-			
+
+
 		)
-	} 
+	}
 }
 
 
 export default createContainer(() => {
 	
-	console.log( Stages.find({}).__proto__.goals() )
-	return { stages: Stages.find({type: 'years'}, {sort: {startsAt: -1}}).fetch() 
+	return { stages: Stages.find({type: 'years'}, {sort: {startsAt: -1}}).fetch()
 		// stages: function() {
   //   		let stage = this.parentStage;
   //   		console.log(stage)
   //   		if (!stage) return Stages.find({type: 'years'}, {sort: {startsAt: -1}});
-    
+
   //   		let type = Stages.relativeType(stage.type, 1);
   //   		console.log(type)
   //   		if (!type) return [];
@@ -57,5 +56,5 @@ export default createContainer(() => {
   //   		console.log(children)
   //   		return children.count() > 0 ? children : [Stages._transform({type})];
   }
-  
+
 }, StagesUI);
