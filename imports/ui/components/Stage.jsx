@@ -1,43 +1,54 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import { setActiveStages } from '/imports/api/events.js';
 
 export default class StageUI extends React.Component {	
-	handleClick(event) {
-		console.log( Session.get('activeStages'))
-		Session.set('activeStages', this.props.stageType );
-		console.log( Session.get('activeStages'))
-		console.log(this.props)
-		
-	}
+	// handleClick(e) {
+	// 	Session.set('activeStages', this.props.stageType );
+	// }
 
 	render() {	
-		console.log( Session.get('activeStages'))
-		let classes = 'panel ' + this.props.stageType;
-
-		// console.log(this.props.stage.type)
-		// console.log(this.props.stageType)
-		// console.log(this.props.activeStages)
+	
+		// let classes;
+		// let active = ( this.props.stageType === this.props.activeStages );
 		
-		if ( this.props.stageType === this.props.activeStages ) {
-			classes += ' panel-warning'
-		}
+		// if ( active ) {
+		// 	classes = 'panel active'
+		// }
+		// else {
+		// 	classes = 'panel'
+		// }
 
-		if ( this.props.stage ) {
-			return (
-				<div className={classes} ref='stage' onClick={this.handleClick.bind(this)}>
-					<p>{ this.props.stage.type }</p>
-					{ this.props.stage.period }
-				</div>
-			)
-		}
-		else {
-			return (
-				<div className={classes} ref='stage' onClick={this.handleClick.bind(this)}>
-					empty
-				</div>
-			)
 
-		}
+		return (
+			<div>
+				
+				{ this.props.stage ?
+												
+					<p>{ this.props.stage.period }</p>
+					
+				:
+					<p>empty</p>
+				}
+			</div>
+		)
+		// return (
+		// 	<div className={classes} onClick={this.handleClick.bind(this)}>
+				
+		// 		{ this.props.stage ?
+		// 			active ? 
+		// 				<div className='panel-heading text-capitalize'>
+		// 					{ this.props.stage.period }
+		// 				</div>
+		// 			:	
+		// 				<p className='text-capitalize vertical-text'>{ this.props.stage.period }</p>
+					
+		// 		:
+		// 			<p>empty</p>
+		// 		}
+		// 	</div>
+		// )
 	}
 }
 

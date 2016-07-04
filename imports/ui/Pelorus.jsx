@@ -15,7 +15,6 @@ export default class Pelorus extends Component {
 	
 	componentWillMount() {
 		Session.set( 'activeStages','week');
-		console.log( Session.get('activeStages'))
 	}
 	render() {
 

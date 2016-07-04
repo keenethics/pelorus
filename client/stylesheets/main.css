@@ -22,15 +22,23 @@
 .vertical-text {
   transform: rotate(-90deg);
   white-space: nowrap;
+  text-align: center;
 }
 
 .panel {
-  /*background-color: grey;*/
   margin-bottom: 3px;
 }
 
 .dashed > .panel {
   border-style: dashed;
+}
+
+.activeStage {
+  width: 100%;
+}
+.stageView {
+  border: dashed 1px black;
+  height: 108px;
 }
 
 /* Stages level switching */
