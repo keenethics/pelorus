@@ -4,29 +4,88 @@ import StageUI from './Stage.jsx';
 
 
 export default class StagesUI extends React.Component {	
-	renderRecursive(stage) {
-		let children = Stages.findOne().children(stage);
-		if ( children.length ) {
-			return React.createElement(StagesUI, { stages: children } );
+	
+	// componentDidMount() {
+		// let stages = $('.panel')
+		// $('.panel').click( function(e) {
+			// console.log(e.target)
+		// })
+		// window.addEventListener('click', function(event) {
+			// console.log(event.target);
+			// if ( ReactDOM.findDOMNode(editButtons).style.display === 'block' ) {
+			// 	ReactDOM.findDOMNode(editButtons).style.display = 'none';
+			// }	
+		// })
+	// }
+
+
+
+	renderRecursive( stage, nextType ) {	
+		let children = [];
+		if ( stage ) {
+			children = Stages.findOne().children(stage);
 		}
+		return React.createElement( StagesUI, { stages: children,  stagesType: nextType});
 	}
 	
 	render() {
-		return (
-			<div>
-			{
-				this.props.stages.map( (elem) => (		
-						<div className={`stage active ${ elem._id ? '': 'dashed' } `} key={ elem._id }>
-							
-							<StageUI stage={ elem }/>
+		let nextType = Stages.relativeType(this.props.stagesType, 1);
+		
+		
+		if ( !Stages.findOne() )  return false
 
-							<div className='substages active'>
-								{ this.renderRecursive(elem) }								
-							</div>
-						</div> 
-				))
+		if ( this.props.stagesType === 'week' ) {
+			if ( this.props.stages.length ) {
+				return (
+					<div>
+						{ 
+							this.props.stages.map( ( elem ) => (
+								<div className='stage' key={ elem._id }>
+									<StageUI stage={ elem } stageType={ this.props.stagesType }/>
+								</div>
+							))
+						}
+					</div>
+				);
+			} 
+			else {
+				return (
+					<div>
+						<div className='stage'>	
+							<StageUI stage={ false } stageType={ this.props.stagesType }/>
+						</div>
+					</div>
+				);
+			}	
+		}
+		else {
+			if ( this.props.stages.length ) {
+				return (
+					<div>
+						{
+							this.props.stages.map( ( elem ) => (
+								<div className='stage' key={ elem._id }>
+									<StageUI stage={ elem } stageType={ this.props.stagesType }/>
+									
+									<div className='substages'>
+										{ this.renderRecursive(elem, nextType) }								
+									</div>
+								</div>
+							))
+						}
+					</div>
+				);
 			}
-			</div>		
-		)
-	} 
+			else {
+				return (
+					<div className='stage'>	
+						<StageUI stage={ false } stageType={ this.props.stagesType }/>
+						<div className='substages'>
+							{ this.renderRecursive(false, nextType) }								
+						</div>
+					</div>
+				);
+			} 
+		}
+	}	
 }

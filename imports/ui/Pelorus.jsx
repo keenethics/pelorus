@@ -17,7 +17,7 @@ export default class Pelorus extends Component {
 				<Navigation />
 				<ModalLoggedAlert/>
 				<ModalAddStage/>
-				<StagesUI stages={this.props.stages}/>	
+				<StagesUI stages={this.props.stages} stagesType='years'/>	
 			</div>
 		);
 	}

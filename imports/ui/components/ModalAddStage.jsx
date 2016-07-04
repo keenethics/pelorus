@@ -29,7 +29,6 @@ export default class ModalLoggedAlert extends Modal {
     		this.setState( { periodInputtype:  event.target.value } );	
     	}
 
-
     	if ( event.target.value !== 'years' ) {
     		return this.setState( { selectedTypeYears:  false } );
     	}	
@@ -58,17 +57,16 @@ export default class ModalLoggedAlert extends Modal {
     }
 
 	render() {
-  		// 
 	    let title = 'Add stage',
-	        content = 
+	       content = 
 				<div> 
-				{ this.state.error ? 
-					<div className="alert alert-danger">
-        				<button type="button" className="close js-error-close" aria-hidden="true">&times;</button>
-        				{ this.state.error }
-      				</div>
-				: 	'' 
-				}
+  				{ this.state.error ? 
+  					<div className="alert alert-danger">
+          				<button type="button" className="close js-error-close" aria-hidden="true">&times;</button>
+          				{ this.state.error }
+        				</div>
+  				: 	'' 
+  				}
 
 
 	        	<form ref='form'>
@@ -121,7 +119,6 @@ export default class ModalLoggedAlert extends Modal {
 	   				</button>
 				</div>
 				</div>;
-
 
     	return this.renderModal(title, content, 'addStage')
     }
