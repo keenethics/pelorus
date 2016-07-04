@@ -1,18 +1,24 @@
 import React from 'react';
+import { setActiveStages } from '/imports/api/events.js';
 
 export default class StageUI extends React.Component {	
 	handleClick(event) {
-		console.log( event.target.classList)
-		$('.panel').removeClass('panel-warning');
-		this.refs.stage.className += ' panel-warning';
+		console.log( Session.get('activeStages'))
+		Session.set('activeStages', this.props.stageType );
+		console.log( Session.get('activeStages'))
+		console.log(this.props)
+		
 	}
 
 	render() {	
+		console.log( Session.get('activeStages'))
 		let classes = 'panel ' + this.props.stageType;
-		console.log(this.props.stage.type)
+
+		// console.log(this.props.stage.type)
+		// console.log(this.props.stageType)
+		// console.log(this.props.activeStages)
 		
-		if ( this.props.stageType === 'week' ) {
-			console.log('weeeek')
+		if ( this.props.stageType === this.props.activeStages ) {
 			classes += ' panel-warning'
 		}
 
@@ -34,4 +40,6 @@ export default class StageUI extends React.Component {
 		}
 	}
 }
+
+
 

@@ -5,27 +5,17 @@ import StageUI from './Stage.jsx';
 
 export default class StagesUI extends React.Component {	
 	
-	// componentDidMount() {
-		// let stages = $('.panel')
-		// $('.panel').click( function(e) {
-			// console.log(e.target)
-		// })
-		// window.addEventListener('click', function(event) {
-			// console.log(event.target);
-			// if ( ReactDOM.findDOMNode(editButtons).style.display === 'block' ) {
-			// 	ReactDOM.findDOMNode(editButtons).style.display = 'none';
-			// }	
-		// })
-	// }
-
-
-
+	
 	renderRecursive( stage, nextType ) {	
 		let children = [];
 		if ( stage ) {
 			children = Stages.findOne().children(stage);
 		}
-		return React.createElement( StagesUI, { stages: children,  stagesType: nextType});
+		return React.createElement( StagesUI, { 
+									stages: children,  
+									stagesType: nextType, 
+									activeStages: this.props.activeStages,
+								});
 	}
 	
 	render() {
@@ -41,7 +31,7 @@ export default class StagesUI extends React.Component {
 						{ 
 							this.props.stages.map( ( elem ) => (
 								<div className='stage' key={ elem._id }>
-									<StageUI stage={ elem } stageType={ this.props.stagesType }/>
+									<StageUI stage={ elem } stageType={ this.props.stagesType } activeStages={this.props.activeStages }/>
 								</div>
 							))
 						}
@@ -52,7 +42,7 @@ export default class StagesUI extends React.Component {
 				return (
 					<div>
 						<div className='stage'>	
-							<StageUI stage={ false } stageType={ this.props.stagesType }/>
+							<StageUI stage={ false } stageType={ this.props.stagesType } activeStages={this.props.activeStages }/>
 						</div>
 					</div>
 				);
@@ -65,7 +55,7 @@ export default class StagesUI extends React.Component {
 						{
 							this.props.stages.map( ( elem ) => (
 								<div className='stage' key={ elem._id }>
-									<StageUI stage={ elem } stageType={ this.props.stagesType }/>
+									<StageUI stage={ elem } stageType={ this.props.stagesType } activeStages={this.props.activeStages }/>
 									
 									<div className='substages'>
 										{ this.renderRecursive(elem, nextType) }								
@@ -79,7 +69,7 @@ export default class StagesUI extends React.Component {
 			else {
 				return (
 					<div className='stage'>	
-						<StageUI stage={ false } stageType={ this.props.stagesType }/>
+						<StageUI stage={ false } stageType={ this.props.stagesType } activeStages={this.props.activeStages }/>
 						<div className='substages'>
 							{ this.renderRecursive(false, nextType) }								
 						</div>
