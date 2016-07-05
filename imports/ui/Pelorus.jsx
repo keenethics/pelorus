@@ -22,7 +22,7 @@ export default class Pelorus extends Component {
       <div className="container" style={{ 'marginTop': '10px' }}>
   			<Navigation goTutorial={this.props.goTutorial} />
   			<ModalLoggedAlert/>
-  			<ModalAddStage/>
+  			<ModalAddStageb />
   			<StagesUI
   				stages={this.props.stages}
   				stagesType='years'
