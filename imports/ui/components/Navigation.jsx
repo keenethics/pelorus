@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
-import ModalLoggedAlert from './ModalLoggedAlert.jsx';
+import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
+import { Stages } from '/imports/api/stages/stages.js';
 
 
 export default class Navigation extends Component {
@@ -17,10 +19,13 @@ export default class Navigation extends Component {
 
   addStage() {
     if ( !Meteor.userId() ) {
-      return $('#logedAlert').modal('show');
+      alert("Login pleas!")
+      // return $('#logedAlert').modal('show');
     }
-    $('#addStage').modal('show');
-    return 0;
+    render(<ModalAddStage
+            error={null}
+            stageType='years'/>, document.getElementById('render-modal'));
+    $('#addModal').modal('show');
   }
   runTutorial(e) {
     this.props.goTutorial(e, this.refs.stage);
