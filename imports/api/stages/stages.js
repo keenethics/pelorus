@@ -1,8 +1,13 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-export const Stages = new Mongo.Collection('stages');
+export const Stages = new Mongo.Collection('stages')
 
+Stages.helpers({
+  showPeriod() {
+    return this.period;
+  }
+})
 
 Stages.validTypes = ['years', 'year', 'month', 'week'];
 
@@ -65,11 +70,27 @@ Stages.periodFormats = extended => ({
   month: { parse: 'YYYY-MM', display: extended ? 'MMMM YYYY' : 'MMM' },
   week: { parse: 'YYYY-[W]WW', display: extended ? 'DD MMMM YYYY' : 'DD MMM' }
 });
+Stages.helpers({
+
+  children(stage) {
+    return Stages.find(
+      {
+        'type': Stages.relativeType(stage.type, 1),
+        'userId': stage.userId,
+        $and: [
+          { 'startsAt': { $gte: stage.startsAt} },
+          { 'endsAt': { $lte: stage.endsAt } }
+        ]
+     },
+     { sort: { startsAt: -1 } } ).fetch();
 
 
 
+  }
+})
 
 Stages.helpers({
+
   goals: function(query) {
     console.log('goals')
     return Goals.find({...query, stageId: this._id}, {sort: {rank: 1}});
@@ -81,14 +102,6 @@ Stages.helpers({
       startsAt: { $lte: this.startsAt },
       endsAt: { $gte: this.endsAt }
     });
-  },
-  children: function() {
-    return Stages.find({
-      type: Stages.relativeType(this.type, +1),
-      userId: this.userId,
-      startsAt: { $gte: this.startsAt },
-      endsAt: { $lte: this.endsAt }
-    }, {sort: {startsAt: -1}});
   },
   siblings: function() {
     return Stages.find({

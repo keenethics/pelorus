@@ -42,3 +42,5 @@ standard-minifier-css
 standard-minifier-js
 react-meteor-data
 timoruetten:react-i18n
+kadira:flow-router
+kadira:react-layout

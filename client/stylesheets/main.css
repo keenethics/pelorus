@@ -32,6 +32,14 @@
   border-style: dashed;
 }
 
+.activeStage {
+  width: 100%;
+}
+.stageView {
+  border: dashed 1px black;
+  height: 108px;
+}
+
 /* Stages level switching */
 .stage-content {
   width: 0px;
