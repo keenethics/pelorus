@@ -1,6 +1,6 @@
 import React from 'react';
 import StagesUI from './StagesUI.jsx';
-import StageUI from './Stage.jsx';
+import Stage from './Stage.jsx';
 import { Stages } from '/imports/api/stages/stages.js';
 
 export default class StagesWrapper extends React.Component {
@@ -26,7 +26,7 @@ export default class StagesWrapper extends React.Component {
 
 	  return (
 	    <div className={`stage ${ active? "active": ""} ${ this.props.stage? "": "dashed"}`} onClick={ this.handleClick.bind(this) }>
-		  	<StageUI stage={ this.props.stage } active={ active }/>
+		  	<Stage stage={ this.props.stage } active={ active }/>
 		  	{ week ?
 			  	''
 			  	:

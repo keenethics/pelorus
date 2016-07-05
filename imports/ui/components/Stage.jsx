@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 
 import { setActiveStages } from '/imports/api/events.js';
 
-export default class StageUI extends React.Component {
+export default class Stage extends React.Component {
 
 	render() {
 		return (
 			<div>
 				{ this.props.active ?
 					<div className={`panel panel-default stage-content`}>
-
 			      		<div className="panel-heading text-capitalize">
 			        		{ this.props.stage.period }
 			        		{ this.props.stage.progress? this.props.stage.progress: '' }
