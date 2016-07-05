@@ -12,9 +12,7 @@ export default class Pelorus extends Component {
   render() {
     return (
 			<div className="container" style={{ 'marginTop': '10px' }}>
-				<Navigation
-          goTutorial={this.props.goTutorial}
-        />
+				<Navigation goTutorial={this.props.goTutorial} />
 				<ModalLoggedAlert/>
 				<ModalAddStage/>
 				<StagesUI />
