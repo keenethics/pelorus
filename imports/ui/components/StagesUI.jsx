@@ -5,14 +5,11 @@ import StageUI from './Stage.jsx';
 class StageWrapper extends React.Component {
 
   renderChildren( stage ) {
-    console.log(stage)
     let children = Stages.findOne().children(stage) || [];
-    console.log('renderChildren')
-    console.log(children)
     return <StagesUI 
                 stages={ Stages.findOne().children(stage) } 
                 stagesType={ Stages.relativeType(this.props.stagesType, 1) }
-                activeStages={ this.props.activeStagesType }/>;
+                activeStagesType={ this.props.activeStagesType }/>;
 	}
 
 	handleClick(e) {
@@ -21,14 +18,17 @@ class StageWrapper extends React.Component {
 	}
 
 	render() {
-	  console.log('renderWraper')
-	  console.log(this.props)
+	  let week = ( this.props.stagesType === 'week' );
 	  return (
 	    <div className='stage'>	
 		  <StageUI stage={ this.props.stage }/>
-		  <div className='substages'>
-		    { this.renderChildren( this.props.stage ) }
-		  </div>
+		  { week?
+		  	''
+		  	:
+			  <div className='substages'>
+			    { this.renderChildren( this.props.stage ) }
+			  </div>
+			}
 		</div>
 	  );
 	}
@@ -36,10 +36,6 @@ class StageWrapper extends React.Component {
 
 export default class StagesUI extends React.Component {	
 	renderComponent() {
-
-		console.log('renderCompnent')
-		console.log(this.props)
-
 		if ( this.props.stagesType === 'week' ) {
 			console.log('week')
 			return (
@@ -63,7 +59,6 @@ export default class StagesUI extends React.Component {
 				
 		}
 		else {
-			console.log('NONWeek')
 			return (
 				<div>
 					{ this.props.stages.length ? 
@@ -87,8 +82,6 @@ export default class StagesUI extends React.Component {
 
 	render() {
 		if ( !Stages.findOne() )  return false
-		console.log('renderStages')
-		console.log(this.props)	
 		return this.renderComponent();
 	}	
 }
