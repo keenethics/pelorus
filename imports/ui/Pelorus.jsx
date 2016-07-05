@@ -25,7 +25,10 @@ export default class Pelorus extends Component {
 				<Navigation />
 				<ModalLoggedAlert/>
 				<ModalAddStage/>
-				<StagesUI stages={this.props.stages} stagesType='years' activeStages={this.props.activeStages}/>	
+				<StagesUI 
+					stages={this.props.stages} 
+					stagesType='years' 
+					activeStagesType={ this.props.activeStagesType }/>	
 			</div>
 		);
 	}
@@ -35,6 +38,6 @@ export default class Pelorus extends Component {
 export default createContainer(() => {
 	return { 
 		stages: Stages.find({type: 'years'}, {sort: {startsAt: -1}}).fetch(),
-		activeStages: Session.get('activeStages'),
+		activeStagesType: Session.get('activeStages'),
   }
 }, Pelorus);
