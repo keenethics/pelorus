@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
-import ModalLoggedAlert from './ModalLoggedAlert.jsx';
+import ModalAddStage from './ModalAddStage.jsx';
 
 
 export default class Navigation extends Component {
@@ -20,6 +20,7 @@ export default class Navigation extends Component {
 		if ( !Meteor.userId() ) {
 			return $('#logedAlert').modal('show');
 		}
+		ReactDOM.render(<ModalAddStage/>, document.getElementById('modal-target'))
 		$('#addStage').modal('show');	
 	}
 	runTutorial(e) {

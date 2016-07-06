@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-export default Goals = new Mongo.Collection('goals');
+export const Goals = new Mongo.Collection('goals');
 
 Goals.attachSchema(new SimpleSchema({
   title: {

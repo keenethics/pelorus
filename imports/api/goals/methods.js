@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Goals } from './goals.js';
+
 
 Meteor.methods({
   toggleGoalCompletion: function(goalId) {

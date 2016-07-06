@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
-
 import ModalLoggedAlert from './ModalLoggedAlert';
-
-
-
 
 export default class Navigation extends Component {
 	componentDidMount() {

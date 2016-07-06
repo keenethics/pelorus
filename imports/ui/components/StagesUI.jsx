@@ -7,7 +7,8 @@ export default class StagesUI extends React.Component {
 		if ( this.props.stagesType === 'week' ) {
 			if ( !this.props.stages.length ) {
 				return <StagesWrapper 
-					stage={ false }  
+					stage={ false } 
+					goals = { null } 
 					stagesType={ this.props.stagesType } 
 					activeStagesType={ this.props.activeStagesType } />
 			}
@@ -17,6 +18,7 @@ export default class StagesUI extends React.Component {
 					{ this.props.stages.map( ( elem ) => (
 						<StagesWrapper 
 							stage={ elem } 
+							goals = { elem.goals() }
 							stagesType={ this.props.stagesType } 
 							activeStagesType={ this.props.activeStagesType } 
 							key={elem._id} />
@@ -28,18 +30,20 @@ export default class StagesUI extends React.Component {
 			if ( !this.props.stages.length ) { 
 				return <StagesWrapper 
 					stage={ false }  
+					goals = { null }
 					stagesType={ this.props.stagesType } 
 					activeStagesType={ this.props.activeStagesType } />
 			}
 			
 			return (
 				<div>
-					{ this.props.stages.map( ( stage ) => (
+					{ this.props.stages.map( ( elem ) => (
 						<StagesWrapper 
-							stage={ stage }
+							stage={ elem }
+							goals = { elem.goals() }
 							stagesType={ this.props.stagesType } 
 							activeStagesType={ this.props.activeStagesType }
-							key={ stage._id } />
+							key={ elem._id } />
 					)) }
 				</div>
 			)
