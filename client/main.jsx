@@ -16,6 +16,4 @@ FlowRouter.route( '/', {
     	ReactLayout.render( Pelorus );
   	}
 });
-//if
-//ready  	
-
+	

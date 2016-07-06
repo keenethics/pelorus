@@ -6,31 +6,5 @@ import '../users/_login_alert.html';
 Template.navigation.events({
   'click .js-add-stage': function() {
     Template.modal.show({title: 'Add stage', template: '_stagesForm'});
-  },
-  'click #js-run-tutorial': function(e, t) {
-    e.preventDefault();
-
-    console.log(t)
-
-    let steps = [
-      { intro: TAPi18n.__("Pelorus is") },
-      {
-        intro: TAPi18n.__("Stage is a goals period"),
-        element: t.find('.js-add-stage')
-      },
-      {
-        intro: TAPi18n.__("Create goals"),
-        element: $('.active > .stage-content .js-add-goal').get(0)
-      },
-      {
-        intro: TAPi18n.__("Switch views"),
-        element: $('.stage:not(.active) > .bar').get(0)
-      },
-      {
-        intro: TAPi18n.__("Edit goal"),
-        element: $('.active > .stage-content .goal').get(0)
-      },
-    ];
-    introJs().setOptions({showStepNumbers: false, steps}).start();
   }
 });

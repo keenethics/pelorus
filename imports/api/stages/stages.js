@@ -6,7 +6,6 @@ export const Stages = new Mongo.Collection('stages')
 
 Stages.validTypes = ['years', 'year', 'month', 'week'];
 
-
 Stages.attachSchema(new SimpleSchema({
   period: {
     type: String
@@ -100,16 +99,10 @@ Stages.helpers({
       endsAt: { $gte: this.endsAt }
     }).fetch();
   },
-
-
 })
 
 import { Goals } from '/imports/api/goals/goals.js';
-
-
 Stages.helpers({
-  
-
   parent: function() {
     return Stages.findOne({
       type: Stages.relativeType(this.type, -1),

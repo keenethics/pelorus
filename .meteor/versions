@@ -104,6 +104,7 @@ stylus@2.512.3_1
 tap:i18n@1.8.2
 templating@1.1.12_1
 templating-tools@1.0.4
+timoruetten:react-i18n@0.0.4
 tmeasday:check-npm-versions@0.2.0
 tracker@1.0.14
 twbs:bootstrap@3.3.6
