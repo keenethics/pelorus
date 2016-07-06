@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Stages } from '/imports/api/stages/stages.js';
+import I18n from 'meteor/timoruetten:react-i18n';
 
 
 export default class ModalAddStage extends React.Component {
+	shouldComponentUpdate(nextProps) {
+		return nextProps.stageType !== '';
+	}
 	componentDidMount() {
 		$('#addModal').modal('show');
 	}
@@ -58,9 +62,11 @@ export default class ModalAddStage extends React.Component {
   }
 
   renderInputForm() {
-    return this.props.stageType === 'years' ?
+    return this.props.stageType === 'years' || this.props.stageType === '' ?
 			<div className="form-group">
-			  <label className="control-label">First year</label>
+			  <label className="control-label">
+     			<I18n i18nkey='First year' />
+     		</label>
 		    <input
 					type="year"
 					required
@@ -69,7 +75,9 @@ export default class ModalAddStage extends React.Component {
 					min="2000"
 				/>
 
-		    <label className="control-label">Last year</label>
+		    <label className="control-label">
+					<I18n i18nkey='Last year' />
+				</label>
 		    <input
 					type="year"
 					required
@@ -80,7 +88,7 @@ export default class ModalAddStage extends React.Component {
 			</div> :
 			<div className="form-group">
 					<label className="control-label text-capitalize">
-						{ this.props.stageType }
+					<I18n i18nkey={ this.props.stageType } />
 					</label>
 					 <input
 					 	type={ this.props.stageType }
@@ -96,7 +104,7 @@ export default class ModalAddStage extends React.Component {
 						<input
 						 type="checkbox"
 						 name="copyGoals"
-						/> Copy goals from parent stage
+						/> <I18n i18nkey='Copy goals from parent stage' />
 					</label>
 			</div>;
   }
@@ -115,13 +123,17 @@ export default class ModalAddStage extends React.Component {
 							>
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 className="modal-title">Add Stage</h4>
+							<h4 className="modal-title">
+								<I18n i18nkey='Add Stage' />
+							</h4>
 						</div>
 					{ this.renderError() }
 						<form>
 							<div className="modal-body">
 								<div className="form-group">
-									<label for="type"> Type of stage </label>
+									<label for="type">
+										<I18n i18nkey='Type of stage' />
+									</label>
 									<select className="form-control" name="type" id='type'
 										onChange={this.handleChange.bind(this)}>
 											{ this.renderStageTypes() }
@@ -135,7 +147,9 @@ export default class ModalAddStage extends React.Component {
 									className="btn btn-primary js-insert-stage"
 									data-dismiss="modal"
 									onClick = {this.insertStage.bind(this)}
-								> Add </button>
+								>
+								<I18n i18nkey='Add' />
+						 		</button>
 							</div>
 						</form>
 					</div>

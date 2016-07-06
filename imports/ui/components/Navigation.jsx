@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import ModalAddStage from './ModalAddStage.jsx';
+import ModalLoggedAlert from './ModalLoggedAlert.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { Stages } from '/imports/api/stages/stages.js';
 
@@ -19,13 +20,14 @@ export default class Navigation extends Component {
 
   addStage() {
     if ( !Meteor.userId() ) {
-      alert("Login pleas!")
-      // return $('#logedAlert').modal('show');
+      render(<ModalLoggedAlert />, document.getElementById('render-modal'));
+      $('#loggedModal').modal('show');
+    } else {
+      render(<ModalAddStage
+              error={null}
+              stageType=''/>, document.getElementById('render-modal'));
+      $('#addModal').modal('show');
     }
-    render(<ModalAddStage
-            error={null}
-            stageType='years'/>, document.getElementById('render-modal'));
-    $('#addModal').modal('show');
   }
   runTutorial(e) {
     this.props.goTutorial(e, this.refs.stage);
@@ -62,45 +64,43 @@ export default class Navigation extends Component {
               				</li>
             			</ul>
             			<ul className="nav navbar-nav navbar-right" ref='container'>
-              				<li>
-                				<a href="#" id="js-run-tutorial"
-                					onClick={this.runTutorial.bind(this)}>
-                  					<span className="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                				</a>
-              				</li>
-              				<li>
-                				<a href="https://github.com/keenethics/pelorus">
-                  					GitHub
-                				</a>
-              				</li>
-
-              				<li className="dropdown">
-                				<a href="#" className="dropdown-toggle"
-                					data-toggle="dropdown" role="button" aria-expanded="false">
-                  					<span className="glyphicon glyphicon-globe" aria-hidden="true">
-                  					</span>
-                  					<span className="caret">
-                  					</span>
-                				</a>
-		                		<ul className="dropdown-menu" role="menu">
-		                  			<li>
-		                  				<a href="#" name="en" onClick={this.setLanguage.bind(this)}>
-		                  					English
-		                  				</a>
-		                  			</li>
-		                  			<li>
-		                  				<a href="#" name="ru" onClick={this.setLanguage.bind(this)}>
-		                  					Русский
-		                  				</a>
-		                  			</li>
-		                  			<li>
-		                  				<a href="#" name="uk" onClick={this.setLanguage.bind(this)}>
-		                  					Українська
-		                  				</a>
-		                  			</li>
-		                		</ul>
-              				</li>
-
+            				<li>
+              				<a href="#" id="js-run-tutorial"
+              					onClick={this.runTutorial.bind(this)}>
+                					<span className="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+              				</a>
+            				</li>
+            				<li>
+              				<a href="https://github.com/keenethics/pelorus">
+                					GitHub
+              				</a>
+            				</li>
+            				<li className="dropdown">
+              				<a href="#" className="dropdown-toggle"
+              					data-toggle="dropdown" role="button" aria-expanded="false">
+                					<span className="glyphicon glyphicon-globe" aria-hidden="true">
+                					</span>
+                					<span className="caret">
+                					</span>
+              				</a>
+	                		<ul className="dropdown-menu" role="menu">
+                  			<li>
+                  				<a href="#" name="en" onClick={this.setLanguage.bind(this)}>
+                  					English
+                  				</a>
+                  			</li>
+                  			<li>
+                  				<a href="#" name="ru" onClick={this.setLanguage.bind(this)}>
+                  					Русский
+                  				</a>
+                  			</li>
+                  			<li>
+                  				<a href="#" name="uk" onClick={this.setLanguage.bind(this)}>
+                  					Українська
+                  				</a>
+                  			</li>
+		                	</ul>
+              			</li>
             			</ul>
           			</div>
 				</div>

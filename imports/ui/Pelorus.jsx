@@ -2,11 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { GoTutorial } from '/imports/api/user_methods.js';
 import {createContainer} from 'meteor/react-meteor-data';
 import { Stages } from '/imports/api/stages/stages.js';
-
-
 import Navigation  from './components/Navigation.jsx';
-import ModalLoggedAlert from './components/ModalLoggedAlert.jsx';
-import ModalAddStage from './components/ModalAddStage.jsx';
 import StagesUI from './components/StagesUI.jsx';
 
 
@@ -21,8 +17,6 @@ export default class Pelorus extends Component {
     return (
       <div className="container" style={{ 'marginTop': '10px' }}>
   			<Navigation goTutorial={this.props.goTutorial} />
-  			<ModalLoggedAlert/>
-  		{/*<ModalAddStageb />*/}
   			<StagesUI
   				stages={this.props.stages}
   				stagesType='years'
