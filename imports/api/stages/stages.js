@@ -70,6 +70,7 @@ Stages.periodFormats = extended => ({
 Stages.helpers({
 
   children() {
+    // if ( this.period === 'week' ) return false
     return Stages.find(
       { 
         'type': Stages.relativeType(this.type, 1),
@@ -99,6 +100,30 @@ Stages.helpers({
       endsAt: { $gte: this.endsAt }
     }).fetch();
   },
+
+  title: function(extended) {
+    
+    let format = Stages.periodFormats(extended)[this.type].display;
+    if (this.type === 'years') return this.period;
+    if (!this.startsAt || !this.startsAt) return '';
+
+    let [start, end] = [moment(this.startsAt), moment(this.endsAt)];
+    if (this.type === 'week') {
+      return `${start.format('DD')}-${end.format(format)}`;
+    } else {
+      return end.subtract(3, 'days').format(format);
+    }
+  },  
+
+  progress: function() {
+    // return this
+    let sum = this.goals()
+      .map(goal => goal.progress)
+      .filter(Number)
+      .reduce((a, b) => a + b, 0);
+
+    return Math.round(sum / this.goals().length);
+  },
 })
 
 import { Goals } from '/imports/api/goals/goals.js';
@@ -122,30 +147,13 @@ Stages.helpers({
       ]
     });
   },
-  title: function(extended) {
-    let format = Stages.periodFormats(extended)[this.type].display;
-    if (this.type === 'years') return this.period;
-    if (!this.startsAt || !this.startsAt) return '';
-
-    let [start, end] = [moment(this.startsAt), moment(this.endsAt)];
-    if (this.type === 'week') {
-      return `${start.format('DD')}-${end.format(format)}`;
-    } else {
-      return end.subtract(3, 'days').format(format);
-    }
-  },
+  
   newGoalRank: function() {
     let lastGoal = Goals.findOne({stageId: this._id}, {sort: {rank: -1}});
     let lastRank = lastGoal && lastGoal.rank || 0;
     return lastRank + 1;
   },
-  progress: function() {
-    let sum = this.goals()
-      .map(goal => goal.progress)
-      .filter(Number)
-      .reduce((a, b) => a + b, 0);
-    return Math.round(sum / this.goals().count());
-  },
+  
 });
 
 Stages.allow({

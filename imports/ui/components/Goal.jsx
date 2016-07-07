@@ -7,9 +7,13 @@ export default class Goal extends React.Component {
 	editGoal(e) {
 		e.preventDefault();
     if (!Meteor.user()) return $('#logedAlert').modal('show');
-
-    ReactDOM.render(<ModalAddGoal stage={ this.props.stage } error={ null } goal={ this.props.goal }/>, document.getElementById('modal-target'));
-   	$('#addGoal').modal('show');	 
+    console.log(this.props)
+    ReactDOM.render(<ModalAddGoal 
+                      goal={ this.props.goal }
+                      stage={ this.props.stage } 
+                      parent={ this.props.stage.parent() && this.props.stage.parent().goals() }
+                      error={ null } />, document.getElementById('modal-target'));
+   	$('#modal').modal('show');	 
     
 	}
 
@@ -28,13 +32,14 @@ export default class Goal extends React.Component {
       				onClick={ this.completedGoal.bind(this) }/>
     		</div>
 
-    		<div className="goal-content js-edit-goal"
+    		<div className="goal-content"
     					onClick={ this.editGoal.bind(this) }>
       		{ this.props.goal.progress === 100 ?
         		<strike>{ this.props.goal.title }</strike>
       		:
         		this.props.goal.title  
       		}
+          &nbsp;
       		({ this.props.goal.progress || 0 }%)
   		  </div>
   		</a>

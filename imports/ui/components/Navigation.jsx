@@ -51,7 +51,7 @@ export default class Navigation extends Component {
     }
   }
   runTutorial(e) {
-    this.props.goTutorial(e, this.refs.stage);
+    // this.props.goTutorial(e, this.refs.stage);
   }
   setLanguage(e) {
     const language = e.target.name;
