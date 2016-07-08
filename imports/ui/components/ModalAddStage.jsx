@@ -3,11 +3,9 @@ import { render } from 'react-dom';
 import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
 
-
 export default class ModalAddStage extends React.Component {
 	
 	shouldComponentUpdate(nextProps) {
-		
 		return nextProps.stageType !== '' || nextProps.error;
 	}
 
@@ -15,26 +13,26 @@ export default class ModalAddStage extends React.Component {
 		$('#addModal').modal('show');
 	}
 
-  componentWillUpdate(nextProps) {
-    if(nextProps.stageType === 'years') {
-      $('#type').val($('#type option:first').val());
-    }
-  }
-  handleChange(e) {
+	componentWillUpdate(nextProps) {
+	    if(nextProps.stageType === 'years') {
+	      $('#type').val($('#type option:first').val());
+	    }
+ 	}
+	handleChange(e) {
 		render(<ModalAddStage
             error={null}
             stageType={ e.target.options[e.target.selectedIndex].text } />,
-          document.getElementById('render-modal'));
-  }
+          	document.getElementById('modal-target'));
+	}
 
-  insertStage(e) {	 
-  	const data = $(this.refs.form).serializeJSON();
-  	const period = data.period || `${data.firstYear}-${data.lastYear}`;
-  	const stage = {period, type: data.type};
+  	insertStage(e) {	 
+	  	const data = $(this.refs.form).serializeJSON();
+	  	const period = data.period || `${data.firstYear}-${data.lastYear}`;
+	  	const stage = {period, type: data.type};
 
-  	Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
-      if (!err) return $('#addModal').modal('hide');
-      render( <ModalAddStage 
+	  	Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
+			if ( !err ) return $('#addModal').modal('hide');
+      		render( <ModalAddStage 
       			error= { err.reason }
       			stageType = { this.props.stageType }/>,
       			document.getElementById('render-modal')) 
@@ -56,8 +54,8 @@ export default class ModalAddStage extends React.Component {
   }
 
   renderStageTypes() {
-    return Stages.validTypes.map( (elem) => (
-			<option value={ elem }>
+    return Stages.validTypes.map( (elem, num) => (
+			<option value={ elem } key = { num }>
 				{ elem }
 			</option>
 		));
@@ -162,7 +160,7 @@ export default class ModalAddStage extends React.Component {
   }
 }
 
-ModalAddStage.propTypes = {
-  error: React.PropTypes.string.isRequired,
-  stageType: React.PropTypes.string.isRequired
-};
+// ModalAddStage.propTypes = {
+//   error: React.PropTypes.string.isRequired,
+//   stageType: React.PropTypes.string.isRequired
+// };

@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import ModalAddGoal from './ModalAddGoal.jsx';
 import { Stages } from '/imports/api/stages/stages.js';
 import Goal from './Goal.jsx';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 
 export default class StageUI extends React.Component {	
-	addGoal(e) {
+  addGoal(e) {
 		e.preventDefault();
-    if (!Meteor.user()) return $('#logedAlert').modal('show');
+    if (!Meteor.user()) return $('#loggedModal').modal('show');
     ReactDOM.render(<ModalAddGoal 
                       goal = { false }
                       stage={ this.props.stage } 
@@ -44,7 +45,7 @@ export default class StageUI extends React.Component {
         <ul className='list-group'>
           { this.props.goals ? 
             this.props.goals.map( (elem) => (
-              <Goal stage= { this.props.stage } goal = { elem }/>
+              <Goal stage= { this.props.stage } goal = { elem } key={elem._id}/>
             ))
           :'' }
         </ul>
@@ -58,10 +59,14 @@ export default class StageUI extends React.Component {
       </div>
     )
   }
+  handleClick(e) {
+    e.stopPropagation();
+    FlowRouter.go('pelorus', '' ,{ 'activeStagesType': this.props.stageType });
+  }
   
   renderBar() {
     return (
-      <div className={`panel panel-${ this.classes() } bar`}>
+      <div className={`panel panel-${ this.classes() } bar`} onClick={this.handleClick.bind(this)}>
         <p className={`text-capitalize text-${ this.classes() } vertical-text`}>
             { this.renderHeader() }
         </p>

@@ -28,7 +28,7 @@ export default class Goal extends React.Component {
 			<a href="#" className="list-group-item goal">
     		<div>
       		<input type="checkbox" className="js-goal-completed" checked={ this.props.goal.progress === 100 } 
-      				onClick={ this.completedGoal.bind(this) }/>
+      				onChange={ this.completedGoal.bind(this) }/>
     		</div>
 
     		<div className="goal-content"
@@ -36,7 +36,7 @@ export default class Goal extends React.Component {
       		{ this.props.goal.progress === 100 ?
         		<strike>{ this.props.goal.title }</strike>
       		:
-        		this.props.goal.title  
+        		this.props.goal.title 
       		}
           &nbsp;
       		({ this.props.goal.progress || 0 }%)

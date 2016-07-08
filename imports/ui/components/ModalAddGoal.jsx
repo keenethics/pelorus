@@ -1,24 +1,17 @@
-		import React, {Component} from 'react';
-		import ReactDOM from 'react-dom';
-		import Modal from './Modal.jsx';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import Modal from './Modal.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 
 		export default class ModalAddGoal extends Modal {
 			
-			    constructor(props) {
-			    	super(props)
-			    	this.state = {
-
-			    	}
-			    }
 		    shouldComponentUpdate(nextProps) {
-		    	
-		    	if ( !nextProps.error ) {
-		    		this.refs.title.value = nextProps.goal.title || ''; 		
-		    	}
 		    	$('.has-error').removeClass('has-error');
+
+		    	if ( !nextProps.error ) {   this.refs.title.value = nextProps.goal.title || '';   }
+		    	if ( this.refs.select ) {  this.refs.select.value = nextProps.goal.parentId || '';   }
+
 				this.refs.rank.value = nextProps.goal.rank || '';
-				
 				this.refs.progress.value = nextProps.goal.progress || 0;
 				return true;
 			}
@@ -84,11 +77,12 @@ import I18n from 'meteor/timoruetten:react-i18n';
 
 						      		<div className="form-group">
 					          		<label for="parentId"><I18n i18nkey='Parent goal'/></label>
-					          		<select className="form-control" name="parentId" defaultValue={this.props.goal.parentId}>
-					            		<option value=""><I18n i18nkey='None'/></option>
-							            	{ this.props.parent.map( (elem) => (
+					          		<select className="form-control" name="parentId" value={ this.props.goal.parentId } ref='select'>
+					            		<option value="">None</option>
+							            	{ this.props.parent.map( ( elem ) => (
 								            	<option value={ elem._id } 
-								            			selected={ elem._id === this.props.goal.parentId }>
+								            				key={ elem._id }>
+
 						                			{ elem.title }
 						              			</option>
 							            		))

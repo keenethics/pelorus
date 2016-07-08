@@ -2,6 +2,9 @@ import React from 'react';
 import StagesWrapper from'./StagesWrapper.jsx';
 
 export default class StagesUI extends React.Component {	
+	
+	
+	
 	renderComponent() {
 		if ( !this.props.stages.length ) { 
 			return <StagesWrapper 

@@ -71,7 +71,6 @@ Stages.periodFormats = extended => ({
 Stages.helpers({
 
   children() {
-    // if ( this.period === 'week' ) return false
     return Stages.find(
       { 
         'type': Stages.relativeType(this.type, 1),
@@ -117,7 +116,6 @@ Stages.helpers({
   },  
 
   progress: function() {
-    // return this
     let sum = this.goals()
       .map(goal => goal.progress)
       .filter(Number)
@@ -153,34 +151,7 @@ Stages.helpers({
 })
 
 
-// Stages.helpers({
-//   parent: function() {
-//     return Stages.findOne({
-//       type: Stages.relativeType(this.type, -1),
-//       userId: this.userId,
-//       startsAt: { $lte: this.startsAt },
-//       endsAt: { $gte: this.endsAt }
-//     });
-//   },
-//   siblings: function() {
-//     return Stages.find({
-//       _id: { $ne: this._id },
-//       userId: this.userId,
-//       type: this.type,
-//       $or: [
-//         { startsAt: { $gte: this.startsAt, $lte: this.endsAt } },
-//         { endsAt: { $gte: this.startsAt, $lte: this.endsAt } }
-//       ]
-//     });
-//   },
-  
-//   newGoalRank: function() {
-//     let lastGoal = Goals.findOne({stageId: this._id}, {sort: {rank: -1}});
-//     let lastRank = lastGoal && lastGoal.rank || 0;
-//     return lastRank + 1;
-//   },
-  
-// });
+
 
 Stages.allow({
   insert: () => false,

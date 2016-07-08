@@ -23,22 +23,14 @@ export default class Navigation extends Component {
 		Blaze.remove(this.view);
 	}
 
-	addStage(event) {
-		if ( !Meteor.userId() ) {
-			return $('#logedAlert').modal('show');
-		}
-		ReactDOM.render(<ModalAddStage/>, document.getElementById('modal-target'))
-		$('#addStage').modal('show');	
-	}
-			
+	
   addStage() {
     if ( !Meteor.userId() ) {
-      render(<ModalLoggedAlert />, document.getElementById('render-modal'));
       $('#loggedModal').modal('show');
     } else {
       render(<ModalAddStage
               error={null}
-              stageType=''/>, document.getElementById('render-modal'));
+              stageType=''/>, document.getElementById('modal-target'));
       $('#addModal').modal('show');
     }
   }
