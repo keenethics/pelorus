@@ -5,12 +5,16 @@ import I18n from 'meteor/timoruetten:react-i18n';
 
 
 export default class ModalAddStage extends React.Component {
+	
 	shouldComponentUpdate(nextProps) {
-		return nextProps.stageType !== '';
+		
+		return nextProps.stageType !== '' || nextProps.error;
 	}
+
 	componentDidMount() {
 		$('#addModal').modal('show');
 	}
+
   componentWillUpdate(nextProps) {
     if(nextProps.stageType === 'years') {
       $('#type').val($('#type option:first').val());
@@ -23,20 +27,18 @@ export default class ModalAddStage extends React.Component {
           document.getElementById('render-modal'));
   }
 
-  insertStage(e) {
-	 //
-  // 	const data = $(this.refs.form).serializeJSON();
-  // 	const period = data.period || `${data.firstYear}-${data.lastYear}`;
-  // 	const stage = {period, type: data.type};
-	 //
-  // 	Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
-  //  		if (!err) return $('#addStage').modal('hide')
-  //   			this.setState( { error: err.reason } );
-  //  //  		//ToDo: needs refactoring
-  //  //  		if (err.error === 'period-invalid') {
-  //  //    		return tpl.$('#period').parent('.form-group').addClass('has-error');
-  //  //  		}
-  // 	});
+  insertStage(e) {	 
+  	const data = $(this.refs.form).serializeJSON();
+  	const period = data.period || `${data.firstYear}-${data.lastYear}`;
+  	const stage = {period, type: data.type};
+
+  	Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
+      if (!err) return $('#addModal').modal('hide');
+      render( <ModalAddStage 
+      			error= { err.reason }
+      			stageType = { this.props.stageType }/>,
+      			document.getElementById('render-modal')) 
+     });
   }
 
   renderError() {
@@ -49,16 +51,16 @@ export default class ModalAddStage extends React.Component {
 				>
 					&times;
 				</button>
-				{ this.props.error }
+				<I18n i18nkey={ this.props.error }/>
 			</div> : null;
   }
 
   renderStageTypes() {
-    return Stages.validTypes.map(elem =>
+    return Stages.validTypes.map( (elem) => (
 			<option value={ elem }>
 				{ elem }
 			</option>
-		);
+		));
   }
 
   renderInputForm() {
@@ -124,11 +126,11 @@ export default class ModalAddStage extends React.Component {
 								<span aria-hidden="true">&times;</span>
 							</button>
 							<h4 className="modal-title">
-								<I18n i18nkey='Add Stage' />
+								<I18n i18nkey='Add Stage'/>
 							</h4>
 						</div>
 					{ this.renderError() }
-						<form>
+						<form ref='form'>
 							<div className="modal-body">
 								<div className="form-group">
 									<label for="type">
@@ -143,9 +145,9 @@ export default class ModalAddStage extends React.Component {
 							</div>
 							<div className="modal-footer">
 								<button
-									type="submit"
-									className="btn btn-primary js-insert-stage"
-									data-dismiss="modal"
+									type='button'
+									className="btn btn-primary"
+									// data-dismiss="modal"
 									onClick = {this.insertStage.bind(this)}
 								>
 								<I18n i18nkey='Add' />
@@ -156,7 +158,7 @@ export default class ModalAddStage extends React.Component {
 				</div>
 			</div>
 	    );
-    // return this.renderModal(title, content, 'addStage');
+    
   }
 }
 

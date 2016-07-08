@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
+import { Goals } from '/imports/api/goals/goals.js';
 
 export const Stages = new Mongo.Collection('stages')
 
@@ -124,10 +125,6 @@ Stages.helpers({
 
     return Math.round(sum / this.goals().length);
   },
-})
-
-import { Goals } from '/imports/api/goals/goals.js';
-Stages.helpers({
   parent: function() {
     return Stages.findOne({
       type: Stages.relativeType(this.type, -1),
@@ -153,8 +150,37 @@ Stages.helpers({
     let lastRank = lastGoal && lastGoal.rank || 0;
     return lastRank + 1;
   },
+})
+
+
+// Stages.helpers({
+//   parent: function() {
+//     return Stages.findOne({
+//       type: Stages.relativeType(this.type, -1),
+//       userId: this.userId,
+//       startsAt: { $lte: this.startsAt },
+//       endsAt: { $gte: this.endsAt }
+//     });
+//   },
+//   siblings: function() {
+//     return Stages.find({
+//       _id: { $ne: this._id },
+//       userId: this.userId,
+//       type: this.type,
+//       $or: [
+//         { startsAt: { $gte: this.startsAt, $lte: this.endsAt } },
+//         { endsAt: { $gte: this.startsAt, $lte: this.endsAt } }
+//       ]
+//     });
+//   },
   
-});
+//   newGoalRank: function() {
+//     let lastGoal = Goals.findOne({stageId: this._id}, {sort: {rank: -1}});
+//     let lastRank = lastGoal && lastGoal.rank || 0;
+//     return lastRank + 1;
+//   },
+  
+// });
 
 Stages.allow({
   insert: () => false,

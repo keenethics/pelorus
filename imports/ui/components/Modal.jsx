@@ -3,14 +3,7 @@ import ReactDOM from 'react-dom';
 
 export default class Modal extends Component {
 
-  componentDidMount() {
-    ReactDOM.findDOMNode(this.refs.form).getElementsByTagName('input')[0].focus();
-  }
-
-  onFieldChange(fieldName, e) { 
-    this.setState( { [''+fieldName]: e.target.value.trim() } );
-  }
-
+  
   renderError() {
     if ( this.props.error ) {
       return (
@@ -29,6 +22,7 @@ export default class Modal extends Component {
 
 
   renderModal( title, content ) {
+    
     return (
       <div className="modal fade" tabindex="-1" role="dialog" id='modal'>
         <div className="modal-dialog">

@@ -17,7 +17,7 @@ export default class Pelorus extends Component {
 		if ( !Stages.findOne() )  return false
 		return (
 			<div className="container" style={{ 'marginTop': '10px' }}>
-				<Navigation />
+				<Navigation goTutorial={this.props.goTutorial}/>
 				<StagesUI 
 					stages={this.props.stages} 
 					stagesType='years' 
@@ -37,3 +37,7 @@ export default createContainer(() => {
     activeStagesType: Session.get('activeStages')
   };
 }, Pelorus);
+
+Pelorus.propTypes = {
+  GoTutorial: PropTypes.func.isRquired
+};

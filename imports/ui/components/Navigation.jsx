@@ -30,14 +30,6 @@ export default class Navigation extends Component {
 		ReactDOM.render(<ModalAddStage/>, document.getElementById('modal-target'))
 		$('#addStage').modal('show');	
 	}
-	runTutorial(e) {
-		console.log('runtutorial')
-	}
-
-	setLanguage(e) {
-		console.log('setLenguage')
-		
-	}
 			
   addStage() {
     if ( !Meteor.userId() ) {
@@ -51,7 +43,7 @@ export default class Navigation extends Component {
     }
   }
   runTutorial(e) {
-    // this.props.goTutorial(e, this.refs.stage);
+    this.props.goTutorial(e, this.refs.stage);
   }
   setLanguage(e) {
     const language = e.target.name;
@@ -76,8 +68,7 @@ export default class Navigation extends Component {
 					<div id="navbar" className="navbar-collapse collapse">
            				<ul className="nav navbar-nav">
               				<li>
-                				<a className="js-add-stage"
-                          ref='stage'
+                				<a ref='stage'
                 					onClick={this.addStage.bind(this)}>
 	                  				<span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <I18n i18nkey="Add stage" />
@@ -86,7 +77,7 @@ export default class Navigation extends Component {
             			</ul>
             			<ul className="nav navbar-nav navbar-right" ref='container'>
             				<li>
-              				<a href="#" id="js-run-tutorial"
+              				<a href="#"
               					onClick={this.runTutorial.bind(this)}>
                 					<span className="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
               				</a>
@@ -131,6 +122,6 @@ export default class Navigation extends Component {
   }
 }
 
-// Navigation.propTypes = {
-//   goTutorial: PropTypes.func.isRequired
-// };
+Navigation.propTypes = {
+  goTutorial: PropTypes.func.isRequired
+};

@@ -7,7 +7,6 @@ export default class Goal extends React.Component {
 	editGoal(e) {
 		e.preventDefault();
     if (!Meteor.user()) return $('#logedAlert').modal('show');
-    console.log(this.props)
     ReactDOM.render(<ModalAddGoal 
                       goal={ this.props.goal }
                       stage={ this.props.stage } 
