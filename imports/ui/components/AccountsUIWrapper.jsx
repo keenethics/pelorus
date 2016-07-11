@@ -14,6 +14,6 @@
     }
 
     render() {
-      return <span ref="container" />;
+      return <span ref="container" />
     }
   }

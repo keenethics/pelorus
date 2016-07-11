@@ -2,9 +2,6 @@ import React from 'react';
 import StagesWrapper from'./StagesWrapper.jsx';
 
 export default class StagesUI extends React.Component {	
-	
-	
-	
 	renderComponent() {
 		if ( !this.props.stages.length ) { 
 			return <StagesWrapper 
@@ -13,7 +10,6 @@ export default class StagesUI extends React.Component {
 				stagesType={ this.props.stagesType } 
 				activeStagesType={ this.props.activeStagesType } />
 		}
-		
 		return (
 			<div className='stages-list'>
 				{ this.props.stages.map( ( elem ) => (
@@ -27,6 +23,5 @@ export default class StagesUI extends React.Component {
 			</div>
 		)
 	}	
-
 	render() { return this.renderComponent() }	
 }

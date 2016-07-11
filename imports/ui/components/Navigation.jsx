@@ -117,3 +117,4 @@ export default class Navigation extends Component {
 Navigation.propTypes = {
   goTutorial: PropTypes.func.isRequired
 };
+

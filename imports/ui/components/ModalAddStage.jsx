@@ -41,16 +41,16 @@ export default class ModalAddStage extends React.Component {
 
   renderError() {
     return this.props.error ?
-			<div className="alert alert-danger">
-				<button
-					type="button"
-					className="close"
-					aria-hidden="true"
-				>
-					&times;
-				</button>
-				<I18n i18nkey={ this.props.error }/>
-			</div> : null;
+		<div className="alert alert-danger">
+			<button
+				type="button"
+				className="close"
+				aria-hidden="true"
+			>
+				&times;
+			</button>
+			<I18n i18nkey={ this.props.error }/>
+		</div> : null;
   }
 
   renderStageTypes() {
@@ -63,104 +63,99 @@ export default class ModalAddStage extends React.Component {
 
   renderInputForm() {
     return this.props.stageType === 'years' || this.props.stageType === '' ?
-			<div className="form-group">
-			  <label className="control-label">
-     			<I18n i18nkey='First year' />
-     		</label>
-		    <input
-					type="year"
-					required
-					className="form-control"
-					name="firstYear"
-					min="2000"
-				/>
+		<div className="form-group">
+		  <label className="control-label">
+ 			<I18n i18nkey='First year' />
+ 		</label>
+	    <input
+				type="year"
+				required
+				className="form-control"
+				name="firstYear"
+				min="2000"
+			/>
 
-		    <label className="control-label">
-					<I18n i18nkey='Last year' />
+	    <label className="control-label">
+				<I18n i18nkey='Last year' />
+			</label>
+	    <input
+				type="year"
+				required
+				className="form-control"
+				name="lastYear"
+				min="2000"
+			/>
+		</div> :
+		<div className="form-group">
+				<label className="control-label text-capitalize">
+				<I18n i18nkey={ this.props.stageType } />
 				</label>
-		    <input
-					type="year"
+				 <input
+				 	type={ this.props.stageType }
 					required
 					className="form-control"
-					name="lastYear"
-					min="2000"
+					name="period"
 				/>
-			</div> :
-			<div className="form-group">
-					<label className="control-label text-capitalize">
-					<I18n i18nkey={ this.props.stageType } />
-					</label>
-					 <input
-					 	type={ this.props.stageType }
-						required
-						className="form-control"
-						name="period"
-					/>
-					<span
-					 className="help-block period-err-msg">
-					 	{ this.props.error }
-					</span>
-					<label>
-						<input
-						 type="checkbox"
-						 name="copyGoals"
-						/> <I18n i18nkey='Copy goals from parent stage' />
-					</label>
-			</div>;
+				<span
+				 className="help-block period-err-msg">
+				 	{ this.props.error }
+				</span>
+				<label>
+					<input
+					 type="checkbox"
+					 name="copyGoals"
+					/> <I18n i18nkey='Copy goals from parent stage' />
+				</label>
+		</div>;
   }
 
   render() {
     return (
-			<div className="modal fade" role="dialog" id='addModal'>
-				<div className="modal-dialog" role="document">
-					<div className="modal-content">
-						<div className="modal-header">
-							<button
-								type="button"
-								className="close"
-								data-dismiss="modal"
-								aria-label="Close"
-							>
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 className="modal-title">
-								<I18n i18nkey='Add Stage'/>
-							</h4>
-						</div>
-					{ this.renderError() }
-						<form ref='form'>
-							<div className="modal-body">
-								<div className="form-group">
-									<label for="type">
-										<I18n i18nkey='Type of stage' />
-									</label>
-									<select className="form-control" name="type" id='type'
-										onChange={this.handleChange.bind(this)}>
-											{ this.renderStageTypes() }
-									</select>
-								</div>
-								{ this.renderInputForm() }
-							</div>
-							<div className="modal-footer">
-								<button
-									type='button'
-									className="btn btn-primary"
-									// data-dismiss="modal"
-									onClick = {this.insertStage.bind(this)}
-								>
-								<I18n i18nkey='Add' />
-						 		</button>
-							</div>
-						</form>
+		<div className="modal fade" role="dialog" id='addModal'>
+			<div className="modal-dialog" role="document">
+				<div className="modal-content">
+					<div className="modal-header">
+						<button
+							type="button"
+							className="close"
+							data-dismiss="modal"
+							aria-label="Close"
+						>
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 className="modal-title">
+							<I18n i18nkey='Add Stage'/>
+						</h4>
 					</div>
+				{ this.renderError() }
+					<form ref='form'>
+						<div className="modal-body">
+							<div className="form-group">
+								<label for="type">
+									<I18n i18nkey='Type of stage' />
+								</label>
+								<select className="form-control" name="type" id='type'
+									onChange={this.handleChange.bind(this)}>
+										{ this.renderStageTypes() }
+								</select>
+							</div>
+							{ this.renderInputForm() }
+						</div>
+						<div className="modal-footer">
+							<button
+								type='button'
+								className="btn btn-primary"
+								// data-dismiss="modal"
+								onClick = {this.insertStage.bind(this)}
+							>
+							<I18n i18nkey='Add' />
+					 		</button>
+						</div>
+					</form>
 				</div>
 			</div>
-	    );
-    
+		</div>
+    );
   }
 }
 
-// ModalAddStage.propTypes = {
-//   error: React.PropTypes.string.isRequired,
-//   stageType: React.PropTypes.string.isRequired
-// };

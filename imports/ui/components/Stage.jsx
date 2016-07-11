@@ -9,11 +9,11 @@ export default class StageUI extends React.Component {
   addGoal(e) {
 		e.preventDefault();
     if (!Meteor.user()) return $('#loggedModal').modal('show');
-    ReactDOM.render(<ModalAddGoal 
-                      goal = { false }
-                      stage={ this.props.stage } 
-                      error={ null }
-                      parent={ this.props.stage.parent() && this.props.stage.parent().goals() } />,
+    ReactDOM.render( <ModalAddGoal 
+        goal = { false }
+        stage={ this.props.stage } 
+        error={ null }
+        parent={ this.props.stage.parent() && this.props.stage.parent().goals() } />,
         document.getElementById('modal-target'));
    	$('#modal').modal('show');	 
 	}

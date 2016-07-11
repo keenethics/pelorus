@@ -8,7 +8,7 @@ export default class StagesWrapper extends React.Component {
 	constructor(props) {
         super(props);
    	}
-  renderChildren( stage ) {    
+  	renderChildren( stage ) {    
 	   	if (this.props.stagesType === 'week') return false;
 	   		
 			let children = this.props.stage? this.props.stage.children(): [] ;
