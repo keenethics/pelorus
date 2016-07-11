@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 export default class Modal extends Component {
-
   
   renderError() {
     if ( this.props.error ) {
@@ -19,7 +18,6 @@ export default class Modal extends Component {
     }
     else return null;
   }
-
 
   renderModal( title, content ) {
     
