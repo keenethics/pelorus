@@ -4,7 +4,8 @@
   "description": "## About [Pelorus](http://pelorus.ws) is a simple yet highly-effective planning tool that helps reaching goals in a way of successive approximations (based on Dynamic programming).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .jsx,.js; true"
   },
   "repository": {
     "type": "git",
