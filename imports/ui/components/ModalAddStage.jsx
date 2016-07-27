@@ -5,7 +5,6 @@ import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
 
 export default class ModalAddStage extends React.Component {
-
   componentDidMount() {
     $('#addModal').modal('show');
   }

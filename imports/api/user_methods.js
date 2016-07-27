@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { TAPi18n } from 'meteor/tap:i18n';
 
-
 Meteor.methods({
   updateUserLanguage: function (locale) {
     check(locale, String);

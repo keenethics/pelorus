@@ -4,7 +4,7 @@ import I18n from 'meteor/timoruetten:react-i18n';
 export default class ModalLoggedAlert extends Component {
   render() {
     return (
-      <div className="modal fade" tabindex="-1" role="dialog" id="loggedModal">
+      <div className="modal fade" tabIndex="-1" role="dialog" id="loggedModal">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

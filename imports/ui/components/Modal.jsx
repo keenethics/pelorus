@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 export default class Modal extends Component {
-
   renderError() {
     if (this.props.error) {
       return (
