@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Stages } from  './stages.js';
+import { Stages } from './stages.js';
+import { check, Match } from 'meteor/check';
 
 Meteor.methods({
-  addStage: function(params, copyGoals) {
-    check(params, {type: String, period: String});
+  addStage: function (params, copyGoals) {
+    check(params, { type: String, period: String });
     check(copyGoals, Match.Optional(Boolean));
 
     if (!this.userId) {
@@ -12,7 +13,7 @@ Meteor.methods({
 
     const locale = Meteor.user().profile.language;
     const bounds = Stages.boundsFor(params.period, params.type, locale);
-    const data = _.extend(params, bounds, {userId: this.userId});
+    const data = _.extend(params, bounds, { userId: this.userId });
 
     if (params.type !== 'years' && !Stages._transform(data).parent()) {
       throw new Meteor.Error('period-invalid', 'Parent stage needed');
@@ -25,10 +26,10 @@ Meteor.methods({
 
     if (copyGoals && params.type !== 'years') {
       Stages.findOne(stageId).parent()
-        .goals({progress: { $ne: 100 }})
+        .goals({ progress: { $ne: 100 } })
         .map(goal => goal.createChild(stageId));
     }
 
     return stageId;
-  }
+  },
 });

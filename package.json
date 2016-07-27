@@ -1,0 +1,71 @@
+{
+  "name": "pelorus",
+  "version": "1.0.0",
+  "description": "## About [Pelorus](http://pelorus.ws) is a simple yet highly-effective planning tool that helps reaching goals in a way of successive approximations (based on Dynamic programming).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .jsx,.js; true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keenethics/pelorus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keenethics/pelorus/issues"
+  },
+  "homepage": "https://github.com/keenethics/pelorus#readme",
+  "dependencies": {
+    "babel-eslint": "^6.1.0",
+    "eslint": "^2.13.1",
+    "eslint-plugin-react": "^4.3.0",
+    "react": "^15.1.0",
+    "react-addons-create-fragment": "^15.1.0",
+    "react-addons-css-transition-group": "^15.1.0",
+    "react-addons-linked-state-mixin": "^15.1.0",
+    "react-addons-perf": "^15.1.0",
+    "react-addons-pure-render-mixin": "^15.1.0",
+    "react-addons-test-utils": "^15.1.0",
+    "react-addons-transition-group": "^15.1.0",
+    "react-addons-update": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-mounter": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.3.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-meteor": "^3.0.1",
+    "eslint-plugin-react": "^4.0.0",
+    "eslint-plugin-promise": "^1.0.8",
+    "eslint-plugin-standard": "^1.3.1"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "rules": {
+      "meteor/eventmap-params": [
+        2,
+        {
+          "eventParamName": "event",
+          "templateInstanceParamName": "instance"
+        }
+      ],
+      "meteor/template-names": [
+        0
+      ],
+      "consistent-return": 0,
+      "new-cap": 0
+    }
+  }
+}

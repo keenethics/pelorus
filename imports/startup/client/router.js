@@ -1,27 +1,18 @@
-import '../../ui/layouts/basic.html';
-import '../../ui/stages/index.js';
-import '../../ui/home/_navigation.js';
+import { Meteor } from 'meteor/meteor';
+import React from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import Pelorus from '/imports/ui/Pelorus';
+import { render } from 'react-dom';
 
-Router.configure({
-  layoutTemplate: 'basicLayout'
-});
-
-Router.route('/', {
-  name: 'home',
-  template: 'stagesIndex',
-  data() {
-    const activeType = this.params.query.activeType || 'week';
-    return { activeType: new ReactiveVar(activeType) };
+FlowRouter.route('/', {
+  subscriptions: function () {
+    this.register('Stages', Meteor.subscribe('Stages'));
   },
-  onAfterAction: function() {
-    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
-  }
+  name: 'pelorus',
+  action(params, queryParams) {
+    if (!queryParams.activeStagesType) { FlowRouter.go('/?activeStagesType=week'); }
+    render(<Pelorus activeStagesType={ queryParams.activeStagesType } />,
+      document.getElementById('render-target')
+    );
+  },
 });
-
-Router.onBeforeAction(function() {
-  this.next();
-}, { only: ['home'] });
-
-Router.onBeforeAction(function() {
-  this.next();
-}, { except: ['home'] });

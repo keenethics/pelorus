@@ -3,8 +3,14 @@
   display: flex;
   flex: 1 100%;
 }
+.stages-list {
+  display: flex;
+  flex: 100%;
+  flex-direction: column;
+}
 
 .bar {
+  min-height: 100px;
   width: 20px;
   cursor: pointer;
   display: flex;
@@ -14,9 +20,9 @@
 
 .substages {
   flex-direction: column;
-  flex: 1 100%;
   margin-left: 3px;
   display: flex;
+  flex: 1 100%;
 }
 
 .vertical-text {
@@ -34,22 +40,12 @@
 
 /* Stages level switching */
 .stage-content {
-  width: 0px;
-  border-width: 0px;
-  visibility: hidden;
+  width: 100%;
+  border-width: 1px;
   white-space: nowrap;
   overflow-x: hidden;
 }
 
-.stage.active > .stage-content {
-  width: 100%;
-  visibility: visible;
-  border-width: 1px;
-}
-
-.stage.active > .bar {
-  display: none;
-}
 
 .stage.active .substages {
   flex: 0%;

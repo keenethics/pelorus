@@ -1,4 +1,5 @@
 // Define App Constants
+import { Meteor } from 'meteor/meteor';
 
 if (Meteor.App) {
   throw new Meteor.Error(
@@ -9,5 +10,5 @@ Meteor.App = {
   'NAME': 'Pelorus',
   'DESCRIPTION': `Pelorus is a simple yet highly-effective planning tool that
                    helps reaching goals in a way of successive approximations
-                   (based on Dynamic programming).`
+                   (based on Dynamic programming).`,
 };
