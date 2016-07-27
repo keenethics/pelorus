@@ -4,7 +4,6 @@ import { Goals } from '/imports/api/goals/goals.js';
 
 export const Stages = new Mongo.Collection('stages')
 
-
 Stages.validTypes = ['years', 'year', 'month', 'week'];
 
 Stages.attachSchema(new SimpleSchema({
@@ -149,9 +148,6 @@ Stages.helpers({
     return lastRank + 1;
   },
 })
-
-
-
 
 Stages.allow({
   insert: () => false,

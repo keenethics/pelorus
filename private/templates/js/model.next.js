@@ -1,18 +1,20 @@
 // { "path" : "models/__modelName__.next.js" }
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
 export var __modelName__ = new Mongo.Collection('__modelName__');
 
 __modelName__.attachSchema(
   new SimpleSchema({
     title: {
-      type: String
+      type: String,
     },
     content: {
-      type: String
+      type: String,
     },
     createdAt: {
-      type: Date
-    }
+      type: Date,
+    },
   })
 );
 
@@ -20,8 +22,8 @@ __modelName__.attachSchema(
 // Add custom permission rules if needed
 if (Meteor.isServer) {
   __modelName__.allow({
-    insert : () => true,
-    update : () => true,
-    remove : () => true
+    insert: () => true,
+    update: () => true,
+    remove: () => true,
   });
 }
