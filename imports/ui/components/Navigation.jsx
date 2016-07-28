@@ -7,8 +7,16 @@ import { Blaze } from 'meteor/blaze';
 import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { Session } from 'meteor/session';
+import $ from 'meteor/jquery';
 
 export default class Navigation extends Component {
+  constructor() {
+    super();
+    this.addStage = this.addStage.bind(this);
+    this.runTutorial = this.runTutorial.bind(this);
+    this.setLanguage = this.setLanguage.bind(this);
+  }
+
   componentDidMount() {
     Blaze.render(Template._loginButtons,
         ReactDOM.findDOMNode(this.refs.container));
@@ -62,7 +70,7 @@ export default class Navigation extends Component {
                   <ul className="nav navbar-nav">
                       <li>
                         <a ref="stage"
-                          onClick={this.addStage.bind(this)}
+                          onClick={this.addStage}
                         >
                           <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
                           <I18n i18nkey="Add stage" />
@@ -72,7 +80,7 @@ export default class Navigation extends Component {
                   <ul className="nav navbar-nav navbar-right" ref="container">
                     <li>
                       <a href="#"
-                        onClick={this.runTutorial.bind(this)}
+                        onClick={this.runTutorial}
                       >
                         <span className="glyphicon glyphicon-question-sign"
                           aria-hidden="true"
@@ -95,17 +103,17 @@ export default class Navigation extends Component {
                       </a>
                       <ul className="dropdown-menu" role="menu">
                         <li>
-                          <a href="#" name="en" onClick={this.setLanguage.bind(this)}>
+                          <a href="#" name="en" onClick={this.setLanguage}>
                             English
                           </a>
                         </li>
                         <li>
-                          <a href="#" name="ru" onClick={this.setLanguage.bind(this)}>
+                          <a href="#" name="ru" onClick={this.setLanguage}>
                             Русский
                           </a>
                         </li>
                         <li>
-                          <a href="#" name="uk" onClick={this.setLanguage.bind(this)}>
+                          <a href="#" name="uk" onClick={this.setLanguage}>
                             Українська
                           </a>
                         </li>

@@ -7,8 +7,8 @@ if (Meteor.App) {
 }
 
 Meteor.App = {
-  'NAME': 'Pelorus',
-  'DESCRIPTION': `Pelorus is a simple yet highly-effective planning tool that
+  NAME: 'Pelorus',
+  DESCRIPTION: `Pelorus is a simple yet highly-effective planning tool that
                    helps reaching goals in a way of successive approximations
                    (based on Dynamic programming).`,
 };

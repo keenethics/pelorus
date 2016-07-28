@@ -2,9 +2,11 @@ import { Stages } from './stages/stages.js';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { TAPi18n } from 'meteor/tap:i18n';
+import $ from 'meteor/jquery';
+import { introJs } from 'meteor/keenethics:introjs';
 
 Meteor.methods({
-  updateUserLanguage: function (locale) {
+  updateUserLanguage(locale) {
     check(locale, String);
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import StagesUI from './StagesUI.jsx';
 import StageUI from './Stage.jsx';
 import { Stages } from '/imports/api/stages/stages.js';
 
-export default class StagesWrapper extends React.Component {
+class StagesWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   classes() {
     const classes = ['stage'];
     if (this.props.stagesType === this.props.activeStagesType) classes.push('active');
@@ -11,9 +15,9 @@ export default class StagesWrapper extends React.Component {
     return classes.join(' ');
   }
 
-  renderChildren(stage) {
+  renderChildren() {
     if (this.props.stagesType === 'week') return false;
-    let children = this.props.stage ? this.props.stage.children() : [];
+    let children = Object.keys(this.props.stage).length ? this.props.stage.children() : [];
     return (
       <StagesUI
         stages={ children }
@@ -39,3 +43,12 @@ export default class StagesWrapper extends React.Component {
     );
   }
 }
+
+StagesWrapper.propTypes = {
+  stagesType: PropTypes.string,
+  activeStagesType: PropTypes.string,
+  stage: PropTypes.object || PropTypes.bool,
+  goals: PropTypes.array,
+};
+
+export default StagesWrapper;

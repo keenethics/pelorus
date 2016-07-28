@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { TAPi18n } from 'meteor/tap:i18n';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
+import { moment } from 'meteor/momentjs:moment';
 
 Meteor.startup(function () {
   Tracker.autorun(function () {

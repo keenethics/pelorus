@@ -1,7 +1,7 @@
-import yaml from 'js-yaml';
 import { Meteor } from 'meteor/meteor';
 import { Stages } from '/imports/api/stages/stages.js';
 import { Goals } from '/imports/api/goals/goals.js';
+import yaml from 'js-yaml';
 
 function loadingSeeds(seeds, parentId) {
   seeds.forEach(seed => {

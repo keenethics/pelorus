@@ -3,7 +3,7 @@ import { Stages } from './stages.js';
 import { check, Match } from 'meteor/check';
 
 Meteor.methods({
-  addStage: function (params, copyGoals) {
+  addStage(params, copyGoals) {
     check(params, { type: String, period: String });
     check(copyGoals, Match.Optional(Boolean));
 

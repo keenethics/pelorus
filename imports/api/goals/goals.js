@@ -2,6 +2,8 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import Stages from '/imports/api/stages/stages.js';
 import { Match } from 'meteor/check';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 export const Goals = new Mongo.Collection('goals');
 
 Goals.attachSchema(new SimpleSchema({
@@ -40,12 +42,12 @@ Goals.attachSchema(new SimpleSchema({
 }));
 
 Goals.helpers({
-  parent: function () { return Goals.findOne(this.parentId); },
-  children: function() {
+  parent() { return Goals.findOne(this.parentId); },
+  children() {
     return Goals.find({ parentId: this._id }, { sort: { rank: 1 } });
   },
-  stage: function () { return Stages.findOne(this.stageId); },
-  createChild: function (stageId) {
+  stage() { return Stages.findOne(this.stageId); },
+  createChild(stageId) {
     const data = { stageId, parentId: this._id, progress: 0 };
     return Goals.insert(_.extend(_.pick(this, 'title', 'userId', 'rank'), data));
   },

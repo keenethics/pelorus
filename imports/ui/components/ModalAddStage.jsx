@@ -1,10 +1,17 @@
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import { render } from 'react-dom';
 import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
+import $ from 'meteor/jquery';
 
-export default class ModalAddStage extends React.Component {
+export default class ModalAddStage extends Component {
+  constructor(props) {
+    super(props);
+    this.insertStage = this.insertStage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   componentDidMount() {
     $('#addModal').modal('show');
   }
@@ -141,11 +148,11 @@ export default class ModalAddStage extends React.Component {
           <form ref="form">
             <div className="modal-body">
               <div className="form-group">
-                <label for="type">
-                  <I18n i18nkey="Type of stage"
-                /></label>
+                <label htmlFor="type">
+                  <I18n i18nkey="Type of stage" />
+                </label>
                 <select className="form-control" name="type" id="type"
-                  onChange={this.handleChange.bind(this)}
+                  onChange={this.handleChange}
                 >
                   { this.renderStageTypes() }
                 </select>
@@ -157,7 +164,7 @@ export default class ModalAddStage extends React.Component {
                 type="button"
                 className="btn btn-primary"
                 // data-dismiss="modal"
-                onClick = {this.insertStage.bind(this)}
+                onClick = {this.insertStage}
               >
               <I18n i18nkey="Add" />
               </button>
@@ -169,3 +176,8 @@ export default class ModalAddStage extends React.Component {
     );
   }
 }
+
+ModalAddStage.propTypes = {
+  stageType: PropTypes.string.isRequired,
+  error: PropTypes.object,
+};
