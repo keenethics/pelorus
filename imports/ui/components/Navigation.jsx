@@ -7,7 +7,7 @@ import { Blaze } from 'meteor/blaze';
 import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { Session } from 'meteor/session';
-import $ from 'meteor/jquery';
+import { $ } from 'meteor/jquery';
 
 export default class Navigation extends Component {
   constructor() {

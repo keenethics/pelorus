@@ -48,5 +48,5 @@ export default class Modal extends Component {
 }
 
 Modal.propTypes = {
-  error: PropTypes.object,
+  error: PropTypes.string,
 };

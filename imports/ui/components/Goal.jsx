@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import ModalAddGoal from './ModalAddGoal.jsx';
-import $ from 'meteor/jquery';
+import { $ } from 'meteor/jquery';
 
 export default class Goal extends React.Component {
   constructor() {

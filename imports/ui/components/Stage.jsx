@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import ModalAddGoal from './ModalAddGoal.jsx';
 import Goal from './Goal.jsx';
 import { FlowRouter } from 'meteor/kadira:flow-router';
-import $ from 'meteor/jquery';
+import { $ } from 'meteor/jquery';
 
 export default class StageUI extends React.Component {
   constructor() {
@@ -39,7 +39,7 @@ export default class StageUI extends React.Component {
   }
 
   renderStageContent() {
-    if (!this.props.stage) {
+    if (!Object.keys(this.props.stage).length) {
       return (<div className={`panel panel-${this.classes()} stage-content`}></div>);
     }
     return (

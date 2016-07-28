@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from './Modal.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
-import $ from 'meteor/jquery';
+import { $ } from 'meteor/jquery';
 
 export default class ModalAddGoal extends Modal {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class ModalAddGoal extends Modal {
 
       $(this.refs.form_group).removeClass('has-error');
       JSON.parse(error.details).map((elem) => {
-        $(`[name^=${elem.name}]`).parent('.form-group').addClass('has-error');
+        return $(`[name^=${elem.name}]`).parent('.form-group').addClass('has-error');
       });
     };
 
@@ -57,7 +57,7 @@ export default class ModalAddGoal extends Modal {
   }
 
   renderComponent() {
-    const title = (this.props.stage ? <I18n i18nkey="Edit Goal" /> : <I18n i18nkey="Add Goal" />);
+    const title = (!Object.keys(this.props.stage).length ? <I18n i18nkey="Edit Goal" /> : <I18n i18nkey="Add Goal" />);
     const content = (
       <div>
         <form ref="form">

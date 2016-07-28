@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import { render } from 'react-dom';
 import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
-import $ from 'meteor/jquery';
+import { $ } from 'meteor/jquery';
 
 export default class ModalAddStage extends Component {
   constructor(props) {
@@ -179,5 +179,5 @@ export default class ModalAddStage extends Component {
 
 ModalAddStage.propTypes = {
   stageType: PropTypes.string.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.string,
 };
