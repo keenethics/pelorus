@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Stages } from './stages.js';
 import { check, Match } from 'meteor/check';
+import { _ } from 'meteor/underscore';
 
 Meteor.methods({
   addStage(params, copyGoals) {

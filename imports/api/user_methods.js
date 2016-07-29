@@ -13,7 +13,7 @@ Meteor.methods({
     }
 
     Meteor.users.update(this.userId, { $set: { 'profile.language': locale } });
-    Stages.find({ userId: this.userId }).forEach(function (stage) {
+    Stages.find({ userId: this.userId }).forEach((stage) => {
       const bounds = Stages.boundsFor(stage.period, stage.type, locale);
       Stages.update(stage._id, { $set: bounds });
     });

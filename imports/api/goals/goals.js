@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import Stages from '/imports/api/stages/stages.js';
 import { Match } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { _ } from 'meteor/underscore';
 
 export const Goals = new Mongo.Collection('goals');
 

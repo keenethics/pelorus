@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Modal from './Modal.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
 
 export default class ModalAddGoal extends Modal {
   constructor(props) {
@@ -24,7 +25,6 @@ export default class ModalAddGoal extends Modal {
   addGoal() {
     const stageId = this.props.stage._id;
     const data = $(this.refs.form).serializeJSON();
-
     const handler = (error) => {
       if (!error) return $('#modal').modal('hide');
       ReactDOM.render(
@@ -36,11 +36,10 @@ export default class ModalAddGoal extends Modal {
         />,
         document.getElementById('modal-target')
       );
-
       $(this.refs.form_group).removeClass('has-error');
-      JSON.parse(error.details).map((elem) => {
-        return $(`[name^=${elem.name}]`).parent('.form-group').addClass('has-error');
-      });
+      JSON.parse(error.details).map((elem) =>
+        $(`[name^=${elem.name}]`).parent('.form-group').addClass('has-error')
+      );
     };
 
     if (this.props.goal) {
@@ -57,7 +56,8 @@ export default class ModalAddGoal extends Modal {
   }
 
   renderComponent() {
-    const title = (!Object.keys(this.props.stage).length ? <I18n i18nkey="Edit Goal" /> : <I18n i18nkey="Add Goal" />);
+    const title = (!Object.keys(this.props.stage).length ? <I18n i18nkey="Edit Goal" /> :
+      <I18n i18nkey="Add Goal" />);
     const content = (
       <div>
         <form ref="form">

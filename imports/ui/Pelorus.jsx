@@ -27,10 +27,12 @@ Pelorus.propTypes = {
   activeStagesType: PropTypes.string,
 };
 
-export default createContainer(() => {
+function foo() {
   return {
     goals: Goals.find().fetch(),
     stages: Stages.find().fetch(),
     goTutorial: GoTutorial,
   };
-}, Pelorus);
+}
+
+export default createContainer(foo, Pelorus);
