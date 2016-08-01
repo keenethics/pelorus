@@ -1,17 +1,24 @@
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import ModalAddGoal from './ModalAddGoal.jsx';
 import Goal from './Goal.jsx';
 import { FlowRouter } from 'meteor/kadira:flow-router';
+import { $ } from 'meteor/jquery';
 
 export default class StageUI extends React.Component {
+  constructor() {
+    super();
+    this.addGoal = this.addGoal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   addGoal(e) {
     e.preventDefault();
     if (!Meteor.user()) return $('#loggedModal').modal('show');
     ReactDOM.render(
       <ModalAddGoal
-      goal={ false }
+        goal={ false }
         stage={ this.props.stage }
         error={ null }
         parent={ this.props.stage.parent() && this.props.stage.parent().goals() }
@@ -22,17 +29,17 @@ export default class StageUI extends React.Component {
   }
 
   classes() {
-    if (!this.props.stage) return 'default';
+    if (!Object.keys(this.props.stage).length) return 'default';
     return this.props.stage.isCurrent() ? 'warning' : 'default';
   }
 
   handleClick(e) {
     e.stopPropagation();
-    FlowRouter.go('pelorus', '', { 'activeStagesType': this.props.stageType });
+    FlowRouter.go('pelorus', '', { activeStagesType: this.props.stageType });
   }
 
   renderStageContent() {
-    if (!this.props.stage) {
+    if (!Object.keys(this.props.stage).length) {
       return (<div className={`panel panel-${this.classes()} stage-content`}></div>);
     }
     return (
@@ -50,7 +57,7 @@ export default class StageUI extends React.Component {
         </ul>
         <div className="panel-body">
           <a href="#" className="btn btn-success pull-right js-add-goal"
-            onClick={ this.addGoal.bind(this) }
+            onClick={this.addGoal}
           >
             <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </a>
@@ -60,7 +67,7 @@ export default class StageUI extends React.Component {
   }
 
   renderHeader() {
-    if (this.props.stage) {
+    if (Object.keys(this.props.stage).length) {
       return (
         <span>
           { this.props.stage.title() }
@@ -72,7 +79,7 @@ export default class StageUI extends React.Component {
 
   renderBar() {
     return (
-      <div className={`panel panel-${this.classes()} bar`} onClick={this.handleClick.bind(this)}>
+      <div className={`panel panel-${this.classes()} bar`} onClick={this.handleClick}>
         <p className={`text-capitalize text-${this.classes()} vertical-text`}>
             { this.renderHeader() }
         </p>
@@ -84,10 +91,15 @@ export default class StageUI extends React.Component {
     if (this.props.activeStagesType === this.props.stageType) {
       return this.renderStageContent();
     }
-    else {
-      return (this.renderBar());
-    }
+    return this.renderBar();
   }
 
   render() { return this.renderComponent(); }
 }
+
+StageUI.propTypes = {
+  stage: PropTypes.object,
+  goals: PropTypes.array,
+  stageType: PropTypes.string,
+  activeStagesType: PropTypes.string,
+};

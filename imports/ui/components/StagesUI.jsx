@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import StagesWrapper from './StagesWrapper.jsx';
 
 export default class StagesUI extends React.Component {
@@ -6,8 +6,8 @@ export default class StagesUI extends React.Component {
     if (!this.props.stages.length) {
       return (
         <StagesWrapper
-          stage={ false }
-          goals = { false }
+          stage={ {} }
+          goals = { [] }
           stagesType={ this.props.stagesType }
           activeStagesType={ this.props.activeStagesType }
         />
@@ -29,3 +29,9 @@ export default class StagesUI extends React.Component {
   }
   render() { return this.renderComponent(); }
 }
+
+StagesUI.propTypes = {
+  stages: PropTypes.array,
+  activeStagesType: PropTypes.string,
+  stagesType: PropTypes.string,
+};

@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import ModalAddGoal from './ModalAddGoal.jsx';
+import { $ } from 'meteor/jquery';
 
 export default class Goal extends React.Component {
+  constructor() {
+    super();
+    this.completedGoal = this.completedGoal.bind(this);
+    this.editGoal = this.editGoal.bind(this);
+  }
+
   editGoal(e) {
     e.preventDefault();
     if (!Meteor.user()) return $('#logedAlert').modal('show');
@@ -30,13 +37,13 @@ export default class Goal extends React.Component {
       <a href="#" className="list-group-item goal">
         <div>
           <input type="checkbox" className="js-goal-completed"
-            checked={ this.props.goal.progress === 100 }
-            onChange={ this.completedGoal.bind(this) }
+            checked={this.props.goal.progress === 100}
+            onChange={this.completedGoal}
           />
         </div>
 
         <div className="goal-content"
-          onClick={ this.editGoal.bind(this) }
+          onClick={this.editGoal}
         >
           { this.props.goal.progress === 100 ?
             <strike>{ this.props.goal.title }</strike>
@@ -50,3 +57,8 @@ export default class Goal extends React.Component {
     );
   }
 }
+
+Goal.propTypes = {
+  goal: PropTypes.object.isRequired,
+  stage: PropTypes.object.isRequired,
+};

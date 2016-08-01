@@ -3,8 +3,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from './Modal.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
+import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
 
 export default class ModalAddGoal extends Modal {
+  constructor(props) {
+    super(props);
+    this.removeGoal = this.removeGoal.bind(this);
+    this.addGoal = this.addGoal.bind(this);
+  }
+
   shouldComponentUpdate(nextProps) {
     $('.has-error').removeClass('has-error');
     if (!nextProps.error) { this.refs.title.value = nextProps.goal.title || ''; }
@@ -17,7 +25,6 @@ export default class ModalAddGoal extends Modal {
   addGoal() {
     const stageId = this.props.stage._id;
     const data = $(this.refs.form).serializeJSON();
-
     const handler = (error) => {
       if (!error) return $('#modal').modal('hide');
       ReactDOM.render(
@@ -29,11 +36,10 @@ export default class ModalAddGoal extends Modal {
         />,
         document.getElementById('modal-target')
       );
-
       $(this.refs.form_group).removeClass('has-error');
-      JSON.parse(error.details).map((elem) => {
-        $(`[name^=${elem.name}]`).parent('.form-group').addClass('has-error');
-      });
+      JSON.parse(error.details).map((elem) =>
+        $(`[name^=${elem.name}]`).parent('.form-group').addClass('has-error')
+      );
     };
 
     if (this.props.goal) {
@@ -50,24 +56,25 @@ export default class ModalAddGoal extends Modal {
   }
 
   renderComponent() {
-    const title = (this.props.stage ? <I18n i18nkey="Edit Goal" />: <I18n i18nkey="Add Goal" />);
+    const title = (!Object.keys(this.props.stage).length ? <I18n i18nkey="Edit Goal" /> :
+      <I18n i18nkey="Add Goal" />);
     const content = (
       <div>
         <form ref="form">
           <div className="form-group" ref="form_group">
-            <label for="title"><I18n i18nkey="Title" /></label>
+            <label htmlFor="title"><I18n i18nkey="Title" /></label>
             <input type="text" className="form-control" ref="title"
-              defaultValue={ this.props.goal.title || '' } name="title" ref="title" autofocus
+              defaultValue={ this.props.goal.title || '' } name="title" ref="title" autoFocus
             />
           </div>
           <div className="form-group">
-            <label for="title"><I18n i18nkey="Rank (#1 is goal you'd refuse last)" /></label>
+            <label htmlFor="title"><I18n i18nkey="Rank (#1 is goal you'd refuse last)" /></label>
             <input type="number" className="form-control" name="rank:number" ref="rank"
               defaultValue = { this.props.goal.rank || ''}
             />
           </div>
           <div className="form-group">
-            <label for="title"><I18n i18nkey="Progress" /></label>
+            <label htmlFor="title"><I18n i18nkey="Progress" /></label>
             <input type="number" className="form-control" name="progress:number"
               id="progress" min="0" max="100" ref="progress"
               defaultValue={ this.props.goal.progress || 0 }
@@ -75,7 +82,7 @@ export default class ModalAddGoal extends Modal {
           </div>
           { this.props.stage.type !== 'years' ?
             <div className="form-group">
-              <label for="parentId"><I18n i18nkey="Parent goal" /></label>
+              <label htmlFor="parentId"><I18n i18nkey="Parent goal" /></label>
               <select className="form-control" name="parentId" value={ this.props.goal.parentId }
                 ref="select"
               >
@@ -95,14 +102,14 @@ export default class ModalAddGoal extends Modal {
         <div className="modal-footer">
           { this.props.goal ?
             <button type="button" className="btn btn-danger" title="Remove"
-              onClick={ this.removeGoal.bind(this) }
+              onClick={this.removeGoal}
             >
               <I18n i18nkey="Delete" />
             </button>
             : ''
           }
           <button type="button" className="btn btn-primary"
-            onClick={ this.addGoal.bind(this) }
+            onClick={this.addGoal}
           >
             <I18n i18nkey="Save" />
           </button>

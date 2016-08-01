@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-Meteor.startup(function () {
+Meteor.startup(() => {
   Meteor.subscribe('Stages');
   Meteor.subscribe('Goals');
 });

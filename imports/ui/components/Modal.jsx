@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Modal extends Component {
   renderError() {
@@ -16,14 +16,12 @@ export default class Modal extends Component {
         </div>
       );
     }
-    else {
-      return null;
-    }
+    return null;
   }
 
   renderModal(title, content) {
     return (
-      <div className="modal fade" tabindex="-1" role="dialog" id="modal">
+      <div className="modal fade" tabIndex="-1" role="dialog" id="modal">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -45,3 +43,7 @@ export default class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  error: PropTypes.string,
+};

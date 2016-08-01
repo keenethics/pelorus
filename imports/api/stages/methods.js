@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Stages } from './stages.js';
 import { check, Match } from 'meteor/check';
+import { _ } from 'meteor/underscore';
 
 Meteor.methods({
-  addStage: function (params, copyGoals) {
+  addStage(params, copyGoals) {
     check(params, { type: String, period: String });
     check(copyGoals, Match.Optional(Boolean));
 

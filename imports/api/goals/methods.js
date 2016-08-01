@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Goals } from './goals.js';
 import { check, Match } from 'meteor/check';
+import { _ } from 'meteor/underscore';
 
 Meteor.methods({
-  toggleGoalCompletion: function (goalId) {
+  toggleGoalCompletion(goalId) {
     check(goalId, String);
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
@@ -25,7 +26,7 @@ Meteor.methods({
     });
   },
 
-  removeGoal: function (goalId) {
+  removeGoal(goalId) {
     check(goalId, String);
     const goal = Goals.findOne(goalId);
 
@@ -35,7 +36,7 @@ Meteor.methods({
     return Goals.remove(goalId);
   },
 
-  updateGoal: function (goalId, data) {
+  updateGoal(goalId, data) {
     check(goalId, String);
     check(data, {
       title: String,
@@ -51,7 +52,7 @@ Meteor.methods({
     return Goals.update(goalId, { $set: data });
   },
 
-  insertGoal: function (data) {
+  insertGoal(data) {
     check(data, {
       title: String,
       rank: Number,

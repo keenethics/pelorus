@@ -5,7 +5,7 @@ import Pelorus from '/imports/ui/Pelorus';
 import { render } from 'react-dom';
 
 FlowRouter.route('/', {
-  subscriptions: function () {
+  subscriptions() {
     this.register('Stages', Meteor.subscribe('Stages'));
   },
   name: 'pelorus',

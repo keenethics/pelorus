@@ -1,5 +1,6 @@
-import yaml from 'js-yaml';
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/underscore';
+import yaml from 'js-yaml';
 import { Stages } from '/imports/api/stages/stages.js';
 import { Goals } from '/imports/api/goals/goals.js';
 
@@ -16,7 +17,7 @@ function loadingSeeds(seeds, parentId) {
   });
 }
 
-Meteor.startup(function () {
+Meteor.startup(() => {
   if (Stages.find({ userId: null }).count()) return;
   const seeds = yaml.safeLoad(Assets.getText('intro_seeds.yml'), 'utf8').seeds;
   loadingSeeds(seeds);
