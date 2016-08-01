@@ -8,6 +8,9 @@ import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { Session } from 'meteor/session';
 import { $ } from 'meteor/jquery';
+import { TAPi18n } from 'meteor/tap:i18n';
+import { accountsUIBootstrap3 } from 'meteor/ian:accounts-ui-bootstrap-3';
+
 
 export default class Navigation extends Component {
   constructor() {
@@ -19,7 +22,7 @@ export default class Navigation extends Component {
 
   componentDidMount() {
     Blaze.render(Template._loginButtons,
-        ReactDOM.findDOMNode(this.refs.container));
+      ReactDOM.findDOMNode(this.refs.container));
   }
 
   componentWillUnmount() {
@@ -31,8 +34,13 @@ export default class Navigation extends Component {
   }
 
   setLanguage(e) {
+    console.log('set_user_lan');
     const language = e.target.name;
-    Session.set('language', e.target.name);
+    // Session.set('language', e.target.name);
+    console.log(TAPi18n)
+    TAPi18n.setLanguage(e.target.name);
+    moment.locale(language);
+    accountsUIBootstrap3.setLanguage(language);
     if (Meteor.userId()) {
       Meteor.call('updateUserLanguage', language);
     }
