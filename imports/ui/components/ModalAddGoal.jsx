@@ -57,7 +57,7 @@ export default class ModalAddGoal extends Modal {
 
   renderComponent() {
     const title = (!Object.keys(this.props.stage).length ? <I18n i18nkey="Edit Goal" /> :
-      <I18n i18nkey="Add Goal" />);
+      <I18n i18nkey="Add goal" />);
     const content = (
       <div>
         <form ref="form">
