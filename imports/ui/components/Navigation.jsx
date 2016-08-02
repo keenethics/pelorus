@@ -6,8 +6,10 @@ import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
-import { Session } from 'meteor/session';
 import { $ } from 'meteor/jquery';
+import { moment } from 'meteor/momentjs:moment';
+import { accountsUIBootstrap3 } from 'meteor/ian:accounts-ui-bootstrap-3';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 export default class Navigation extends Component {
   constructor() {
@@ -32,10 +34,13 @@ export default class Navigation extends Component {
 
   setLanguage(e) {
     const language = e.target.name;
-    Session.set('language', e.target.name);
-    if (Meteor.userId()) {
-      Meteor.call('updateUserLanguage', language);
+    if (!Meteor.userId()) {
+      TAPi18n.setLanguage(language);
+      moment.locale(language);
+      accountsUIBootstrap3.setLanguage(language);
+      return;
     }
+    Meteor.call('updateUserLanguage', language);
   }
 
   runTutorial(e) {
