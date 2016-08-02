@@ -4,8 +4,9 @@
   "description": "## About [Pelorus](http://pelorus.ws) is a simple yet highly-effective planning tool that helps reaching goals in a way of successive approximations (based on Dynamic programming).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .jsx,.js; true"
+    "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 9000",
+    "test-watch": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha-phantomjs --port 9000",
+    "start": "meteor run"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,10 @@
   "homepage": "https://github.com/keenethics/pelorus#readme",
   "dependencies": {
     "babel-eslint": "^6.1.0",
+    "debug-log": "^1.0.0",
     "eslint": "^2.13.1",
     "eslint-plugin-react": "^4.3.0",
+    "faker": "^3.1.0",
     "react": "^15.1.0",
     "react-addons-create-fragment": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",

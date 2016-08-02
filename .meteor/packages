@@ -43,3 +43,7 @@ standard-minifier-js@1.1.8
 react-meteor-data
 timoruetten:react-i18n
 kadira:flow-router
+dispatch:mocha-phantomjs
+xolvio:cleaner
+dburles:factory
+mdg:validated-method
