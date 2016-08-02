@@ -79,6 +79,7 @@ npm-mongo@1.5.45
 observe-sequence@1.0.12
 ordered-dict@1.0.8
 pcel:serialize@1.0.1
+practicalmeteor:chai@2.1.0_1
 practicalmeteor:mocha-core@1.0.1
 promise@0.8.3
 raix:eventemitter@0.1.3

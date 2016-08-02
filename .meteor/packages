@@ -47,3 +47,4 @@ dispatch:mocha-phantomjs
 xolvio:cleaner
 dburles:factory
 mdg:validated-method
+practicalmeteor:chai

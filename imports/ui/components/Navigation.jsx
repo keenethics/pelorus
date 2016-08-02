@@ -8,6 +8,7 @@ import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { Session } from 'meteor/session';
 import { $ } from 'meteor/jquery';
+import { updateUserLanguage } from '/imports/api/user/updateUserLanguage.js';
 
 export default class Navigation extends Component {
   constructor() {
@@ -34,7 +35,7 @@ export default class Navigation extends Component {
     const language = e.target.name;
     Session.set('language', e.target.name);
     if (Meteor.userId()) {
-      Meteor.call('updateUserLanguage', language);
+      updateUserLanguage.call({ language });
     }
   }
 
