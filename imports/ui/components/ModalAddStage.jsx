@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { $ } from 'meteor/jquery';
+import { addStage } from '/imports/api/stages/methods.js';
 
 export default class ModalAddStage extends Component {
   constructor(props) {
@@ -40,8 +41,7 @@ export default class ModalAddStage extends Component {
     const data = $(this.refs.form).serializeJSON();
     const period = data.period || `${data.firstYear}-${data.lastYear}`;
     const stage = { period, type: data.type };
-
-    Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
+    addStage.call({ params: stage, copyGoals: !!data.copyGoals }, (err, res) => {
       if (!err) return $('#addModal').modal('hide');
       render(
         <ModalAddStage
@@ -49,8 +49,18 @@ export default class ModalAddStage extends Component {
           stageType={ this.props.stageType }
         />,
         document.getElementById('render-modal')
-      );
+      )
     });
+    // Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
+    //   if (!err) return $('#addModal').modal('hide');
+    //   render(
+    //     <ModalAddStage
+    //       error={ err.reason }
+    //       stageType={ this.props.stageType }
+    //     />,
+    //     document.getElementById('render-modal')
+    //   );
+    // });
   }
 
   renderError() {
