@@ -15,15 +15,10 @@ export const updateUserLanguage = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
-
     Meteor.users.update(this.userId, { $set: { 'profile.language': language } });
     Stages.find({ userId: this.userId }).forEach((stage) => {
-      // console.log(stage)
       const bounds = Stages.boundsFor(stage.period, stage.type, language);
-      // console.log(bounds)
       Stages.update(stage._id, { $set: bounds });
-      // console.log(Stages.findOne({ _id: stage._id }))
     });
   },
 });
-
