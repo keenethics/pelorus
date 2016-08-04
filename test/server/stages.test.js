@@ -7,9 +7,8 @@ import yaml from 'js-yaml';
 import { _ } from 'meteor/underscore';
 import { addStage } from '/imports/api/stages/methods.js';
 import { Accounts } from 'meteor/accounts-base';
+import { assert } from 'meteor/practicalmeteor:chai';
 
-// const Stages = new Meteor.Collection('stages');
-// const Goals = new Meteor.Collection('goalsTest')
 const langs = ["uk", "ru", "en" ];
 
 describe('stages', function (done) {
@@ -29,7 +28,7 @@ describe('stages', function (done) {
       const userLan = Meteor.users.findOne({ _id: userId }).profile.language;
       const seeds = yaml.safeLoad(Assets.getText('intro_seeds.yml'), 'utf8').seeds;
       const yearsStage = seeds[0];
-      const bounds = Stages.boundsFor(yearsStage.period, yearsStage.type, userLan);
+      let bounds = Stages.boundsFor(yearsStage.period, yearsStage.type, userLan);
       let stage = _.extend( bounds, {period: yearsStage.period, type: yearsStage.type},
             {userId: userId});
       const stageId = Stages.insert(stage);
@@ -46,19 +45,29 @@ describe('stages', function (done) {
         period: yearSeed.period,
         type: yearSeed.type,
       }
-      const copyGoals = true;
-      
+      bounds = Stages.boundsFor(stage.period, stage.type, userLan);
 
+      const copyGoals = true;
       const newStageId = addStage.run.call(
         { userId: userId },
-        {
-          stage, copyGoals
-        }
+        { stage, copyGoals }
       );
-      console.log(Goals.find().fetch())
-      console.log(Goals.findOne({ stageId: newStageId }));
-      console.log(Stages.findOne({ _id: newStageId}));
 
+      const newGoal = Goals.findOne({ stageId: newStageId });
+      const newStage = Stages.findOne({ _id: newStageId});
+      
+      assert.equal(newGoal.title, goal.title);
+      assert.equal(newGoal.rank, goal.rank);
+      assert.equal(newGoal.progress, goal.progress);
+      assert.equal(newGoal.userId, userId);
+      assert.equal(newGoal.stageId, newStageId);
+      assert.equal(newGoal.parentId, goalId);
+
+      assert.equal(newStage.period, stage.period);
+      assert.equal(newStage.type, stage.type);
+      assert.equal(newStage.userId, userId);
+      assert.equal(newStage.startsAt.toString(), bounds.startsAt.toString());
+      assert.equal(newStage.endsAt.toString(), bounds.endsAt.toString());
     });
   });
 }); 
