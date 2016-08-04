@@ -7,6 +7,7 @@ import { _ } from 'meteor/underscore';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { updateUserLanguage } from '/imports/api/user/updateUserLanguage.js';
 import { Stages } from '/imports/api/stages/stages.js';
+import { Mongo } from 'meteor/mongo';
 
 const Goals = new Mongo.Collection('goalsTest');
 const langs = ["uk", "ru", "en" ];
