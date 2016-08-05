@@ -15,9 +15,11 @@ export const insertGoal = new ValidatedMethod({
     });
   },
   run({ goalData }) {
+
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
-    Goals.insert(_.extend(goalData, { userId: this.userId }));
+    const goalId = Goals.insert(_.extend(goalData, { userId: this.userId }));
+    return goalId;
   }
 });

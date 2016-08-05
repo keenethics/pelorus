@@ -1,4 +1,3 @@
-import faker from 'faker';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Random } from 'meteor/random';
 import { Goals } from '/imports/api/goals/goals.js';
