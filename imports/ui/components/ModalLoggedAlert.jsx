@@ -13,7 +13,7 @@ function ModalLoggedAlert() {
               data-dismiss="modal"
               aria-label="Close"
             >
-              <span aria-hidden="true"></span>
+              <span aria-hidden="true">&times;</span>
             </button>
             <h4 className="modal-title">
               <I18n i18nkey="Welcome" />

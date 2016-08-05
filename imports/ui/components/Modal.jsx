@@ -26,10 +26,12 @@ export default class Modal extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <button
-                type="button" className="close"
-                data-dismiss="modal" aria-label="Close"
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
               >
-                <span aria-hidden="true"></span>
+                <span aria-hidden="true">&times;</span>
               </button>
               <h4 className="modal-title">{ title }</h4>
             </div>

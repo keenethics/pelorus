@@ -141,7 +141,7 @@ export default class ModalAddStage extends Component {
               <span aria-hidden="true">&times;</span>
             </button>
             <h4 className="modal-title">
-              <I18n i18nkey="Add Stage" />
+              <I18n i18nkey="Add stage" />
             </h4>
           </div>
         { this.renderError() }
