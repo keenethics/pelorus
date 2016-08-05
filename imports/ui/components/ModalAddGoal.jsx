@@ -52,7 +52,8 @@ export default class ModalAddGoal extends Modal {
 
   removeGoal(e) {
     e.preventDefault();
-    Meteor.call('removeGoal', this.props.goal._id);
+    const goalData = this.props.goal;
+    Meteor.call('goal.remove', { goalData });
     $('#modal').modal('hide');
   }
 
