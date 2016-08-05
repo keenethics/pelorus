@@ -51,16 +51,4 @@ Meteor.methods({
 
     return Goals.update(goalId, { $set: data });
   },
-
-  insertGoal(data) {
-    check(data, {
-      title: String,
-      rank: Number,
-      parentId: Match.Optional(Match.OneOf(String, null)),
-      stageId: String,
-      progress: Number,
-    });
-
-    return Goals.insert(_.extend(data, { userId: this.userId }));
-  },
 });

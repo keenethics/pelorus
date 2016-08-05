@@ -45,7 +45,8 @@ export default class ModalAddGoal extends Modal {
     if (this.props.goal) {
       Meteor.call('updateGoal', this.props.goal._id, data, handler);
     } else {
-      Meteor.call('insertGoal', _.extend({ stageId }, data), handler);
+      const goalData =  _.extend({ stageId }, data);
+      Meteor.call('goal.insert', { goalData }, handler);
     }
   }
 

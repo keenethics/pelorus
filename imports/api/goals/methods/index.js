@@ -1,0 +1,1 @@
+import { insertGoal } from './insert.js';

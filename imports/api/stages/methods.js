@@ -3,7 +3,6 @@ import { Stages } from './stages.js';
 import { check, Match } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const addStage = new ValidatedMethod({
   name: 'stages.addStage',

@@ -5,6 +5,7 @@ import '/imports/api/stages/methods.js';
 import '/imports/api/goals/goals.js';
 import '/imports/api/goals/publication.js';
 import '/imports/api/goals/methods.js';
+import '/imports/api/goals/methods/';
 import '/imports/api/user/updateUserLanguage.js';
 import '/imports/api/user/goTutorial.js';
 import './security-config.js';
