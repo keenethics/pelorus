@@ -19,7 +19,7 @@ export const addStage = new ValidatedMethod({
     }
     const locale = Meteor.users.findOne({ _id: this.userId }).profile.language;
     const bounds = Stages.boundsFor(stage.period, stage.type, locale);
-    const data = _.extend(stage, bounds, { userId: this.userId });
+    const data = _.extend({ userId: this.userId }, stage, bounds);
 
     if (stage.type !== 'years' && !Stages._transform(data).parent()) {
       throw new Meteor.Error('period-invalid', 'Parent stage needed');

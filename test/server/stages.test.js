@@ -25,51 +25,69 @@ describe('stages', function (done) {
           language: langs[Math.round(Random.fraction()*2 )],
         }
       });
-      const userLan = Meteor.users.findOne({ _id: userId }).profile.language;
+      const user = Meteor.users.findOne({ _id: userId });
       const seeds = yaml.safeLoad(Assets.getText('intro_seeds.yml'), 'utf8').seeds;
-      const parentSeed = seeds[0];
-      const parentBounds = Stages.boundsFor(parentSeed.period, parentSeed.type, userLan);
-      const parentStage = _.extend(parentBounds, 
-        { period: parentSeed.period, type: parentSeed.type },
-        { userId: userId }
-      );
-      const parentStageId = Stages.insert(parentStage);
-      const parentGoal = {
-        title: parentSeed.title,
-        rank: 0,
-        progress: 0,
-        stageId: parentStageId,
-        userId: userId,
-      };
-      const parentGoalId = Goals.insert(parentGoal);
-
-      const childSeed =  parentSeed.children[0];
-      const childBounds = Stages.boundsFor(childSeed.period, childSeed.type, userLan);
-      const childStage = {
-        period: childSeed.period,
-        type: childSeed.type,
-      };
-      const copyGoals = true;
-
-      const newStageId = addStage.run.call(
-        { userId: userId },
-        { stage: childStage, copyGoals },
-      );
-      const newGoal = Goals.findOne({ stageId: newStageId });
-      const newStage = Stages.findOne({ _id: newStageId});
-
-      assert.equal(newGoal.title, parentGoal.title);
-      assert.equal(newGoal.rank, parentGoal.rank);
-      assert.equal(newGoal.progress, parentGoal.progress);
-      assert.equal(newGoal.userId, userId);
-      assert.equal(newGoal.stageId, newStageId);
-      assert.equal(newGoal.parentId, parentGoalId);
-
-      assert.equal(newStage.period, childStage.period);
-      assert.equal(newStage.type, childStage.type);
-      assert.equal(newStage.userId, userId);
-      assert.equal(newStage.startsAt.toString(), childBounds.startsAt.toString());
-      assert.equal(newStage.endsAt.toString(), childBounds.endsAt.toString());
+      loadingSeeds(seeds, user);
     });
   });
 }); 
+
+function loadingSeeds(seeds, user) {
+  seeds.forEach(seed => {
+    const userId = user._id;
+    const stage = {
+      period: seed.period,
+      type: seed.type,
+    }
+    const copyGoals = !!Math.round(Random.fraction());
+    const newStageId = addStage.run.call(
+        { userId: userId },
+        { stage, copyGoals },
+    );
+    const newStage = Stages.findOne({ _id: newStageId }); 
+    const goal = {
+      title: seed.title,
+      rank: 0,
+      progress: 0,
+      stageId: newStageId,
+      userId: userId,
+    };
+
+    Goals.insert(goal);
+
+    testNewStage(newStage, stage, user);
+
+    testCopiedGoal(newStage, copyGoals);
+    if (seed.children) loadingSeeds(seed.children, user);
+  });
+}
+
+function testNewStage(newStage, stage, user) {
+  const bounds = Stages.boundsFor(stage.period, stage.type, user.profile.language);
+  
+  assert.equal(newStage.period, stage.period);
+  assert.equal(newStage.type, stage.type);
+  assert.equal(newStage.userId, user._id);
+  assert.equal(newStage.startsAt.toString(), bounds.startsAt.toString());
+  assert.equal(newStage.endsAt.toString(), bounds.endsAt.toString());
+};
+
+function testCopiedGoal(newStage, copyGoals) {
+  const copiedGoals = Goals.find({ stageId: newStage._id, parentId: {$exists: true} }).fetch();
+  
+  if (copyGoals && newStage.type !== 'years') {
+    copiedGoals.forEach(goal => {
+      const parentGoal = Goals.findOne(goal.parentId);
+      const parentStage = newStage.parent();
+
+      assert.equal(parentGoal.stageId, parentStage._id);
+
+      assert.equal(goal.title, parentGoal.title);
+      assert.equal(goal.rank, parentGoal.rank);
+      assert.equal(goal.progress, parentGoal.progress);
+      assert.equal(goal.userId, parentGoal.userId);
+    });
+    return false;
+  };
+  assert.equal(copiedGoals.length, 0);
+};
