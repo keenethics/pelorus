@@ -27,47 +27,49 @@ describe('stages', function (done) {
       });
       const userLan = Meteor.users.findOne({ _id: userId }).profile.language;
       const seeds = yaml.safeLoad(Assets.getText('intro_seeds.yml'), 'utf8').seeds;
-      const yearsStage = seeds[0];
-      let bounds = Stages.boundsFor(yearsStage.period, yearsStage.type, userLan);
-      let stage = _.extend( bounds, {period: yearsStage.period, type: yearsStage.type},
-            {userId: userId});
-      const stageId = Stages.insert(stage);
-      const goal = {
-        title: yearsStage.title,
+      const parentSeed = seeds[0];
+      const parentBounds = Stages.boundsFor(parentSeed.period, parentSeed.type, userLan);
+      const parentStage = _.extend(parentBounds, 
+        { period: parentSeed.period, type: parentSeed.type },
+        { userId: userId }
+      );
+      const parentStageId = Stages.insert(parentStage);
+      const parentGoal = {
+        title: parentSeed.title,
         rank: 0,
         progress: 0,
-        stageId: stageId,
-        userId: userId
-      }
-      const goalId = Goals.insert(goal);
-      const yearSeed =  yearsStage.children[0];
-      stage = {
-        period: yearSeed.period,
-        type: yearSeed.type,
-      }
-      bounds = Stages.boundsFor(stage.period, stage.type, userLan);
+        stageId: parentStageId,
+        userId: userId,
+      };
+      const parentGoalId = Goals.insert(parentGoal);
 
+      const childSeed =  parentSeed.children[0];
+      const childBounds = Stages.boundsFor(childSeed.period, childSeed.type, userLan);
+      const childStage = {
+        period: childSeed.period,
+        type: childSeed.type,
+      };
       const copyGoals = true;
+
       const newStageId = addStage.run.call(
         { userId: userId },
-        { stage, copyGoals }
+        { stage: childStage, copyGoals },
       );
-
       const newGoal = Goals.findOne({ stageId: newStageId });
       const newStage = Stages.findOne({ _id: newStageId});
-      
-      assert.equal(newGoal.title, goal.title);
-      assert.equal(newGoal.rank, goal.rank);
-      assert.equal(newGoal.progress, goal.progress);
+
+      assert.equal(newGoal.title, parentGoal.title);
+      assert.equal(newGoal.rank, parentGoal.rank);
+      assert.equal(newGoal.progress, parentGoal.progress);
       assert.equal(newGoal.userId, userId);
       assert.equal(newGoal.stageId, newStageId);
-      assert.equal(newGoal.parentId, goalId);
+      assert.equal(newGoal.parentId, parentGoalId);
 
-      assert.equal(newStage.period, stage.period);
-      assert.equal(newStage.type, stage.type);
+      assert.equal(newStage.period, childStage.period);
+      assert.equal(newStage.type, childStage.type);
       assert.equal(newStage.userId, userId);
-      assert.equal(newStage.startsAt.toString(), bounds.startsAt.toString());
-      assert.equal(newStage.endsAt.toString(), bounds.endsAt.toString());
+      assert.equal(newStage.startsAt.toString(), childBounds.startsAt.toString());
+      assert.equal(newStage.endsAt.toString(), childBounds.endsAt.toString());
     });
   });
 }); 
