@@ -53,23 +53,55 @@ describe('goals', function() {
     });
   });
   describe('removeGoal', function() {
-      it('should remove goal without children', function() {
+    it('should remove goal without children', function() {
 
-        Factory.create('goals', {
-          title: faker.name.title(),
-          rank: Math.round(Random.fraction()*10),
-          progress: Math.round(Random.fraction()*100),
-          stageId: Random.id(),
-          parentId: Random.id(),
-          userId: userId,
-        });
-        const goalData = Goals.findOne();
+      Factory.create('goals', {
+        title: faker.name.title(),
+        rank: Math.round(Random.fraction()*10),
+        progress: Math.round(Random.fraction()*100),
+        stageId: Random.id(),
+        parentId: Random.id(),
+        userId: userId,
+      });
+      const goalData = Goals.findOne();
+      removeGoal.run.call(
+        { userId: userId },
+        { goalData }
+      );
+
+      assert.equal(Goals.find().count(), 0);
+    });
+    it('should not remove goal with children', function() {
+      Factory.create('goals', {
+        title: faker.name.title(),
+        rank: Math.round(Random.fraction()*10),
+        progress: Math.round(Random.fraction()*100),
+        stageId: Random.id(),
+        parentId: Random.id(),
+        userId: userId,
+      });
+
+      const goalData = Goals.findOne()
+
+      Factory.create('goals', {
+        title: faker.name.title(),
+        rank: Math.round(Random.fraction()*10),
+        progress: Math.round(Random.fraction()*100),
+        stageId: Random.id(),
+        parentId: goalData._id,
+        userId: userId,
+      });
+      let err;
+      try {
         removeGoal.run.call(
           { userId: userId },
           { goalData }
         );
-
-        assert.equal(Goals.find().count(), 0);
-      });
+      } catch (e) {
+        err = e.reason;
+      }
+      assert.equal(err, 'Goal can\'t be removed');
+    })
   });
+
 })
