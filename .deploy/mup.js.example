@@ -3,7 +3,7 @@ module.exports = {
     one: {
       host: '194.135.93.30',
       username: 'root',
-      pem: '/home/epaminond/.ssh/galago',
+      pem: '/home/user/.ssh/id_rsa',
       // password:
       // or leave blank for authenticate from ssh-agent
     },

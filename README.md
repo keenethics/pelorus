@@ -42,7 +42,7 @@ Other rules we enforce:
 
 To deploy:
 
-1. Make sure you have [mupx](https://github.com/arunoda/meteor-up/tree/mupx) installed
-2. Prepare `mup.json` (you can use `mup.json.example` as an example)
-3. Run mupx delpoy
+1. Make sure you have [mup](https://github.com/kadirahq/meteor-up) installed
+2. Prepare `.deploy/mup.js` (you can use `.deploy/mup.js.example` as an example)
+3. Run mup delpoy
 

@@ -1,4 +1,4 @@
 .idea/*
-mup.json
+.deploy/mup.json
 .DS_Store
 node_modules
