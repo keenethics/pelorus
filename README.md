@@ -44,5 +44,5 @@ To deploy:
 
 1. Make sure you have [mup](https://github.com/kadirahq/meteor-up) installed
 2. Prepare `.deploy/mup.js` (you can use `.deploy/mup.js.example` as an example)
-3. Run mup delpoy
+3. Run `npm run deploy`
 

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 9000",
     "test-watch": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha-phantomjs --port 9000",
-    "start": "meteor run"
+    "start": "meteor run",
+    "deploy": "(cd .deploy && mup deploy)"
   },
   "repository": {
     "type": "git",
