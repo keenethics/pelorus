@@ -7,6 +7,7 @@ import { Blaze } from 'meteor/blaze';
 import ModalAddStage from './ModalAddStage.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { $ } from 'meteor/jquery';
+import { updateUserLanguage } from '/imports/api/user/updateUserLanguage.js';
 import { moment } from 'meteor/momentjs:moment';
 import { accountsUIBootstrap3 } from 'meteor/ian:accounts-ui-bootstrap-3';
 import { TAPi18n } from 'meteor/tap:i18n';
@@ -136,4 +137,3 @@ export default class Navigation extends Component {
 Navigation.propTypes = {
   goTutorial: PropTypes.func.isRequired,
 };
-

@@ -26,16 +26,6 @@ Meteor.methods({
     });
   },
 
-  removeGoal(goalId) {
-    check(goalId, String);
-    const goal = Goals.findOne(goalId);
-
-    if (this.userId !== goal.userId || goal.children().count()) {
-      throw new Meteor.Error('forbidden-action', 'Goal can\'t be removed');
-    }
-    return Goals.remove(goalId);
-  },
-
   updateGoal(goalId, data) {
     check(goalId, String);
     check(data, {
@@ -50,17 +40,5 @@ Meteor.methods({
     }
 
     return Goals.update(goalId, { $set: data });
-  },
-
-  insertGoal(data) {
-    check(data, {
-      title: String,
-      rank: Number,
-      parentId: Match.Optional(Match.OneOf(String, null)),
-      stageId: String,
-      progress: Number,
-    });
-
-    return Goals.insert(_.extend(data, { userId: this.userId }));
   },
 });

@@ -5,7 +5,7 @@ import { Goals } from '/imports/api/goals/goals.js';
 import Navigation from './components/Navigation.jsx';
 import ModalLoggedAlert from './components/ModalLoggedAlert.jsx';
 import StagesUI from './components/StagesUI.jsx';
-import { GoTutorial } from '/imports/api/user_methods.js';
+import { GoTutorial } from '/imports/api/user/goTutorial.js';
 import '/imports/startup/client/constants.js';
 
 function Pelorus(props) {

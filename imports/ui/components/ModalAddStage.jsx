@@ -38,19 +38,19 @@ export default class ModalAddStage extends Component {
 
   insertStage() {
     const data = $(this.refs.form).serializeJSON();
+    const copyGoals = !!data.copyGoals;
     const period = data.period || `${data.firstYear}-${data.lastYear}`;
     const stage = { period, type: data.type };
-
-    Meteor.call('addStage', stage, !!data.copyGoals, (err) => {
+    Meteor.call('stages.addStage', { stage, copyGoals }, (err) => {
       if (!err) return $('#addModal').modal('hide');
       render(
         <ModalAddStage
           error={ err.reason }
-          stageType={ this.props.stageType }
+          stageType={ data.type }
         />,
-        document.getElementById('render-modal')
-      );
-    });
+        document.getElementById('modal-target')
+      )
+    })
   }
 
   renderError() {
