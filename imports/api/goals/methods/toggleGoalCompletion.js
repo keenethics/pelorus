@@ -1,11 +1,13 @@
-import { Meteor } from 'meteor/meteor';
-import { Goals } from './goals.js';
-import { check, Match } from 'meteor/check';
-import { _ } from 'meteor/underscore';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { check } from 'meteor/check';
+import { Goals } from '/imports/api/goals/goals.js'
 
-Meteor.methods({
-  toggleGoalCompletion(goalId) {
+export const toggleGoalCompletion = new ValidatedMethod({
+  name: 'goal.completion',
+  validate({ goalId }){
     check(goalId, String);
+  },
+  run({ goalId }) {
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
@@ -24,5 +26,5 @@ Meteor.methods({
         progress: goal.progress === 100 ? 0 : 100,
       },
     });
-  },
+  }
 });
