@@ -81,7 +81,7 @@ describe('goals', function() {
         userId: userId,
       });
 
-      const goalData = Goals.findOne()
+      const goalData = Goals.findOne();
 
       Factory.create('goals', {
         title: faker.name.title(),

@@ -5,6 +5,7 @@ import Modal from './Modal.jsx';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
+import { updateGoal } from '/imports/api/goals/methods/update.js';
 
 export default class ModalAddGoal extends Modal {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class ModalAddGoal extends Modal {
     const stageId = this.props.stage._id;
     const data = $(this.refs.form).serializeJSON();
     const handler = (error) => {
+      console.log('handler')
       if (!error) return $('#modal').modal('hide');
       ReactDOM.render(
         <ModalAddGoal
@@ -43,9 +45,11 @@ export default class ModalAddGoal extends Modal {
     };
 
     if (this.props.goal) {
-      Meteor.call('updateGoal', this.props.goal._id, data, handler);
+      updateGoal.call({ goalId: this.props.goal._id, data: data }, (error) => {
+        handler(error)
+      })
     } else {
-      const goalData =  _.extend({ stageId }, data);
+      const goalData = _.extend({ stageId }, data);
       Meteor.call('goal.insert', { goalData }, handler);
     }
   }

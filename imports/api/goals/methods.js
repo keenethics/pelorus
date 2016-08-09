@@ -25,20 +25,4 @@ Meteor.methods({
       },
     });
   },
-
-  updateGoal(goalId, data) {
-    check(goalId, String);
-    check(data, {
-      title: String,
-      rank: Number,
-      parentId: Match.Optional(Match.OneOf(String, null)),
-      progress: Number,
-    });
-
-    if (Goals.find({ _id: goalId, userId: this.userId }).count() === 0) {
-      throw new Meteor.Error('forbidden-action', 'Goal not found');
-    }
-
-    return Goals.update(goalId, { $set: data });
-  },
 });
