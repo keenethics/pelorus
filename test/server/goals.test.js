@@ -6,6 +6,7 @@ import { Random } from 'meteor/random';
 import { Factory } from 'meteor/dburles:factory';
 import { insertGoal } from '/imports/api/goals/methods/insert.js';
 import { removeGoal } from '/imports/api/goals/methods/remove.js';
+import { updateGoal } from '/imports/api/goals/methods/update.js';
 
 const langs = ["uk", "ru", "en" ];
 const userId = Accounts.createUser({
@@ -52,6 +53,41 @@ describe('goals', function() {
       assert.equal(userId, newGoal.userId);
     });
   });
+  describe('updateGoal', function() {
+    it('should be update goal', function() {
+      Factory.create('goals', {
+        title: faker.name.title(),
+        rank: Math.round(Random.fraction()*10),
+        progress: Math.round(Random.fraction()*100),
+        stageId: Random.id(),
+        parentId: Random.id(),
+        userId: userId,
+      });
+      
+      const goalId = Goals.findOne({})._id;
+      const newData = {
+        title: faker.name.title(),
+        rank: Math.round(Random.fraction()*10),
+        progress: Math.round(Random.fraction()*100),
+        parentId: Random.id(),
+      };
+
+      updateGoal.run.call(
+        { userId: userId },
+        {
+          goalId: goalId,
+          data: newData
+        }
+      );
+
+      const updatedGoal = Goals.findOne();
+
+      assert.equal(newData.title, updatedGoal.title);
+      assert.equal(newData.rank, updatedGoal.rank);
+      assert.equal(newData.progress, updatedGoal.progress);
+      assert.equal(newData.parentId, updatedGoal.parentId);
+    });
+  })
   describe('removeGoal', function() {
     it('should remove goal without children', function() {
 
