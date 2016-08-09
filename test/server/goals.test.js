@@ -7,6 +7,7 @@ import { Factory } from 'meteor/dburles:factory';
 import { insertGoal } from '/imports/api/goals/methods/insert.js';
 import { removeGoal } from '/imports/api/goals/methods/remove.js';
 import { updateGoal } from '/imports/api/goals/methods/update.js';
+import { toggleGoalCompletion } from '/imports/api/goals/methods/toggleGoalCompletion.js';
 
 const langs = ["uk", "ru", "en" ];
 const userId = Accounts.createUser({
@@ -63,7 +64,7 @@ describe('goals', function() {
         parentId: Random.id(),
         userId: userId,
       });
-      
+
       const goalId = Goals.findOne({})._id;
       const newData = {
         title: faker.name.title(),
@@ -88,9 +89,35 @@ describe('goals', function() {
       assert.equal(newData.parentId, updatedGoal.parentId);
     });
   })
+  describe('toggleGoalCompletion', function() {
+    it('should change goal progress status', function() {
+      Factory.create('goals', {
+        title: faker.name.title(),
+        rank: Math.round(Random.fraction()*10),
+        progress: Math.round(Random.fraction()*100),
+        stageId: Random.id(),
+        parentId: Random.id(),
+        userId: userId,
+      });
+      const goal = Goals.findOne();
+
+      toggleGoalCompletion.run.call(
+        { userId: userId },
+        { goalId: goal._id }
+      );
+      
+      const updatedGoal = Goals.findOne();
+
+      if (goal.progress !== 100) {
+        assert.equal(updatedGoal.progress, 100);
+      }
+      else {
+        assert.equal(updatedGoal.progress, 0);
+      };
+    });
+  });
   describe('removeGoal', function() {
     it('should remove goal without children', function() {
-
       Factory.create('goals', {
         title: faker.name.title(),
         rank: Math.round(Random.fraction()*10),
