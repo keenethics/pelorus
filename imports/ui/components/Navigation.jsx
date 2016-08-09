@@ -41,7 +41,7 @@ export default class Navigation extends Component {
       accountsUIBootstrap3.setLanguage(language);
       return;
     }
-    Meteor.call('updateUserLanguage', language);
+    updateUserLanguage.call({ language: language });
   }
 
   runTutorial(e) {
