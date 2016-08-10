@@ -51,7 +51,14 @@ export default class Navigation extends Component {
     if (!Meteor.userId()) {
       $('#loggedModal').modal('show');
     } else {
-      render(<ModalAddStage error={null} stageType="" />, document.getElementById('modal-target'));
+      render(
+        <ModalAddStage 
+          error={null}
+          stageType=""
+          language={TAPi18n.getLanguage()}
+        />, 
+        document.getElementById('modal-target')
+      );
       $('#addModal').modal('show');
     }
   }

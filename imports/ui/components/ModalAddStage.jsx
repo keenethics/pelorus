@@ -4,6 +4,8 @@ import { render } from 'react-dom';
 import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { $ } from 'meteor/jquery';
+import { TAPi18n } from 'meteor/tap:i18n';
+import { createContainer } from 'meteor/react-meteor-data';
 
 export default class ModalAddStage extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ export default class ModalAddStage extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.stageType !== '' || nextProps.error;
+    return nextProps.stageType !== '' || nextProps.error || nextProps.language;
   }
 
   componentWillUpdate(nextProps) {
@@ -29,8 +31,9 @@ export default class ModalAddStage extends Component {
   handleChange(e) {
     render(
       <ModalAddStage
-        error={null}
-        stageType={ e.target.options[e.target.selectedIndex].text }
+        error={ this.props.error }
+        language={ this.props.language }
+        stageType={ e.target.options[e.target.selectedIndex].value }
       />,
       document.getElementById('modal-target')
     );
@@ -45,10 +48,11 @@ export default class ModalAddStage extends Component {
       if (!err) return $('#addModal').modal('hide');
       render(
         <ModalAddStage
+          language={ this.props.language }
           error={ err.reason }
           stageType={ this.props.stageType }
         />,
-        document.getElementById('render-modal')
+        document.getElementById('modal-target')
       );
     });
   }
@@ -69,11 +73,10 @@ export default class ModalAddStage extends Component {
       : null
     );
   }
-
   renderStageTypes() {
     return Stages.validTypes.map((elem, num) => (
-      <option value={ elem } key = { num }>
-        { elem }
+      <option value={elem} key={num}>
+        { TAPi18n.__(elem, this.props.language) }
       </option>
     ));
   }
@@ -180,4 +183,5 @@ export default class ModalAddStage extends Component {
 ModalAddStage.propTypes = {
   stageType: PropTypes.string.isRequired,
   error: PropTypes.string,
+  language: PropTypes.string,
 };
