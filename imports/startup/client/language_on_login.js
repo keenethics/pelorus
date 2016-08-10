@@ -10,7 +10,7 @@ Accounts.onLogin(() => {
     }
   ).count();
   if (language) return;
-  
+
   let defaultLang = navigator.language.substring(0, 2);
   defaultLang = TAPi18n.getLanguages()[defaultLang] ? defaultLang : 'en';
   Meteor.call('updateUserLanguage', 'en');

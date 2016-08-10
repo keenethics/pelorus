@@ -5,7 +5,6 @@ import { Stages } from '/imports/api/stages/stages.js';
 import I18n from 'meteor/timoruetten:react-i18n';
 import { $ } from 'meteor/jquery';
 import { TAPi18n } from 'meteor/tap:i18n';
-import { createContainer } from 'meteor/react-meteor-data';
 
 export default class ModalAddStage extends Component {
   constructor(props) {

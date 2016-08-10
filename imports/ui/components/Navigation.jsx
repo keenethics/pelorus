@@ -52,11 +52,11 @@ export default class Navigation extends Component {
       $('#loggedModal').modal('show');
     } else {
       render(
-        <ModalAddStage 
+        <ModalAddStage
           error={null}
           stageType=""
-          language={TAPi18n.getLanguage()}
-        />, 
+          language={ TAPi18n.getLanguage() }
+        />,
         document.getElementById('modal-target')
       );
       $('#addModal').modal('show');
