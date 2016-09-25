@@ -19,7 +19,7 @@ module.exports = {
       serverOnly: true,
     },
     env: {
-      ROOT_URL: 'pelorus.ws',
+      ROOT_URL: 'http://pelorus.ws',
       MONGO_URL: 'mongodb://localhost/meteor',
     },
 
