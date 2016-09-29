@@ -7,7 +7,7 @@
   display: flex;
   /*flex: 100%;*/
   min-height: 15em;
-  max-height: 200em;
+  max-height: 180em;
   flex-direction: column;
 }
 
@@ -45,6 +45,7 @@
   width: 100%;
   border-width: 1px;
   white-space: nowrap;
+  min-height: 15em;
   overflow-x: hidden;
 }
 
