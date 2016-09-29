@@ -6,8 +6,8 @@
 .stages-list {
   display: flex;
   /*flex: 100%;*/
-  min-height: 15em;
-  max-height: 180em;
+  /*min-height: 15em;*/
+  max-height: 200em;
   flex-direction: column;
 }
 
@@ -45,7 +45,8 @@
   width: 100%;
   border-width: 1px;
   white-space: nowrap;
-  min-height: 15em;
+  /*min-height: 15em;*/
+  max-height: 30em;
   overflow-x: hidden;
 }
 
