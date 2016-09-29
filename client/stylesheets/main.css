@@ -1,11 +1,13 @@
 /* Stages timeline */
 .stage {
   display: flex;
-  flex: 1 100%;
+  flex:1 100%;
 }
 .stages-list {
   display: flex;
-  flex: 100%;
+  /*flex: 100%;*/
+  min-height: 15em;
+  max-height: 200em;
   flex-direction: column;
 }
 
@@ -50,6 +52,7 @@
 .stage.active .substages {
   flex: 0%;
 }
+
 
 /* Goals */
 .goal {
