@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import ModalAddGoal from './ModalAddGoal.jsx';
 import { $ } from 'meteor/jquery';
+import { toggleGoalCompletion } from '/imports/api/goals/methods/toggleGoalCompletion.js';
 
 export default class Goal extends React.Component {
   constructor() {
@@ -29,7 +30,7 @@ export default class Goal extends React.Component {
   completedGoal(e) {
     e.preventDefault();
     if (!Meteor.userId()) { return $('#logedAlert').modal('show'); }
-    Meteor.call('toggleGoalCompletion', this.props.goal._id);
+    toggleGoalCompletion.call({ goalId: this.props.goal._id });
   }
 
   render() {
