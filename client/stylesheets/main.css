@@ -1,7 +1,7 @@
 /* Stages timeline */
 .stage {
   display: flex;
-  flex:1 100%;
+  flex: 1 100%;
 }
 .stages-list {
   display: flex;
@@ -44,16 +44,13 @@
   width: 100%;
   border-width: 1px;
   white-space: nowrap;
-  /*min-height: 15em;*/
   max-height: 30em;
   overflow-x: hidden;
 }
 
-
 .stage.active .substages {
   flex: 0%;
 }
-
 
 /* Goals */
 .goal {
