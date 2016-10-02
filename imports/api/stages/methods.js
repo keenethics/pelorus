@@ -35,5 +35,5 @@ export const addStage = new ValidatedMethod({
         .map(goal => goal.createChild(stageId));
     }
     return stageId;
-  }
+  },
 });
