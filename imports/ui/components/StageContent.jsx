@@ -3,14 +3,13 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import ModalAddGoal from './ModalAddGoal.jsx';
 import Goal from './Goal.jsx';
-import { FlowRouter } from 'meteor/kadira:flow-router';
 import { $ } from 'meteor/jquery';
+import StageHeader from './StageHeader.jsx';
 
-export default class StageUI extends React.Component {
+export default class StageContent extends React.Component {
   constructor() {
     super();
     this.addGoal = this.addGoal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   addGoal(e) {
@@ -29,23 +28,17 @@ export default class StageUI extends React.Component {
   }
 
   classes() {
-    if (!Object.keys(this.props.stage).length) return 'default';
-    return this.props.stage.isCurrent() ? 'warning' : 'default';
+    return this.props.stage && this.props.stage.isCurrent() ? 'warning' : 'default';
   }
 
-  handleClick(e) {
-    e.stopPropagation();
-    FlowRouter.go('pelorus', '', { activeStagesType: this.props.stageType });
-  }
-
-  renderStageContent() {
+  renderComponent() {
     if (!Object.keys(this.props.stage).length) {
       return (<div className={`panel panel-${this.classes()} stage-content`}></div>);
     }
     return (
       <div className={`panel panel-${this.classes()} stage-content`}>
         <div className="panel-heading text-capitalize">
-          { this.renderHeader() }
+          <StageHeader stage={ this.props.stage } />
         </div>
         <ul className="list-group">
           { this.props.goals ?
@@ -66,40 +59,10 @@ export default class StageUI extends React.Component {
     );
   }
 
-  renderHeader() {
-    if (Object.keys(this.props.stage).length) {
-      return (
-        <span>
-          { this.props.stage.title() }
-          { this.props.stage.progress() ? ` (${this.props.stage.progress()}%)` : '' }
-        </span>
-      );
-    }
-  }
-
-  renderBar() {
-    return (
-      <div className={`panel panel-${this.classes()} bar`} onClick={this.handleClick}>
-        <p className={`text-capitalize text-${this.classes()} vertical-text`}>
-            { this.renderHeader() }
-        </p>
-      </div>
-    );
-  }
-
-  renderComponent() {
-    if (this.props.activeStagesType === this.props.stageType) {
-      return this.renderStageContent();
-    }
-    return this.renderBar();
-  }
-
   render() { return this.renderComponent(); }
 }
 
-StageUI.propTypes = {
+StageContent.propTypes = {
   stage: PropTypes.object,
   goals: PropTypes.array,
-  stageType: PropTypes.string,
-  activeStagesType: PropTypes.string,
 };
