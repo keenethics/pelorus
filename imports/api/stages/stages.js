@@ -85,8 +85,8 @@ Stages.helpers({
     return moment(this.startsAt).isSameOrBefore() &&
       moment(this.endsAt).isSameOrAfter();
   },
-  goals() {
-    return Goals.find({ stageId: this._id }, { sort: { rank: 1 } }).fetch();
+  goals(query) {
+    return Goals.find(Object.assign({ stageId: this._id }, query), { sort: { rank: 1 } }).fetch();
   },
 
   parent() {
