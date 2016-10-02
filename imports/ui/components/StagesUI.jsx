@@ -1,27 +1,17 @@
 import React, { PropTypes } from 'react';
-import StagesWrapper from './StagesWrapper.jsx';
+import StageWrapper from './StageWrapper.jsx';
 
 export default class StagesUI extends React.Component {
   renderComponent() {
-    if (!this.props.stages.length) {
-      return (
-        <StagesWrapper
-          stage={ {} }
-          goals = { [] }
-          stagesType={ this.props.stagesType }
-          activeStagesType={ this.props.activeStagesType }
-        />
-      );
-    }
     return (
-      <div className="stages-list">
+      <div className="substages">
         { this.props.stages.map((elem) => (
-          <StagesWrapper
+          <StageWrapper
             stage={ elem }
             goals = { elem.goals() }
             stagesType={ this.props.stagesType }
             activeStagesType={ this.props.activeStagesType }
-            key={ elem._id }
+            key={ elem._id || 'stub' }
           />
         )) }
       </div>

@@ -9,11 +9,12 @@ import { GoTutorial } from '/imports/api/user/goTutorial.js';
 import '/imports/startup/client/constants.js';
 
 function Pelorus(props) {
+  const stages = Stages.find({ type: 'years' }, { sort: { startsAt: -1 } }).fetch();
   return (
     <div className="container" style={{ marginTop: '10px' }}>
       <Navigation goTutorial={ props.goTutorial } />
       <StagesUI
-        stages={ Stages.find({ type: 'years' }, { sort: { startsAt: -1 } }).fetch() }
+        stages={ stages.length ? stages : [Stages._transform({ type: 'years' })] }
         stagesType="years"
         activeStagesType={ props.activeStagesType }
       />

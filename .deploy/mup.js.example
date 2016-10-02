@@ -1,7 +1,7 @@
 module.exports = {
   servers: {
     one: {
-      host: '194.135.93.30',
+      host: '46.101.123.26',
       username: 'root',
       pem: '/home/user/.ssh/id_rsa',
       // password:
@@ -19,11 +19,12 @@ module.exports = {
       serverOnly: true,
     },
     env: {
-      ROOT_URL: 'pelorus.ws',
+      ROOT_URL: 'http://pelorus.ws',
       MONGO_URL: 'mongodb://localhost/meteor',
     },
 
-    // dockerImage: 'kadirahq/meteord'
+    // dockerImage: 'kadirahq/meteord',
+    dockerImage: 'abernix/meteord:base',
     deployCheckWaitTime: 60,
   },
 
