@@ -15,6 +15,9 @@ export default class ModalAddStage extends Component {
 
   componentDidMount() {
     $('#addModal').modal('show');
+    setTimeout(function() {
+      this.refs.firstYear.focus();
+    }.bind(this), 1000);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -86,6 +89,7 @@ export default class ModalAddStage extends Component {
       <I18n i18nkey="First year" />
     </label>
       <input
+        ref="firstYear"
         type="year"
         required
         className="form-control"

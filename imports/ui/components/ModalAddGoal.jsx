@@ -15,6 +15,12 @@ export default class ModalAddGoal extends Modal {
     this.removeGoal = this.removeGoal.bind(this);
     this.addGoal = this.addGoal.bind(this);
   }
+  
+  componentDidMount(){
+    setTimeout(function() {
+      this.refs.title.focus();
+    }.bind(this), 1000);
+  }
 
   shouldComponentUpdate(nextProps) {
     $('.has-error').removeClass('has-error');
