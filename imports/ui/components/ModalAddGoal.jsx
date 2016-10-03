@@ -15,12 +15,6 @@ export default class ModalAddGoal extends Modal {
     this.removeGoal = this.removeGoal.bind(this);
     this.addGoal = this.addGoal.bind(this);
   }
-  
-  componentDidMount(){
-    setTimeout(function() {
-      this.refs.title.focus();
-    }.bind(this), 1000);
-  }
 
   shouldComponentUpdate(nextProps) {
     $('.has-error').removeClass('has-error');
@@ -79,7 +73,7 @@ export default class ModalAddGoal extends Modal {
           <div className="form-group" ref="form_group">
             <label htmlFor="title"><I18n i18nkey="Title" /></label>
             <input type="text" className="form-control" ref="title"
-              defaultValue={ this.props.goal.title || '' } name="title" ref="title" autoFocus
+              defaultValue={ this.props.goal.title || '' } name="title" ref="title"
             />
           </div>
           <div className="form-group">
