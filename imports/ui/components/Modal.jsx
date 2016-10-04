@@ -22,7 +22,7 @@ export default class Modal extends Component {
   renderModal(title, content) {
     return (
       <div className="modal fade" tabIndex="-1" role="dialog" 
-          id="modal" data-keyboard="false" data-backdrop="static">
+          id="modal" data-keyboard="true" data-backdrop="static">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

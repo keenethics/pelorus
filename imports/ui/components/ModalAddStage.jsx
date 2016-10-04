@@ -134,7 +134,7 @@ export default class ModalAddStage extends Component {
   render() {
     return (
     <div className="modal fade" role="dialog" id="addModal" 
-        data-keyboard="false" data-backdrop="static">
+        data-keyboard="true" data-backdrop="static" tabIndex='-1'>
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
