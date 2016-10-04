@@ -28,7 +28,7 @@ export const addStage = new ValidatedMethod({
     }
 
     const stageId = Stages.insert(data);
-
+    console.log(data)
     if (copyGoals && stage.type !== 'years') {
       Stages.findOne(stageId).parent()
         .goals({ progress: { $ne: 100 } })
