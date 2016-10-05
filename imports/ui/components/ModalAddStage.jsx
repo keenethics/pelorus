@@ -21,7 +21,7 @@ export default class ModalAddStage extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.stageType !== '' || nextProps.error;
+    return nextProps.stageType !== '' || true;
   }
 
   componentWillUpdate(nextProps) {
