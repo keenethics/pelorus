@@ -1,6 +1,5 @@
 import { Stages } from '../stages/stages.js';
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
 import { TAPi18n } from 'meteor/tap:i18n';
 import { $ } from 'meteor/jquery';
 import { introJs } from 'meteor/keenethics:introjs';
@@ -9,7 +8,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 export const updateUserLanguage = new ValidatedMethod({
   name: 'updateUserLanguage',
   validate({ language }) {
-    check(language, String);
   },
   run({ language }) {
     if (!this.userId) {
