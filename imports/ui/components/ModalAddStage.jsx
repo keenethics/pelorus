@@ -11,6 +11,7 @@ export default class ModalAddStage extends Component {
     super(props);
     this.insertStage = this.insertStage.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.closeError = this.closeError.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +26,9 @@ export default class ModalAddStage extends Component {
     if (nextProps.stageType === 'years') {
       $('#type').val($('#type option:first').val());
     }
+  }
+  closeError() {
+    $('.alert-danger').hide()
   }
 
   handleChange(e) {
@@ -55,6 +59,7 @@ export default class ModalAddStage extends Component {
   }
 
   renderError() {
+    console.log(this.props.error)
     return (
       this.props.error ?
         <div className="alert alert-danger">
@@ -62,6 +67,7 @@ export default class ModalAddStage extends Component {
             type="button"
             className="close"
             aria-hidden="true"
+            onClick = {this.closeError}
           >
             &times;
           </button>
