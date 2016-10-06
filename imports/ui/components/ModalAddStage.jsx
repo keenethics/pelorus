@@ -15,7 +15,7 @@ export default class ModalAddStage extends Component {
   }
 
   componentDidMount() {
-      this.props.autofocus(this.refs.firstYear)  
+    this.props.autofocus(this.refs.firstYear)  
   }
 
   shouldComponentUpdate(nextProps) {
@@ -59,7 +59,6 @@ export default class ModalAddStage extends Component {
   }
 
   renderError() {
-    console.log(this.props.error)
     return (
       this.props.error ?
         <div className="alert alert-danger">
