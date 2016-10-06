@@ -14,10 +14,7 @@ export default class ModalAddStage extends Component {
   }
 
   componentDidMount() {
-    $('#addModal').modal('show');
-    setTimeout(function() {
-      this.refs.firstYear.focus();
-    }.bind(this), 1000);
+      this.props.autofocus(this.refs.firstYear)  
   }
 
   shouldComponentUpdate(nextProps) {

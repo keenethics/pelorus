@@ -18,6 +18,8 @@ export default class Navigation extends Component {
     this.addStage = this.addStage.bind(this);
     this.runTutorial = this.runTutorial.bind(this);
     this.setLanguage = this.setLanguage.bind(this);
+    this.autofocus = this.autofocus.bind(this)
+    this.state = {active: ''};
   }
 
   componentDidMount() {
@@ -48,12 +50,19 @@ export default class Navigation extends Component {
     this.props.goTutorial(e, this.refs.stage);
   }
 
+  autofocus(firstYear){
+    this.state.active = firstYear
+  }
+
   addStage() {
     if (!Meteor.userId()) {
       $('#loggedModal').modal('show');
     } else {
-      render(<ModalAddStage error={null} stageType="" />, document.getElementById('modal-target'));
+      render(<ModalAddStage error={null} stageType="" autofocus={this.autofocus}/>, document.getElementById('modal-target'));
       $('#addModal').modal('show');
+      $('#addModal').on('shown.bs.modal', () => {
+        this.state.active.focus()
+      })
     }
   }
 
