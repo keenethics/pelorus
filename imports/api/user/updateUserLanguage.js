@@ -9,7 +9,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 export const updateUserLanguage = new ValidatedMethod({
   name: 'updateUserLanguage',
   validate({ language }) {
-    check(language, String);
+    check(language, Match.Optional(String));
   },
   run({ language }) {
     if (!this.userId) {
