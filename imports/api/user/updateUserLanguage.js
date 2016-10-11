@@ -1,3 +1,4 @@
+import { Stages } from '../stages/stages.js';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
@@ -13,5 +14,9 @@ export const updateUserLanguage = new ValidatedMethod({
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
     Meteor.users.update(this.userId, { $set: { 'profile.language': language } });
+    Stages.find({ userId: this.userId }).forEach((stage) => {
+      const bounds = Stages.boundsFor(stage.period, stage.type);
+      Stages.update(stage._id, { $set: bounds });
+    });
   },
 });
