@@ -16,8 +16,7 @@ export const addStage = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('forbidden-action', 'User should be logged in');
     }
-    const locale = Meteor.users.findOne({ _id: this.userId }).profile.language;
-    const bounds = Stages.boundsFor(stage.period, stage.type, locale);
+    const bounds = Stages.boundsFor(stage.period, stage.type);
     const data = _.extend({ userId: this.userId }, stage, bounds);
 
     if (stage.type !== 'years' && !Stages._transform(data).parent()) {

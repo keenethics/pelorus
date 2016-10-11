@@ -62,7 +62,7 @@ function loadingSeeds(seeds, user) {
 }
 
 function testNewStage(newStage, stage, user) {
-  const bounds = Stages.boundsFor(stage.period, stage.type, user.profile.language);
+  const bounds = Stages.boundsFor(stage.period, stage.type);
   
   assert.equal(newStage.period, stage.period);
   assert.equal(newStage.type, stage.type);

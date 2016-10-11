@@ -40,20 +40,20 @@ SimpleSchema.messages({
   'period-invalid': 'Last year should be greater than first',
 });
 
-Stages.boundsFor = (period, type, locale = 'en') => {
+Stages.boundsFor = (period, type) => {
   const parse = Stages.periodFormats()[type].parse;
   const start = moment(type === 'years' ? period.split('-')[0] : period, parse);
   const end = moment(type === 'years' ? period.split('-')[1] : period, parse);
   return {
-    startsAt: Stages.weekBound(start.locale(locale).startOf(type), 'start'),
-    endsAt: Stages.weekBound(end.locale(locale).endOf(type), 'end'),
+    startsAt: Stages.weekBound(start.startOf(type), 'start'),
+    endsAt: Stages.weekBound(end.endOf(type), 'end'),
   };
 };
 
 Stages.weekBound = (momentObj, type = 'start') => {
   if (type === 'start' && momentObj.weekday() > 4) momentObj.add(1, 'w');
   if (type === 'end' && momentObj.weekday() <= 4) momentObj.subtract(1, 'w');
-  return momentObj[`${type}Of`]('week').toDate();
+  return momentObj[`${type}Of`]('isoWeek').toDate();
 };
 
 Stages.relativeType = (type, levelDiff) => Stages.validTypes[Stages.validTypes.indexOf(type)

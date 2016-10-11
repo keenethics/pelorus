@@ -15,7 +15,7 @@ const langs = ["uk", "ru", "en" ];
 function loadingSeeds(seeds, user, parentId) {
   seeds.forEach(seed => {
     const userId = user._id;
-    const bounds = Stages.boundsFor(seed.period, seed.type, user.profile.language);
+    const bounds = Stages.boundsFor(seed.period, seed.type);
     const stageData = _.extend({ userId }, seed, bounds);
     const stageId = Stages.insert(stageData);
     const goalData = _.extend({ userId, stageId, parentId }, seed);
@@ -52,7 +52,7 @@ describe('users', function (done) {
 
       stages.map(function(stage) {
         const updatedStage = Stages.findOne({ _id: stage._id });
-        const testStage = Stages.boundsFor(stage.period, stage.type, newLang);
+        const testStage = Stages.boundsFor(stage.period, stage.type);
         assert.equal(updatedStage.startsAt.toString(), testStage.startsAt.toString());
         assert.equal(updatedStage.endsAt.toString(), testStage.endsAt.toString());
       });
