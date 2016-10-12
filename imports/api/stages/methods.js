@@ -36,15 +36,3 @@ export const addStage = new ValidatedMethod({
     return stageId;
   },
 });
-
-export const bounds = new ValidatedMethod({
-  name: 'stages.bounds',
-
-  validate({ stage }) {
-    check(stage, { type: String, period: String });
-  },
-
-  run({ stage }) {
-    return Stages.boundsFor(stage.period, stage.type);
-  },
-});
