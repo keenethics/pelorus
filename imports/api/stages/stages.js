@@ -46,7 +46,7 @@ Stages.boundsFor = (period, type) => {
   const parse = Stages.periodFormats()[type].parse;
   const start = moment(type === 'years' ? period.split('-')[0] : period, parse);
   const end = moment(type === 'years' ? period.split('-')[1] : period, parse);
-  console.log(start, end);
+  console.log(start.toDate(), end.toDate());
   return {
     startsAt: Stages.weekBound(start.startOf(type), 'start'),
     endsAt: Stages.weekBound(end.endOf(type), 'end'),
