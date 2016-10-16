@@ -42,8 +42,8 @@ SimpleSchema.messages({
 
 Stages.boundsFor = (period, type) => {
   const parse = Stages.periodFormats()[type].parse;
-  const start = moment(type === 'years' ? period.split('-')[0] : period, parse);
-  const end = moment(type === 'years' ? period.split('-')[1] : period, parse);
+  const start = moment.utc(type === 'years' ? period.split('-')[0] : period, parse);
+  const end = moment.utc(type === 'years' ? period.split('-')[1] : period, parse);
   return {
     startsAt: Stages.weekBound(start.startOf(type), 'start'),
     endsAt: Stages.weekBound(end.endOf(type), 'end'),
