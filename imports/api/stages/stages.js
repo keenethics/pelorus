@@ -51,8 +51,8 @@ Stages.boundsFor = (period, type) => {
 };
 
 Stages.weekBound = (momentObj, type = 'start') => {
-  if (type === 'start' && momentObj.weekday() > 4) momentObj.add(1, 'w');
-  if (type === 'end' && momentObj.weekday() <= 4) momentObj.subtract(1, 'w');
+  if (type === 'start' && momentObj.isoWeekday() > 4) momentObj.add(1, 'w');
+  if (type === 'end' && momentObj.isoWeekday() <= 4) momentObj.subtract(1, 'w');
   return momentObj[`${type}Of`]('isoWeek').toDate();
 };
 
